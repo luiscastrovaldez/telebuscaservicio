@@ -1,9 +1,11 @@
 package com.pacifico.telebusca.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,8 +29,15 @@ public class EmpresaDAOImpl implements EmpresaDAO {
 		return (Empresa)em.merge(empresa);
 	}
 
-	public Empresa buscarEmpresa(Serializable pkEmpresa) {
+	public Empresa buscarEmpresaById(Serializable pkEmpresa) {
 		return em.find(Empresa.class, pkEmpresa);
+	}
+
+	public List buscarEmpresaByNombre(Serializable nombre) {
+		Query query = em.createQuery("select c from Empresa c where c.empresa=:nombre");
+		query.setParameter("nombre", nombre);
+				
+		return query.getResultList();
 	}
 
 }
