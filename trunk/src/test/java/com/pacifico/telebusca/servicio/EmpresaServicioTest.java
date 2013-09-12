@@ -62,7 +62,7 @@ public class EmpresaServicioTest extends TeleBuscaTest {
 	}
 	@Test
 	public void buscarEmpresaByIdTest() {
-		System.out.println("****** Test Buscar Empresa ******");
+		System.out.println("****** Test Buscar by Id Empresa ******");
 		Empresa empresa = new Empresa();
 		try {			
 			empresa = this.empresaServicio.buscarEmpresaById(10);
@@ -75,12 +75,12 @@ public class EmpresaServicioTest extends TeleBuscaTest {
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
-		System.out.println("****** Test Actualizar Empresa ******");
+		System.out.println("****** Test Buscar by Id Empresa ******");
 	}
 	
 	@Test
 	public void buscarEmpresaByNombreTest() {
-		System.out.println("****** Test Buscar Empresa ******");
+		System.out.println("****** Test Buscar by Nombre Empresa ******");
 		
 		List empresas;
 		try {			
@@ -99,7 +99,7 @@ public class EmpresaServicioTest extends TeleBuscaTest {
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
-		System.out.println("****** Test Actualizar Empresa ******");
+		System.out.println("****** Test Buscar by Nombre Empresa ******");
 	}
 
 }
