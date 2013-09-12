@@ -1,6 +1,7 @@
 package com.pacifico.telebusca.servicio;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,12 @@ public class EmpresaServicioImpl implements EmpresaServicio {
 		
 	}
 
-	public Empresa buscarEmpresa(Serializable pkEmpresa) {
-		return this.empresaDAO.buscarEmpresa(pkEmpresa);
+	public Empresa buscarEmpresaById(Serializable pkEmpresa) {
+		return this.empresaDAO.buscarEmpresaById(pkEmpresa);
+	}
+
+	public List buscarEmpresaByNombre(Serializable nombre) {
+		// TODO Auto-generated method stub
+		return this.empresaDAO.buscarEmpresaByNombre(nombre);
 	}
 }
