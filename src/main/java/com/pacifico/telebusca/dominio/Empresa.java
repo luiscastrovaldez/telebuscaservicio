@@ -22,35 +22,35 @@ public class Empresa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "pk_empresa")
-	private int pk_empresa;
+	private int pkEmpresa;
 
 	@Column(name = "empresa")
 	private String empresa;
 
-	@Column(name = "carperta_audio")
-	private String carperta_audio;
+	@Column(name = "carpeta_audio")
+	private String carpetaAudio;
 
 	@Column(name = "fecha_creacion")
-	private Timestamp fecha_creacion;
+	private Timestamp fechaCreacion;
 
 	@Column(name = "fecha_modificacion")
-	private Timestamp fecha_modificacion;
+	private Timestamp fechaModificacion;
 
 	@Column(name = "usuario_creacion")
-	private String usuario_creacion;
+	private String usuarioCreacion;
 
 	@Column(name = "usuario_modificacion")
-	private String usuario_modificacion;
+	private String usuarioModificacion;
 
 	@Column(name = "estado")
 	private char estado;
 
-	public int getPk_empresa() {
-		return pk_empresa;
+	public int getPkEmpresa() {
+		return pkEmpresa;
 	}
 
-	public void setPk_empresa(int pk_empresa) {
-		this.pk_empresa = pk_empresa;
+	public void setPkEmpresa(int pkEmpresa) {
+		this.pkEmpresa = pkEmpresa;
 	}
 
 	public String getEmpresa() {
@@ -61,44 +61,44 @@ public class Empresa {
 		this.empresa = empresa;
 	}
 
-	public String getCarperta_audio() {
-		return carperta_audio;
+	public String getCarpetaAudio() {
+		return carpetaAudio;
 	}
 
-	public void setCarperta_audio(String carperta_audio) {
-		this.carperta_audio = carperta_audio;
+	public void setCarpetaAudio(String carpetaAudio) {
+		this.carpetaAudio = carpetaAudio;
 	}
 
-	public Timestamp getFecha_creacion() {
-		return fecha_creacion;
+	public Timestamp getFechaCreacion() {
+		return fechaCreacion;
 	}
 
-	public void setFecha_creacion(Timestamp fecha_creacion) {
-		this.fecha_creacion = fecha_creacion;
+	public void setFechaCreacion(Timestamp fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
 	}
 
-	public Timestamp getFecha_modificacion() {
-		return fecha_modificacion;
+	public Timestamp getFechaModificacion() {
+		return fechaModificacion;
 	}
 
-	public void setFecha_modificacion(Timestamp fecha_modificacion) {
-		this.fecha_modificacion = fecha_modificacion;
+	public void setFechaModificacion(Timestamp fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
 	}
 
-	public String getUsuario_creacion() {
-		return usuario_creacion;
+	public String getUsuarioCreacion() {
+		return usuarioCreacion;
 	}
 
-	public void setUsuario_creacion(String usuario_creacion) {
-		this.usuario_creacion = usuario_creacion;
+	public void setUsuarioCreacion(String usuarioCreacion) {
+		this.usuarioCreacion = usuarioCreacion;
 	}
 
-	public String getUsuario_modificacion() {
-		return usuario_modificacion;
+	public String getUsuarioModificacion() {
+		return usuarioModificacion;
 	}
 
-	public void setUsuario_modificacion(String usuario_modificacion) {
-		this.usuario_modificacion = usuario_modificacion;
+	public void setUsuarioModificacion(String usuarioModificacion) {
+		this.usuarioModificacion = usuarioModificacion;
 	}
 
 	public char getEstado() {
@@ -109,4 +109,6 @@ public class Empresa {
 		this.estado = estado;
 	}
 
+	
+	
 }
