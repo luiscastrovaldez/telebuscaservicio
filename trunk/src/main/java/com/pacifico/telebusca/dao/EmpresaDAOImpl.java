@@ -1,5 +1,7 @@
 package com.pacifico.telebusca.dao;
 
+import java.io.Serializable;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -19,6 +21,14 @@ public class EmpresaDAOImpl implements EmpresaDAO {
 	public void guardarEmpresa(Empresa empresa) {		
 		em.persist(empresa);
 		em.flush();
+	}
+
+	public Empresa actualizarEmpresa(Empresa empresa) {		
+		return (Empresa)em.merge(empresa);
+	}
+
+	public Empresa buscarEmpresa(Serializable pkEmpresa) {
+		return em.find(Empresa.class, pkEmpresa);
 	}
 
 }
