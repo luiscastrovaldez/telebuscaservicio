@@ -40,6 +40,12 @@ public class UsuarioEmpresaDAOImpl implements UsuarioEmpresaDAO {
 		return query.getResultList();
 	}
 
+	@Override
+	public List listarUsuarioPorEmpresa() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 }
