@@ -11,4 +11,5 @@ public interface UsuarioEmpresaServicio {
 	UsuarioEmpresa actualizarUsuarioEmpresa(UsuarioEmpresa usuarioempresa);
 	UsuarioEmpresa buscarUsuarioEmpresaPorId(final Serializable pkUsuarioEmpresa);
 	List buscarUsuarioEmpresaPorNombre(final Serializable nombre);
+	List listarUsuarioPorEmpresa();
 }
