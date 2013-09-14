@@ -9,6 +9,6 @@ public interface UsuarioEmpresaServicio {
 
 	void guardarEmpresa(UsuarioEmpresa empresa);
 	UsuarioEmpresa actualizarEmpresa(UsuarioEmpresa empresa);
-	UsuarioEmpresa buscarEmpresaById(final Serializable pkEmpresa);
-	List buscarEmpresaByNombre(final Serializable nombre);
+	UsuarioEmpresa buscarEmpresaPorId(final Serializable pkEmpresa);
+	List buscarEmpresaPorNombre(final Serializable nombre);
 }

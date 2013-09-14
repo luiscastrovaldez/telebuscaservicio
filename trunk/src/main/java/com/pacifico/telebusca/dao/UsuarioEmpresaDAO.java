@@ -10,6 +10,6 @@ public interface UsuarioEmpresaDAO {
 
 	void guardarEmpresa(UsuarioEmpresa usuarioEmpresa);
 	UsuarioEmpresa actualizarUsuarioEmpresa(UsuarioEmpresa empresa);
-	UsuarioEmpresa buscarUsuarioEmpresaById(final Serializable pkEmpresa);
-	List buscarUsuarioEmpresaByNombre(final Serializable nombre);
+	UsuarioEmpresa buscarUsuarioEmpresaPorId(final Serializable pkEmpresa);
+	List buscarUsuarioEmpresaPorNombre(final Serializable nombre);
 }
