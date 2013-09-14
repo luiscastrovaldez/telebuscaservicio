@@ -33,5 +33,5 @@
 	</bean>
 	
 	<bean id="empresaDAO" class="com.pacifico.telebusca.dao.EmpresaDAOImpl" />
-
+	<bean id="usuarioempresaDAO" class="com.pacifico.telebusca.dao.UsuarioEmpresaDAOImpl" />
 </beans>		
