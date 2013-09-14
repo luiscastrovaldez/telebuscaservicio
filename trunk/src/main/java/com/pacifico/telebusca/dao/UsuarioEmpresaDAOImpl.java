@@ -40,4 +40,6 @@ public class UsuarioEmpresaDAOImpl implements UsuarioEmpresaDAO {
 		return query.getResultList();
 	}
 
+
+
 }
