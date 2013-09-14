@@ -69,5 +69,150 @@ public class Audio {
 
 	@Column(name = "fecha_modificacion")
 	private Timestamp fechaModificacion;
+
+	public int getPkAudio() {
+		return pkAudio;
+	}
+
+	public void setPkAudio(int pkAudio) {
+		this.pkAudio = pkAudio;
+	}
+
+	public int getPkEmpresa() {
+		return pkEmpresa;
+	}
+
+	public void setPkEmpresa(int pkEmpresa) {
+		this.pkEmpresa = pkEmpresa;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public String getNombresCliente() {
+		return nombresCliente;
+	}
+
+	public void setNombresCliente(String nombresCliente) {
+		this.nombresCliente = nombresCliente;
+	}
+
+	public String getApellidoPaterno() {
+		return apellidoPaterno;
+	}
+
+	public void setApellidoPaterno(String apellidoPaterno) {
+		this.apellidoPaterno = apellidoPaterno;
+	}
+
+	public String getApellidoMaterno() {
+		return apellidoMaterno;
+	}
+
+	public void setApellidoMaterno(String apellidoMaterno) {
+		this.apellidoMaterno = apellidoMaterno;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getSkill() {
+		return skill;
+	}
+
+	public void setSkill(String skill) {
+		this.skill = skill;
+	}
+
+	public String getVdn() {
+		return vdn;
+	}
+
+	public void setVdn(String vdn) {
+		this.vdn = vdn;
+	}
+
+	public Timestamp getFechaVenta() {
+		return fechaVenta;
+	}
+
+	public void setFechaVenta(Timestamp fechaVenta) {
+		this.fechaVenta = fechaVenta;
+	}
+
+	public Timestamp getHoraVenta() {
+		return horaVenta;
+	}
+
+	public void setHoraVenta(Timestamp horaVenta) {
+		this.horaVenta = horaVenta;
+	}
+
+	public String getProceso() {
+		return proceso;
+	}
+
+	public void setProceso(String proceso) {
+		this.proceso = proceso;
+	}
+
+	public String getRutaAudio() {
+		return rutaAudio;
+	}
+
+	public void setRutaAudio(String rutaAudio) {
+		this.rutaAudio = rutaAudio;
+	}
+
+	public String getDniAsesor() {
+		return dniAsesor;
+	}
+
+	public void setDniAsesor(String dniAsesor) {
+		this.dniAsesor = dniAsesor;
+	}
+
+	public String getUsuarioCreacion() {
+		return usuarioCreacion;
+	}
+
+	public void setUsuarioCreacion(String usuarioCreacion) {
+		this.usuarioCreacion = usuarioCreacion;
+	}
+
+	public String getUsuarioModificacion() {
+		return usuarioModificacion;
+	}
+
+	public void setUsuarioModificacion(String usuarioModificacion) {
+		this.usuarioModificacion = usuarioModificacion;
+	}
+
+	public Timestamp getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Timestamp fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public Timestamp getFechaModificacion() {
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(Timestamp fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+	
 	
 }
