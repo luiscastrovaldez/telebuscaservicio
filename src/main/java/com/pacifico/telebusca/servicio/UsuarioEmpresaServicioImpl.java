@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.pacifico.telebusca.dao.UsuarioEmpresaDAO;
 import com.pacifico.telebusca.dominio.UsuarioEmpresa;
@@ -17,22 +15,24 @@ public class UsuarioEmpresaServicioImpl implements UsuarioEmpresaServicio {
 	@Autowired
 	private UsuarioEmpresaDAO usuarioempresaDAO;
 	
-	@Transactional(isolation=Isolation.READ_COMMITTED)
-	public void guardarEmpresa(UsuarioEmpresa usuarioempresa){
-		this.usuarioempresaDAO.guardarEmpresa(usuarioempresa);
+	public void guardarUsuarioEmpresa(UsuarioEmpresa usuarioempresa){
+		this.usuarioempresaDAO.guardarUsuarioEmpresa(usuarioempresa);
+		
 	}
 
-	public UsuarioEmpresa actualizarEmpresa(UsuarioEmpresa usuarioempresa) {
+	public UsuarioEmpresa actualizarUsuarioEmpresa(UsuarioEmpresa usuarioempresa) {
 		return this.usuarioempresaDAO.actualizarUsuarioEmpresa(usuarioempresa);
 		
 	}
 
-	public UsuarioEmpresa buscarEmpresaPorId(Serializable pkUsuarioEmpresa) {
+	public UsuarioEmpresa buscarUsuarioEmpresaPorId(Serializable pkUsuarioEmpresa) {
 		return this.usuarioempresaDAO.buscarUsuarioEmpresaPorId(pkUsuarioEmpresa);
 	}
 
-	public List buscarEmpresaPorNombre(Serializable nombre) {
+	public List buscarUsuarioEmpresaPorNombre(Serializable nombre) {
 		// TODO Auto-generated method stub
 		return this.usuarioempresaDAO.buscarUsuarioEmpresaPorNombre(nombre);
 	}
+
+	
 }
