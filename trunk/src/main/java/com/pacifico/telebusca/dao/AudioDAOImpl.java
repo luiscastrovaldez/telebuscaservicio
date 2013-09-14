@@ -1,6 +1,5 @@
 package com.pacifico.telebusca.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import com.pacifico.telebusca.dominio.Audio;
@@ -12,7 +11,7 @@ public class AudioDAOImpl implements AudioDAO {
 		
 	}
 
-	public List buscarAudios(Serializable nombre) {
+	public List buscarAudios() {
 		// TODO Auto-generated method stub
 		return null;
 	}
