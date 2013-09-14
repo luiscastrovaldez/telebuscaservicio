@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS audio;
 
 CREATE TABLE audio (
   pk_audio INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  dni VARCHAR(10),
+  dni_cliente VARCHAR(10),
   nombres_cliente VARCHAR(40),
   apellido_paterno VARCHAR(40),
   apellido_materno VARCHAR(40),

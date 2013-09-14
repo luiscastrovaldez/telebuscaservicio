@@ -22,8 +22,8 @@ public class Audio {
 	@Column(name = "fk_empresa")
 	private int pkEmpresa;
 	
-	@Column (name = "dni")
-	private String dni;
+	@Column (name = "dni_cliente")
+	private String dni_cliente;
 	
 	@Column (name = "nombres_cliente")
 	private String nombresCliente;
@@ -86,12 +86,14 @@ public class Audio {
 		this.pkEmpresa = pkEmpresa;
 	}
 
-	public String getDni() {
-		return dni;
+
+
+	public String getDni_cliente() {
+		return dni_cliente;
 	}
 
-	public void setDni(String dni) {
-		this.dni = dni;
+	public void setDni_cliente(String dni_cliente) {
+		this.dni_cliente = dni_cliente;
 	}
 
 	public String getNombresCliente() {
