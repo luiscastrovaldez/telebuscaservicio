@@ -8,8 +8,9 @@ import com.pacifico.telebusca.dominio.UsuarioEmpresa;
 
 public interface UsuarioEmpresaDAO {
 
-	void guardarEmpresa(UsuarioEmpresa usuarioEmpresa);
-	UsuarioEmpresa actualizarUsuarioEmpresa(UsuarioEmpresa empresa);
-	UsuarioEmpresa buscarUsuarioEmpresaPorId(final Serializable pkEmpresa);
-	List buscarUsuarioEmpresaPorNombre(final Serializable nombre);
+	void guardarUsuarioEmpresa(UsuarioEmpresa usuarioEmpresa);
+	UsuarioEmpresa actualizarUsuarioEmpresa(UsuarioEmpresa usuarioempresa);
+	UsuarioEmpresa buscarUsuarioEmpresaById(final Serializable pkUsuarioEmpresa);
+	List buscarUsuarioEmpresaByNombre(final Serializable nombre);
+	
 }
