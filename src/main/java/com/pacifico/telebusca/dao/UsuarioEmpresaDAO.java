@@ -13,4 +13,5 @@ public interface UsuarioEmpresaDAO {
 	UsuarioEmpresa buscarUsuarioEmpresaById(final Serializable pkUsuarioEmpresa);
 	List buscarUsuarioEmpresaByNombre(final Serializable nombre);
 	
+	
 }
