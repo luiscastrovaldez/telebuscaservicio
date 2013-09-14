@@ -20,7 +20,7 @@ public class UsuarioEmpresaDAOImpl implements UsuarioEmpresaDAO {
 	private EntityManager em;
 
 	
-	public void guardarEmpresa(UsuarioEmpresa usuarioempresa) {		
+	public void guardarUsuarioEmpresa(UsuarioEmpresa usuarioempresa) {		
 		em.persist(usuarioempresa);
 		em.flush();
 	}
