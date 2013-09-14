@@ -8,6 +8,6 @@ import com.pacifico.telebusca.dominio.Audio;
 public interface AudioDAO {
 	
 	void guardarAudio (Audio audio);
-	List buscarAudios(final Serializable nombre);
+	List buscarAudios();
 
 }
