@@ -19,7 +19,7 @@ public class UsuarioEmpresaDAOImpl implements UsuarioEmpresaDAO {
 	@PersistenceContext  //Inyecta el EntityManager aqui
 	private EntityManager em;
 
-	@Transactional(isolation=Isolation.READ_COMMITTED)
+	
 	public void guardarEmpresa(UsuarioEmpresa usuarioempresa) {		
 		em.persist(usuarioempresa);
 		em.flush();
@@ -29,11 +29,11 @@ public class UsuarioEmpresaDAOImpl implements UsuarioEmpresaDAO {
 		return (UsuarioEmpresa)em.merge(usuarioempresa);
 	}
 
-	public UsuarioEmpresa buscarUsuarioEmpresaById(Serializable pkUsuarioEmpresa) {
+	public UsuarioEmpresa buscarUsuarioEmpresaPorId(Serializable pkUsuarioEmpresa) {
 		return em.find(UsuarioEmpresa.class, pkUsuarioEmpresa);
 	}
 
-	public List buscarUsuarioEmpresaByNombre(Serializable nombre) {
+	public List buscarUsuarioEmpresaPorNombre(Serializable nombre) {
 		Query query = em.createQuery("select c from Empresa c where c.empresa=:nombre");
 		query.setParameter("nombre", nombre);
 				
