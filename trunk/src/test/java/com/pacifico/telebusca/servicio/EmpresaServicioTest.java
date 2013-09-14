@@ -65,7 +65,7 @@ public class EmpresaServicioTest extends TeleBuscaTest {
 		System.out.println("****** Test Buscar by Id Empresa ******");
 		Empresa empresa = new Empresa();
 		try {			
-			empresa = this.empresaServicio.buscarEmpresaById(10);
+			empresa = this.empresaServicio.buscarEmpresaPorId(10);
 			if (empresa == null) {
 				Assert.fail("No existe Empresa Registrada");
 			} else {
@@ -79,12 +79,12 @@ public class EmpresaServicioTest extends TeleBuscaTest {
 	}
 	
 	@Test
-	public void buscarEmpresaByNombreTest() {
+	public void buscarEmpresaPorNombreTest() {
 		System.out.println("****** Test Buscar by Nombre Empresa ******");
 		
 		List empresas;
 		try {			
-			empresas = this.empresaServicio.buscarEmpresaByNombre("Atento");
+			empresas = this.empresaServicio.buscarEmpresaPorNombre("Atento");
 			if (empresas == null) {
 				Assert.fail("No existe Empresa Registrada");
 			} else {

@@ -19,7 +19,7 @@ public class EmpresaDAOImpl implements EmpresaDAO {
 	@PersistenceContext  //Inyecta el EntityManager aqui
 	private EntityManager em;
 
-	@Transactional(isolation=Isolation.READ_COMMITTED)
+	
 	public void guardarEmpresa(Empresa empresa) {		
 		em.persist(empresa);
 		em.flush();
@@ -29,15 +29,20 @@ public class EmpresaDAOImpl implements EmpresaDAO {
 		return (Empresa)em.merge(empresa);
 	}
 
-	public Empresa buscarEmpresaById(Serializable pkEmpresa) {
+	public Empresa buscarEmpresaPorId(Serializable pkEmpresa) {
 		return em.find(Empresa.class, pkEmpresa);
 	}
 
-	public List buscarEmpresaByNombre(Serializable nombre) {
+	public List buscarEmpresaPorNombre(Serializable nombre) {
 		Query query = em.createQuery("select c from Empresa c where c.empresa=:nombre");
 		query.setParameter("nombre", nombre);
 				
 		return query.getResultList();
+	}
+
+	public void eliminarEmpresa(Empresa empresa) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
