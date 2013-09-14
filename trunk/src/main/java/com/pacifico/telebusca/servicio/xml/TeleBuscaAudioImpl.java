@@ -41,4 +41,14 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		
 	}
 
+	public void validarArchivoXml() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void descargarArchivoResgistroNoValidos() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
