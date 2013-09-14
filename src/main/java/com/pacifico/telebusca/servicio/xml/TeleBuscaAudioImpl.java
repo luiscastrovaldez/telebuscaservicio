@@ -36,4 +36,9 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		return null;
 	}
 
+	public void escucharAudio() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
