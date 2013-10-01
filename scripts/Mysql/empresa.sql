@@ -1,12 +1,13 @@
-DROP TABLE IF EXISTS empresa;
+DROP TABLE IF EXISTS Empresa;
 
- CREATE TABLE empresa (
-  pk_empresa INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  empresa VARCHAR(40),
-  carpeta_audio VARCHAR(40),
-  usuario_creacion VARCHAR(40),
-  usuario_modificacion VARCHAR(40),
-  fecha_creacion TIMESTAMP,
-  fecha_modificacion TIMESTAMP,
-  estado CHAR(1)
+ CREATE TABLE Empresa (
+  CODEMPRESA INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  NOM VARCHAR(40),
+  CARPETA VARCHAR(200),
+  STS VARCHAR(1),
+  FECCREA TIMESTAMP,
+  FECMOD TIMESTAMP,
+  USRCREA VARCHAR(40),
+  USRMOD VARCHAR(40)
+  
 );

@@ -9,99 +9,122 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * @author lcastro
+ * @version 1.0.0.0
+ * 
+ */
 
 @Entity
-@Table(name = "audio")
+@Table(name = "Audio")
 public class Audio {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "pk_audio")
-	private int pkAudio;
-	
-	@Column(name = "fk_empresa")
-	private int pkEmpresa;
-	
-	@Column (name = "dni_cliente")
-	private String dni_cliente;
-	
-	@Column (name = "nombres_cliente")
-	private String nombresCliente;
-	
-	@Column (name = "apellido_paterno")
+	@Column(name = "CODAUDIO")
+	private int codAudio;
+
+	@Column(name = "CODEMPRESA")
+	private int codEmpresa;
+
+	@Column(name = "DNICLI")
+	private String dniCliente;
+
+	@Column(name = "APEPATCLI")
 	private String apellidoPaterno;
-	
-	@Column (name = "apellido_materno")
+
+	@Column(name = "APEMATCLI")
 	private String apellidoMaterno;
-	
-	@Column (name = "telefono")
-	private String telefono;
-	
-	@Column (name = "skill")
-	private String skill;
-	
-	@Column (name = "vdn")
-	private String vdn;
-	
-	@Column(name = "fecha_venta")
+
+	@Column(name = "NOMCLI")
+	private String nombresCliente;
+
+	@Column(name = "TLFNOCLI")
+	private String telefonoNumeroCliente;
+
+	@Column(name = "FECVENTA")
 	private Timestamp fechaVenta;
 
-	@Column(name = "hora_venta")
-	private Timestamp horaVenta;
-	
-	@Column (name = "proceso")
-	private String proceso;
-	
-	@Column (name = "ruta_audio")
-	private String rutaAudio;
-	
-	@Column (name = "dni_asesor")
+	@Column(name = "DNIASESOR")
 	private String dniAsesor;
-	
-	@Column(name = "usuario_creacion")
-	private String usuarioCreacion;
-	
-	@Column(name = "usuario_modificacion")
-	private String usuarioModificacion;
-	
-	@Column(name = "fecha_creacion")
+
+	@Column(name = "PROC")
+	private String proceso;
+
+	@Column(name = "VDN")
+	private String vdn;
+
+	@Column(name = "SKILL")
+	private String skill;
+
+	@Column(name = "RUTAAUDIO")
+	private String rutaAudio;
+
+	@Column(name = "FECCREA")
 	private Timestamp fechaCreacion;
 
-	@Column(name = "fecha_modificacion")
+	@Column(name = "FECMOD")
 	private Timestamp fechaModificacion;
 
-	public int getPkAudio() {
-		return pkAudio;
+	@Column(name = "USRCREA")
+	private String usuarioCreacion;
+
+	@Column(name = "USRMOD")
+	private String usuarioModificacion;
+
+	public Audio() {
+
 	}
 
-	public void setPkAudio(int pkAudio) {
-		this.pkAudio = pkAudio;
-	}
-
-	public int getPkEmpresa() {
-		return pkEmpresa;
-	}
-
-	public void setPkEmpresa(int pkEmpresa) {
-		this.pkEmpresa = pkEmpresa;
-	}
-
-
-
-	public String getDni_cliente() {
-		return dni_cliente;
-	}
-
-	public void setDni_cliente(String dni_cliente) {
-		this.dni_cliente = dni_cliente;
-	}
-
-	public String getNombresCliente() {
-		return nombresCliente;
-	}
-
-	public void setNombresCliente(String nombresCliente) {
+	public Audio(int codAudio, int codEmpresa, String dniCliente,
+			String apellidoPaterno, String apellidoMaterno,
+			String nombresCliente, String telefonoNumeroCliente,
+			Timestamp fechaVenta, String dniAsesor, String proceso, String vdn,
+			String skill, String rutaAudio, Timestamp fechaCreacion,
+			Timestamp fechaModificacion, String usuarioCreacion,
+			String usuarioModificacion) {
+		super();
+		this.codAudio = codAudio;
+		this.codEmpresa = codEmpresa;
+		this.dniCliente = dniCliente;
+		this.apellidoPaterno = apellidoPaterno;
+		this.apellidoMaterno = apellidoMaterno;
 		this.nombresCliente = nombresCliente;
+		this.telefonoNumeroCliente = telefonoNumeroCliente;
+		this.fechaVenta = fechaVenta;
+		this.dniAsesor = dniAsesor;
+		this.proceso = proceso;
+		this.vdn = vdn;
+		this.skill = skill;
+		this.rutaAudio = rutaAudio;
+		this.fechaCreacion = fechaCreacion;
+		this.fechaModificacion = fechaModificacion;
+		this.usuarioCreacion = usuarioCreacion;
+		this.usuarioModificacion = usuarioModificacion;
+	}
+
+	public int getCodAudio() {
+		return codAudio;
+	}
+
+	public void setCodAudio(int codAudio) {
+		this.codAudio = codAudio;
+	}
+
+	public int getCodEmpresa() {
+		return codEmpresa;
+	}
+
+	public void setCodEmpresa(int codEmpresa) {
+		this.codEmpresa = codEmpresa;
+	}
+
+	public String getDniCliente() {
+		return dniCliente;
+	}
+
+	public void setDniCliente(String dniCliente) {
+		this.dniCliente = dniCliente;
 	}
 
 	public String getApellidoPaterno() {
@@ -120,28 +143,20 @@ public class Audio {
 		this.apellidoMaterno = apellidoMaterno;
 	}
 
-	public String getTelefono() {
-		return telefono;
+	public String getNombresCliente() {
+		return nombresCliente;
 	}
 
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public void setNombresCliente(String nombresCliente) {
+		this.nombresCliente = nombresCliente;
 	}
 
-	public String getSkill() {
-		return skill;
+	public String getTelefonoNumeroCliente() {
+		return telefonoNumeroCliente;
 	}
 
-	public void setSkill(String skill) {
-		this.skill = skill;
-	}
-
-	public String getVdn() {
-		return vdn;
-	}
-
-	public void setVdn(String vdn) {
-		this.vdn = vdn;
+	public void setTelefonoNumeroCliente(String telefonoNumeroCliente) {
+		this.telefonoNumeroCliente = telefonoNumeroCliente;
 	}
 
 	public Timestamp getFechaVenta() {
@@ -152,12 +167,12 @@ public class Audio {
 		this.fechaVenta = fechaVenta;
 	}
 
-	public Timestamp getHoraVenta() {
-		return horaVenta;
+	public String getDniAsesor() {
+		return dniAsesor;
 	}
 
-	public void setHoraVenta(Timestamp horaVenta) {
-		this.horaVenta = horaVenta;
+	public void setDniAsesor(String dniAsesor) {
+		this.dniAsesor = dniAsesor;
 	}
 
 	public String getProceso() {
@@ -168,6 +183,22 @@ public class Audio {
 		this.proceso = proceso;
 	}
 
+	public String getVdn() {
+		return vdn;
+	}
+
+	public void setVdn(String vdn) {
+		this.vdn = vdn;
+	}
+
+	public String getSkill() {
+		return skill;
+	}
+
+	public void setSkill(String skill) {
+		this.skill = skill;
+	}
+
 	public String getRutaAudio() {
 		return rutaAudio;
 	}
@@ -176,12 +207,20 @@ public class Audio {
 		this.rutaAudio = rutaAudio;
 	}
 
-	public String getDniAsesor() {
-		return dniAsesor;
+	public Timestamp getFechaCreacion() {
+		return fechaCreacion;
 	}
 
-	public void setDniAsesor(String dniAsesor) {
-		this.dniAsesor = dniAsesor;
+	public void setFechaCreacion(Timestamp fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public Timestamp getFechaModificacion() {
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(Timestamp fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
 	}
 
 	public String getUsuarioCreacion() {
@@ -200,21 +239,4 @@ public class Audio {
 		this.usuarioModificacion = usuarioModificacion;
 	}
 
-	public Timestamp getFechaCreacion() {
-		return fechaCreacion;
-	}
-
-	public void setFechaCreacion(Timestamp fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
-
-	public Timestamp getFechaModificacion() {
-		return fechaModificacion;
-	}
-
-	public void setFechaModificacion(Timestamp fechaModificacion) {
-		this.fechaModificacion = fechaModificacion;
-	}
-	
-	
 }

@@ -16,57 +16,82 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "empresa")
+@Table(name = "Empresa")
 public class Empresa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "pk_empresa")
-	private int pkEmpresa;
+	@Column(name = "CODEMPRESA")
+	private int codEmpresa;
 
-	@Column(name = "empresa")
-	private String empresa;
+	@Column(name = "NOM")
+	private String nombreEmpresa;
 
-	@Column(name = "carpeta_audio")
-	private String carpetaAudio;
+	@Column(name = "CARPETA")
+	private String carpeta;
 
-	@Column(name = "fecha_creacion")
+	@Column(name = "STS")
+	private String sts;
+
+	@Column(name = "FECCREA")
 	private Timestamp fechaCreacion;
 
-	@Column(name = "fecha_modificacion")
+	@Column(name = "FECMOD")
 	private Timestamp fechaModificacion;
 
-	@Column(name = "usuario_creacion")
+	@Column(name = "USRCREA")
 	private String usuarioCreacion;
 
-	@Column(name = "usuario_modificacion")
+	@Column(name = "USRMOD")
 	private String usuarioModificacion;
 
-	@Column(name = "estado")
-	private char estado;
+	public Empresa() {
 
-	public int getPkEmpresa() {
-		return pkEmpresa;
 	}
 
-	public void setPkEmpresa(int pkEmpresa) {
-		this.pkEmpresa = pkEmpresa;
+	public Empresa(String nombreEmpresa, String carpeta,
+			String sts, Timestamp fechaCreacion, Timestamp fechaModificacion,
+			String usuarioCreacion, String usuarioModificacion) {
+		super();		
+		this.nombreEmpresa = nombreEmpresa;
+		this.carpeta = carpeta;
+		this.sts = sts;
+		this.fechaCreacion = fechaCreacion;
+		this.fechaModificacion = fechaModificacion;
+		this.usuarioCreacion = usuarioCreacion;
+		this.usuarioModificacion = usuarioModificacion;
 	}
 
-	public String getEmpresa() {
-		return empresa;
+	public int getCodEmpresa() {
+		return codEmpresa;
 	}
 
-	public void setEmpresa(String empresa) {
-		this.empresa = empresa;
+	public void setCodEmpresa(int codEmpresa) {
+		this.codEmpresa = codEmpresa;
 	}
 
-	public String getCarpetaAudio() {
-		return carpetaAudio;
+	public String getNombreEmpresa() {
+		return nombreEmpresa;
 	}
 
-	public void setCarpetaAudio(String carpetaAudio) {
-		this.carpetaAudio = carpetaAudio;
+	public void setNombreEmpresa(String nombreEmpresa) {
+		this.nombreEmpresa = nombreEmpresa;
+	}
+
+	public String getCarpeta() {
+		return carpeta;
+	}
+
+	public void setCarpeta(String carpeta) {
+		this.carpeta = carpeta;
+	}
+
+	public String getSts() {
+		return sts;
+	}
+
+	public void setSts(String sts) {
+		this.sts = sts;
 	}
 
 	public Timestamp getFechaCreacion() {
@@ -101,14 +126,4 @@ public class Empresa {
 		this.usuarioModificacion = usuarioModificacion;
 	}
 
-	public char getEstado() {
-		return estado;
-	}
-
-	public void setEstado(char estado) {
-		this.estado = estado;
-	}
-
-	
-	
 }
