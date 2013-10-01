@@ -8,8 +8,12 @@ import com.pacifico.telebusca.dominio.Empresa;
 public interface EmpresaServicio {
 
 	void guardarEmpresa(Empresa empresa);
+
 	Empresa actualizarEmpresa(Empresa empresa);
-	Empresa buscarEmpresaPorId(final Serializable pkEmpresa);
-	List buscarEmpresaPorNombre(final Serializable nombre);
+
+	Empresa buscarEmpresaPorCodigo(final Serializable codEmpresa);
+
+	List<Empresa> buscarEmpresaPorNombre(final Serializable nombreEmpresa);
+
 	void eliminarEmpresa(Empresa empresa);
 }

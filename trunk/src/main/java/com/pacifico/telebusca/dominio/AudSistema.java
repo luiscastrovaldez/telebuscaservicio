@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 /**
  * @author lcastro
  * @version 1.0.0.0
@@ -17,19 +16,25 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "Usuario_Empresa")
-public class UsuarioEmpresa {
+@Table(name = "Aud_Sistema")
+public class AudSistema {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "CODUSREMPRESA")
-	private int codUsuarioEmpresa;
+	@Column(name = "CODAUDSIST")
+	private int codAudoSist;
 
 	@Column(name = "USR")
 	private String usuario;
 
-	@Column(name = "CODEMPRESA")
-	private int codEmpresa;
+	@Column(name = "FEC")
+	private Timestamp fecha;
+
+	@Column(name = "ACCION")
+	private String accion;
+
+	@Column(name = "DETALLE")
+	private String detalle;
 
 	@Column(name = "FECCREA")
 	private Timestamp fechaCreacion;
@@ -43,30 +48,32 @@ public class UsuarioEmpresa {
 	@Column(name = "USRMOD")
 	private String usuarioModificacion;
 
-	public UsuarioEmpresa() {
+	public AudSistema() {
 
 	}
 
-	public UsuarioEmpresa(int codUsuarioEmpresa, String usuario,
-			int codEmpresa, Timestamp fechaCreacion,
+	public AudSistema(int codAudoSist, String usuario, Timestamp fecha,
+			String accion, String detalle, Timestamp fechaCreacion,
 			Timestamp fechaModificacion, String usuarioCreacion,
 			String usuarioModificacion) {
 		super();
-		this.codUsuarioEmpresa = codUsuarioEmpresa;
+		this.codAudoSist = codAudoSist;
 		this.usuario = usuario;
-		this.codEmpresa = codEmpresa;
+		this.fecha = fecha;
+		this.accion = accion;
+		this.detalle = detalle;
 		this.fechaCreacion = fechaCreacion;
 		this.fechaModificacion = fechaModificacion;
 		this.usuarioCreacion = usuarioCreacion;
 		this.usuarioModificacion = usuarioModificacion;
 	}
 
-	public int getCodUsuarioEmpresa() {
-		return codUsuarioEmpresa;
+	public int getCodAudoSist() {
+		return codAudoSist;
 	}
 
-	public void setCodUsuarioEmpresa(int codUsuarioEmpresa) {
-		this.codUsuarioEmpresa = codUsuarioEmpresa;
+	public void setCodAudoSist(int codAudoSist) {
+		this.codAudoSist = codAudoSist;
 	}
 
 	public String getUsuario() {
@@ -77,12 +84,28 @@ public class UsuarioEmpresa {
 		this.usuario = usuario;
 	}
 
-	public int getCodEmpresa() {
-		return codEmpresa;
+	public Timestamp getFecha() {
+		return fecha;
 	}
 
-	public void setCodEmpresa(int codEmpresa) {
-		this.codEmpresa = codEmpresa;
+	public void setFecha(Timestamp fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getAccion() {
+		return accion;
+	}
+
+	public void setAccion(String accion) {
+		this.accion = accion;
+	}
+
+	public String getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(String detalle) {
+		this.detalle = detalle;
 	}
 
 	public Timestamp getFechaCreacion() {

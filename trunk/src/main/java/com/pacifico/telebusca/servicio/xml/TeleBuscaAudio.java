@@ -6,6 +6,7 @@ public interface TeleBuscaAudio {
 
 	List<Object> parseaFileXml(String xml);
 	void escucharAudio();
+	void descargarAudio();
 	void validarArchivoXml();
 	void descargarArchivoResgistroNoValidos();
 }

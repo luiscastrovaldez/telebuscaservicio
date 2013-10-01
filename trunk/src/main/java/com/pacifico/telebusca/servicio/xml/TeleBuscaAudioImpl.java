@@ -51,4 +51,10 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		
 	}
 
+	@Override
+	public void descargarAudio() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
