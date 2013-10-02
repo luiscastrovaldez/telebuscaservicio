@@ -19,7 +19,7 @@ public class EmpresaDAOTest extends TeleBuscaTest {
 	private EmpresaDAO empresaDAO;
 
 	@Test
-	public void guardarEmpresaTest() {
+	public void testGuardarEmpresa() {
 		System.out.println("****** Test Guardar Empresa ******");
 		Empresa empresa;
 		try {
@@ -36,7 +36,7 @@ public class EmpresaDAOTest extends TeleBuscaTest {
 	}
 	
 	@Test
-	public void actualizarEmpresaTest() {
+	public void testActualizarEmpresa() {
 		System.out.println("****** Test Actualizar Empresa ******");
 		List<Empresa> empresas = new ArrayList<Empresa>();
 		Empresa empresa;
@@ -55,7 +55,7 @@ public class EmpresaDAOTest extends TeleBuscaTest {
 	}
 	
 	@Test
-	public void buscarEmpresaByIdTest() {
+	public void testBuscarEmpresaById() {
 		System.out.println("****** Test Buscar by Id Empresa ******");
 		Empresa empresa = new Empresa();
 		try {			
@@ -73,7 +73,7 @@ public class EmpresaDAOTest extends TeleBuscaTest {
 	}
 	
 	@Test
-	public void buscarEmpresaPorNombreTest() {
+	public void testBuscarEmpresaPorNombre() {
 		System.out.println("****** Test Buscar by Nombre Empresa ******");
 		
 		List<Empresa> empresas;

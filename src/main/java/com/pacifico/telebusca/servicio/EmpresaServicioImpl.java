@@ -23,19 +23,23 @@ public class EmpresaServicioImpl implements EmpresaServicio {
 		this.empresaDAO.guardarEmpresa(empresa);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public Empresa actualizarEmpresa(Empresa empresa) {
 		return this.empresaDAO.actualizarEmpresa(empresa);
 
 	}
 
+	@Transactional(readOnly = true)
 	public Empresa buscarEmpresaPorCodigo(Serializable codEmpresa) {
 		return this.empresaDAO.buscarEmpresaPorCodigo(codEmpresa);
 	}
 
+	@Transactional(readOnly = true)
 	public List<Empresa> buscarEmpresaPorNombre(Serializable nombreEmpresa) {
 		return this.empresaDAO.buscarEmpresaPorNombre(nombreEmpresa);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = false)
 	public void eliminarEmpresa(Empresa empresa) {
 		this.empresaDAO.eliminarEmpresa(empresa);
 	}

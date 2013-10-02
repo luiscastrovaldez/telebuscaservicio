@@ -56,7 +56,7 @@ public class EmpresaServicioTest extends TeleBuscaTest {
 	}
 
 	@Test
-	public void buscarEmpresaByIdTest() {
+	public void buscarEmpresaByCodigoTest() {
 		System.out.println("****** Test Buscar by Id Empresa ******");
 		Empresa empresa = new Empresa();
 		try {

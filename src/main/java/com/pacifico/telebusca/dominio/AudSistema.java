@@ -52,12 +52,11 @@ public class AudSistema {
 
 	}
 
-	public AudSistema(int codAudoSist, String usuario, Timestamp fecha,
+	public AudSistema(String usuario, Timestamp fecha,
 			String accion, String detalle, Timestamp fechaCreacion,
 			Timestamp fechaModificacion, String usuarioCreacion,
 			String usuarioModificacion) {
-		super();
-		this.codAudoSist = codAudoSist;
+		super();		
 		this.usuario = usuario;
 		this.fecha = fecha;
 		this.accion = accion;
