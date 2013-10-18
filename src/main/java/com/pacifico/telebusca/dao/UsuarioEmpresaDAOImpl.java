@@ -7,15 +7,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 
 import com.pacifico.telebusca.dominio.UsuarioEmpresa;
 
 
-public class UsuarioEmpresaDAOImpl implements UsuarioEmpresaDAO {
+public class UsuarioEmpresaDAOImpl extends HibernateJpaDialect implements UsuarioEmpresaDAO {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@PersistenceContext  //Inyecta el EntityManager aqui
 	private EntityManager em;
 

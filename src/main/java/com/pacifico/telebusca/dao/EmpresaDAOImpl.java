@@ -7,10 +7,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
+
 import com.pacifico.telebusca.dominio.Empresa;
 
-public class EmpresaDAOImpl implements EmpresaDAO {
+public class EmpresaDAOImpl extends HibernateJpaDialect implements EmpresaDAO {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@PersistenceContext(name="teleBuscaPersistence")
 	private EntityManager em;
 
