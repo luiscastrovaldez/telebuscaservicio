@@ -1,5 +1,6 @@
 package com.pacifico.telebusca.dominio;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Audio")
-public class Audio {
+public class Audio implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
