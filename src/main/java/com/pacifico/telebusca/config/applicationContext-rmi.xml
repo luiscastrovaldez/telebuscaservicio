@@ -18,4 +18,10 @@
 		<property name="serviceInterface"
 			value="com.pacifico.telebusca.servicio.EmpresaServicio" />
 	</bean>
+	
+	<bean id="teleBuscaAudioRmi" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+		<property name="serviceUrl" value="rmi://localhost:1199/teleBuscaAudioRmi" />
+		<property name="serviceInterface"
+			value="com.pacifico.telebusca.servicio.xml.TeleBuscaAudio" />
+	</bean>
 </beans>		

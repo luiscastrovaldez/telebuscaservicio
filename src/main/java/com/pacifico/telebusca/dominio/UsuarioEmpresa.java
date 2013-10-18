@@ -1,5 +1,6 @@
 package com.pacifico.telebusca.dominio;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -18,7 +19,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Usuario_Empresa")
-public class UsuarioEmpresa {
+public class UsuarioEmpresa implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
