@@ -10,7 +10,7 @@ public class Rmi {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:com/pacifico/telebusca/config/applicationContext.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:/com/pacifico/telebusca/config/applicationContext.xml");
 		System.out.println("context");
 	}
 

@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.ElementListUnion;
+import org.simpleframework.xml.convert.Convert;
+
+import com.pacifico.telebusca.servicio.xml.LlamadaConverter;
 
 public class Llamada {
 
@@ -21,6 +24,7 @@ public class Llamada {
 			@ElementList(entry = "VDN", type = String.class, inline = true),
 			@ElementList(entry = "Skill", type = String.class, inline = true),
 			@ElementList(entry = "RutaAudio", type = String.class, inline = true) })
+			@Convert(LlamadaConverter.class)
 	private List<Object> list;
 
 	public List<Object> getList() {
