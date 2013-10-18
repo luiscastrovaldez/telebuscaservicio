@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.pacifico.telebusca</groupId>
-	<artifactId>TeleBuscaServicio</artifactId>
+	<artifactId>telebuscaservicio</artifactId>
 	<version>1.0.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>TeleBuscaServicio</name>
+	<name>telebuscaservicio</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -181,9 +181,20 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+		</dependency>
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.simpleframework</groupId>
@@ -195,25 +206,23 @@
 			<artifactId>ojdbc6</artifactId>
 			<version>${oracle}</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>
 		<resources>
 			<resource>
-				<directory>src/main/java/com/wiener/core/resources</directory>
-				<targetPath>com/wiener/core/resources</targetPath>
+				<directory>src/main/java/com/pacifico/telebusca/config</directory>
+				<targetPath>com/pacifico/telebusca/config</targetPath>
 			</resource>
 			<resource>
-				<directory>src/main/java/com/wiener/core/config</directory>
-				<targetPath>com/wiener/core/config</targetPath>
+				<directory>src/main/resources</directory>
 			</resource>
 			<resource>
-				<directory>src/main/java/com/wiener/core/domain/hbm</directory>
-				<targetPath>com/wiener/core/domain/hbm</targetPath>
-			</resource>
-			<resource>
-				<directory>src/main/java/com/wiener/core/templates/html</directory>
-				<targetPath>com/wiener/core/templates/html</targetPath>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
 			</resource>
 		</resources>
 		<plugins>
