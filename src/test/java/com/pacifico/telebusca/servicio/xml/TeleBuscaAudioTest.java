@@ -13,7 +13,7 @@ public class TeleBuscaAudioTest extends TeleBuscaTest{
 	private String xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>" +
 			"<Registros>" +
 				"<Llamada>" +
-					"<Empresa>DYNAMICALL</Empresa>" +
+					"<Empresa></Empresa>" +
 					"<DNICliente>07051199</DNICliente>" +
 					"<ApellidoPaternoCliente>PEREZ</ApellidoPaternoCliente>"+
 					"<ApellidoMaternoCliente>PEREZ</ApellidoMaternoCliente>" +
@@ -44,11 +44,10 @@ public class TeleBuscaAudioTest extends TeleBuscaTest{
 				"</Llamada>" +
 			"</Registros>";
 		
-			
-	
-	
 	@Test
 	public void parseaFileXml(){
-		teleBuscaAudio.parseaFileXml(xml);
+		teleBuscaAudio.validarArchivoXml(xml);
 	}
+	
+	
 }
