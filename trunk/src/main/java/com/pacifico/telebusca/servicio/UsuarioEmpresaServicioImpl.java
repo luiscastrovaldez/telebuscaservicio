@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.pacifico.telebusca.dao.UsuarioEmpresaDAO;
 import com.pacifico.telebusca.dominio.UsuarioEmpresa;
 
-@Service("usuarioempresaServicio")
+@Service("usuarioEmpresaServicio")
 public class UsuarioEmpresaServicioImpl implements UsuarioEmpresaServicio {
 
 	@Autowired
