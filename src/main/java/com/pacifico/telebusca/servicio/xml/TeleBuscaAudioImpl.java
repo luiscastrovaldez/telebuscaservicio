@@ -1,14 +1,25 @@
 package com.pacifico.telebusca.servicio.xml;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pacifico.telebusca.commons.Constants;
+import com.pacifico.telebusca.dominio.Empresa;
+import com.pacifico.telebusca.servicio.EmpresaServicio;
 import com.pacifico.telebusca.servicio.xml.dominio.Llamada;
 import com.pacifico.telebusca.servicio.xml.dominio.Registros;
 import com.pacifico.telebusca.web.beans.ValidacionErrores;
@@ -22,7 +33,9 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 	private Registros registros;
 	private List<Llamada> llamadas;
 	private ValidacionErrores validacionErrores;
-
+	@Autowired
+	private EmpresaServicio empresaServicio;
+	
 	public ValidacionErrores parseaFileXml(File xml) {
 		try {
 			Llamada llamada;
@@ -226,6 +239,64 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		return this.validacionErrores;
 	}
 
+	private void validarRegistros(List<Object> llamadas){
+		
+	}
+	
+	private boolean validarEmpresa(String nombreEmpresa){
+		List<Empresa> empresas = new ArrayList<Empresa>();
+		empresas = empresaServicio.buscarEmpresaPorNombre(nombreEmpresa);
+		if (empresas!=null && !empresas.isEmpty()){
+			return Boolean.TRUE;
+		}
+		return Boolean.FALSE;
+	}
+	
+	private boolean validadTelefono(String telefono){
+		if (telefono.length()== 9){
+			return Boolean.TRUE;
+		}
+		return Boolean.FALSE;
+	}
+	
+	private boolean validadProceso(String proceso){
+		if ("IN".equals(proceso) || "OUT".equals(proceso)){
+			return Boolean.TRUE; 
+		}
+		return Boolean.FALSE;
+	}
+	
+	private boolean validadPath(String pathEmpresa, String path){
+		File directorio = null;
+		String[] splitPath = path.split("/");
+		directorio = new File(pathEmpresa+"/" + splitPath[1]);
+		if (directorio.isDirectory()){
+			return Boolean.TRUE; 	
+		}
+		File[] archivos = directorio.listFiles();
+		List<File> listaArchivos = Arrays.asList(archivos);
+		if (listaArchivos.contains(new File(splitPath[2]))){
+			return Boolean.TRUE;
+		}
+		return Boolean.FALSE;
+	}
+	
+	private boolean validadFecha(String dateToValidate, String dateFromat) {
+		if (dateToValidate == null) {
+			return false;
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
+		sdf.setLenient(false);
+		try {
+			Date date = sdf.parse(dateToValidate);
+			System.out.println(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
 	public ValidacionErrores validarArchivoXml(String xml) {
 		logger.info("Iniciando validacion del archivo xml " + xml);
 		int cont = 1;
@@ -254,24 +325,23 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 			this.registros = this.serializer.read(Registros.class, xml);
 			this.llamadas = this.registros.getLlamadas();
 			validacionErrores = new ValidacionErrores();
-			for (Iterator iterator = this.llamadas.iterator(); iterator
+			for (Iterator<Llamada> iterator = this.llamadas.iterator(); iterator
 					.hasNext();) {
 				llamada = (Llamada) iterator.next();
 				List<Object> llamadas = llamada.getList();
 				totalRegistros++;
 				cont = 1;
 				isValido = Boolean.FALSE;
-				for (Iterator valores = llamadas.iterator(); valores.hasNext();) {
+				for (Iterator<Object> valores = llamadas.iterator(); valores.hasNext();) {
 					String valor = (String) valores.next();
 					logger.info("cont " + cont);
 					logger.info("valor " + valor);					
 					switch (cont) {
 					case 1:
-						if ("".equals(valor)) {
+						if (!validarEmpresa(valor) || "".equals(valor)){
 							validacionErrores.setCodEmpresa(codEmpresa++);
 							isValido = Boolean.TRUE;
-						}
-
+						}						
 						break;
 					case 2:
 						if ("".equals(valor)) {
@@ -301,14 +371,14 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 						}
 						break;
 					case 6:
-						if ("".equals(valor)) {
+						if (!validadTelefono(valor) && "".equals(valor)) {
 							validacionErrores
 									.setTelefonoNumeroCliente(telefonoNumeroCliente++);
 							isValido = Boolean.TRUE;
 						}
 						break;
 					case 7:
-						if ("".equals(valor)) {
+						if (!validadFecha(valor, "dd/MM/yyyy") && "".equals(valor)) {
 							validacionErrores.setFechaVenta(fechaVenta++);
 							isValido = Boolean.TRUE;
 						}
@@ -344,7 +414,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 						}
 						break;
 					case 13:
-						if ("".equals(valor)) {
+						if (!validadPath(null, valor) && "".equals(valor)) {
 							validacionErrores.setRutaAudio(rutaAudio++);
 							isValido = Boolean.TRUE;
 						}
