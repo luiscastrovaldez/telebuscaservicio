@@ -2,6 +2,8 @@ package com.pacifico.telebusca.dao;
 
 import java.util.List;
 
+import javassist.compiler.ast.StringL;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -79,7 +81,11 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO{
 			query = em.createQuery(sql.toString());
 			query.setParameter("skill", audio.getSkill());
 		}
-		
+		if (Integer.toString(audio.getCodEmpresa()) != null && !"".equals(Integer.toString(audio.getCodEmpresa()))){
+			sql.append(" and codempresa = :codempresa");
+			query = em.createQuery(sql.toString());
+			query.setParameter("codempresa", audio.getCodEmpresa());
+		}
 		
 		return (List<Audio>)query.getResultList();
 	}
