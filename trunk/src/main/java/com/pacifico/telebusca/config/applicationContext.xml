@@ -27,35 +27,35 @@
 		<property name="serviceName" value="audSistemaServicioRmi" />
 		<property name="service" ref="audSistemaServicio" />
 		<property name="serviceInterface" value="com.pacifico.telebusca.servicio.AudSistemaServicio" />
-		<property name="registryPort" value="1199" />
+		<property name="registryPort" value="${rmiport}" />
 	</bean>
 	
 	<bean class="org.springframework.remoting.rmi.RmiServiceExporter" id="audioServicioRmi">
 		<property name="serviceName" value="audioServicioRmi" />
 		<property name="service" ref="audioServicio" />
 		<property name="serviceInterface" value="com.pacifico.telebusca.servicio.AudioServicio" />
-		<property name="registryPort" value="1199" />
+		<property name="registryPort" value="${rmiport}" />
 	</bean>
 	
 	<bean class="org.springframework.remoting.rmi.RmiServiceExporter" id="empresaServicioRmi">
 		<property name="serviceName" value="empresaServicioRmi" />
 		<property name="service" ref="empresaServicio" />
 		<property name="serviceInterface" value="com.pacifico.telebusca.servicio.EmpresaServicio" />
-		<property name="registryPort" value="1199" />
+		<property name="registryPort" value="${rmiport}" />
 	</bean>
 	
 	<bean class="org.springframework.remoting.rmi.RmiServiceExporter" id="usuarioEmpresaServicioRmi">
 		<property name="serviceName" value="usuarioEmpresaServicioRmi" />
 		<property name="service" ref="usuarioEmpresaServicio" />
 		<property name="serviceInterface" value="com.pacifico.telebusca.servicio.UsuarioEmpresaServicio" />
-		<property name="registryPort" value="1199" />
+		<property name="registryPort" value="${rmiport}" />
 	</bean>
 	
 	<bean class="org.springframework.remoting.rmi.RmiServiceExporter" id="teleBuscaAudioRmi">
 		<property name="serviceName" value="teleBuscaAudioRmi" />
 		<property name="service" ref="teleBuscaAudio" />
 		<property name="serviceInterface" value="com.pacifico.telebusca.servicio.xml.TeleBuscaAudio" />
-		<property name="registryPort" value="1199" />
+		<property name="registryPort" value="${rmiport}" />
 	</bean>
 
 </beans>    
