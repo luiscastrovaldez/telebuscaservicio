@@ -31,9 +31,5 @@
 		<property name="password" value="${password}" />
 		<property name="defaultAutoCommit" value="false" />
 	</bean>
-	
-	<bean id="empresaDAO" class="com.pacifico.telebusca.dao.EmpresaDAOImpl" />
-	<bean id="usuarioempresaDAO" class="com.pacifico.telebusca.dao.UsuarioEmpresaDAOImpl" />
-	<bean id="audioDAO" class="com.pacifico.telebusca.dao.AudioDAOImpl" />
-	<bean id="audSistemaDAO" class="com.pacifico.telebusca.dao.AudSistemaDAOImpl" />
+		
 </beans>		
