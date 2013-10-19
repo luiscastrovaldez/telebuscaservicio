@@ -23,7 +23,7 @@ public class EmpresaDAOTest extends TeleBuscaTest {
 		System.out.println("****** Test Guardar Empresa ******");
 		Empresa empresa;
 		try {
-			empresa = new Empresa("Atento", "/temp", "A", new Timestamp(
+			empresa = new Empresa("DYNAMICALL", "/temp", "A", new Timestamp(
 					Calendar.getInstance().getTimeInMillis()), new Timestamp(
 					Calendar.getInstance().getTimeInMillis()), "lcastro",
 					"lcastro");

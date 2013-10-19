@@ -23,7 +23,7 @@ public class EmpresaServicioTest extends TeleBuscaTest {
 		System.out.println("****** Test Guardar Empresa ******");
 		Empresa empresa;
 		try {
-			empresa = new Empresa("Atento", "/temp", "A", new Timestamp(
+			empresa = new Empresa("DYNAMICALL", "/temp", "A", new Timestamp(
 					Calendar.getInstance().getTimeInMillis()), new Timestamp(
 					Calendar.getInstance().getTimeInMillis()), "lcastro",
 					"lcastro");
@@ -42,7 +42,7 @@ public class EmpresaServicioTest extends TeleBuscaTest {
 		List<Empresa> empresas = new ArrayList<Empresa>();
 		Empresa empresa;
 		try {
-			empresas = empresaServicio.buscarEmpresaPorNombre("Atento");
+			empresas = empresaServicio.buscarEmpresaPorNombre("DYNAMICALL");
 			if (empresas != null && !empresas.isEmpty()) {
 				empresa = empresas.get(0);
 				empresa.setSts("N");
