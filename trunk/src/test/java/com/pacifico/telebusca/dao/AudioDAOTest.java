@@ -13,37 +13,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.pacifico.telebusca.TeleBuscaTest;
 import com.pacifico.telebusca.dominio.Audio;
+import com.pacifico.telebusca.dominio.Empresa;
 
 
 public class AudioDAOTest extends TeleBuscaTest {
+	
+	@Autowired
+	private AudioDAO audioDAO;
 	
 	@Test
 	public void testBuscarAudio() {
 		System.out.println("****** Test Buscar by Audio ******");
 		
+		
 		List<Audio> audio;
-		try {		
-			start_date = this.audioDAO.buscarAudios("");
-			end_date = this.audioDAO.buscarAudios("");
-			audio = new Audio ("DNI", "Pedro","Santa Cruz","Tapia","4552252","Skill","VDN",new Timestamp(
-					Calendar.getInstance().getTimeInMillis()),new Timestamp(
-							Calendar.getInstance().getTimeInMillis()),"PROCESO","/temp","42578717","lcastro",
-							"lcastro",new Timestamp(
-									Calendar.getInstance().getTimeInMillis()),new Timestamp(
-											Calendar.getInstance().getTimeInMillis()));
+		String start_date = null;
+		String end_date =null;
+		try {
+			start_date="2013-10-18";
+			end_date="2013-10-20";
+			Audio audiobject = new Audio();
+			/*audiobject =  new Audio (1,2,"42739567", "Santa Cruz","Tapia","Pedro","4552252",new Timestamp(
+			Calendar.getInstance().getTimeInMillis()),"11111111","PROCESO","VDN","skill","/temp",new Timestamp(
+						Calendar.getInstance().getTimeInMillis()),new Timestamp(
+									Calendar.getInstance().getTimeInMillis()),"psantacruz","psantacruz");*/
 			
-			if (star_date == null && end_date == null) {
-				Assert.fail("Fechas Invalidas");
+			audiobject = new Audio();
+			audiobject.setDniCliente("42739567");
+			audiobject.setApellidoMaterno("Santa Cruz"); 
+			audio = this.audioDAO.buscarAudios(audiobject,start_date, end_date);
+			if (start_date.equals(null) && end_date.equals(null)) {
+				 Assert.fail("Fechas Invalidas");
 			} else {
 				for (Iterator<Audio> iterator = audio.iterator(); iterator
 						.hasNext();) {
-					Audio audio = (Audio) iterator.next();
-					System.out.println("Audios = " + audios.getDni());	
+					Audio audioresult = (Audio) iterator.next();
+					System.out.println("Audios = " + audioresult.getCodAudio());	
 				}
 				
 				Assert.assertNotNull(audio);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
 		System.out.println("****** Test Buscar Audios ******");
