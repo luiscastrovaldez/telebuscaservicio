@@ -5,19 +5,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pacifico.telebusca.commons.Constants;
 import com.pacifico.telebusca.dominio.Empresa;
 import com.pacifico.telebusca.servicio.EmpresaServicio;
 import com.pacifico.telebusca.servicio.xml.dominio.Llamada;
@@ -33,64 +30,20 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 	private Registros registros;
 	private List<Llamada> llamadas;
 	private ValidacionErrores validacionErrores;
+	
 	@Autowired
 	private EmpresaServicio empresaServicio;
 	
-	public ValidacionErrores parseaFileXml(File xml) {
-		try {
-			Llamada llamada;
-			this.serializer = new Persister();
-			this.registros = this.serializer.read(Registros.class, xml);
-			this.llamadas = this.registros.getLlamadas();
+	private List<String> indicesValidos;
+	
+	
 
-			for (Iterator iterator = this.llamadas.iterator(); iterator
-					.hasNext();) {
-				llamada = (Llamada) iterator.next();
-				List<Object> elementos = llamada.getList();
-
-				for (Iterator iterator1 = elementos.iterator(); iterator1
-						.hasNext();) {
-					String elemento = (String) iterator1.next();
-					logger.info("elementos = " + elemento);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return this.validacionErrores;
-	}
-
-	public List<Object> parseaFileXml(String xml) {
-		logger.info("parseaFileXml = ");
-		try {
-			Llamada llamada;
-			this.serializer = new Persister();
-			this.registros = this.serializer.read(Registros.class, xml);
-			this.llamadas = this.registros.getLlamadas();
-
-			for (Iterator iterator = this.llamadas.iterator(); iterator
-					.hasNext();) {
-				llamada = (Llamada) iterator.next();
-				List<Object> elementos = llamada.getList();
-
-				for (Iterator iterator1 = elementos.iterator(); iterator1
-						.hasNext();) {
-					String elemento = (String) iterator1.next();
-					logger.info("elementos = " + elemento);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public void escucharAudio() {
+	public void escucharAudio() throws Exception{
 		// TODO Auto-generated method stub
 
 	}
 
-	public ValidacionErrores validarArchivoXml(File xml) {
+	public ValidacionErrores validarArchivoXml(File xml) throws Exception{
 		logger.info("Iniciando validacion del archivo xml " + xml.getName());
 		int cont = 1;
 
@@ -239,11 +192,12 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		return this.validacionErrores;
 	}
 
-	private void validarRegistros(List<Object> llamadas){
-		
-	}
+	
 	
 	private boolean validarEmpresa(String nombreEmpresa){
+		if ("".equals(nombreEmpresa)){
+			return Boolean.FALSE;
+		}
 		List<Empresa> empresas = new ArrayList<Empresa>();
 		empresas = empresaServicio.buscarEmpresaPorNombre(nombreEmpresa);
 		if (empresas!=null && !empresas.isEmpty()){
@@ -253,13 +207,19 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 	}
 	
 	private boolean validadTelefono(String telefono){
-		if (telefono.length()== 9){
-			return Boolean.TRUE;
+		if ("".equals(telefono)){
+			return Boolean.FALSE;
+		}		
+		if (telefono.length()!= 9){
+			return Boolean.FALSE;
 		}
-		return Boolean.FALSE;
+		return Boolean.TRUE;
 	}
 	
 	private boolean validadProceso(String proceso){
+		if ("".equals(proceso)){
+			return Boolean.FALSE;
+		}
 		if ("IN".equals(proceso) || "OUT".equals(proceso)){
 			return Boolean.TRUE; 
 		}
@@ -274,16 +234,19 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 			return Boolean.TRUE; 	
 		}
 		File[] archivos = directorio.listFiles();
-		List<File> listaArchivos = Arrays.asList(archivos);
-		if (listaArchivos.contains(new File(splitPath[2]))){
-			return Boolean.TRUE;
+		if (archivos != null ){
+			List<File> listaArchivos = Arrays.asList(archivos);
+			if (listaArchivos.contains(new File(splitPath[2]))){
+				return Boolean.TRUE;
+			}	
 		}
+		
 		return Boolean.FALSE;
 	}
 	
 	private boolean validadFecha(String dateToValidate, String dateFromat) {
-		if (dateToValidate == null) {
-			return false;
+		if (dateToValidate == null || "".equals(dateToValidate)) {
+			return Boolean.FALSE;
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
 		sdf.setLenient(false);
@@ -292,12 +255,12 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 			System.out.println(date);
 		} catch (ParseException e) {
 			e.printStackTrace();
-			return false;
+			return Boolean.FALSE;
 		}
-		return true;
+		return Boolean.TRUE;
 	}
 	
-	public ValidacionErrores validarArchivoXml(String xml) {
+	public ValidacionErrores validarArchivoXml(String xml) throws Exception{
 		logger.info("Iniciando validacion del archivo xml " + xml);
 		int cont = 1;
 
@@ -319,6 +282,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		int rutaAudio = 0;
 
 		boolean isValido = Boolean.FALSE;
+		indicesValidos = new ArrayList<String>();
 		try {
 			Llamada llamada;
 			this.serializer = new Persister();
@@ -338,122 +302,139 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 					logger.info("valor " + valor);					
 					switch (cont) {
 					case 1:
-						if (!validarEmpresa(valor) || "".equals(valor)){
-							validacionErrores.setCodEmpresa(codEmpresa++);
+						if (!validarEmpresa(valor)){
+							codEmpresa++;
 							isValido = Boolean.TRUE;
 						}						
 						break;
 					case 2:
 						if ("".equals(valor)) {
-							validacionErrores.setDniCliente(dniCliente++);
+							dniCliente++;							
 							isValido = Boolean.TRUE;
 						}
 						break;
 					case 3:
 						if ("".equals(valor)) {
-							validacionErrores
-									.setApellidoPaterno(apellidoPaterno++);
+							apellidoPaterno++;							
 							isValido = Boolean.TRUE;
 						}
 						break;
 					case 4:
 						if ("".equals(valor)) {
-							validacionErrores
-									.setApellidoMaterno(apellidoMaterno++);
+							apellidoMaterno++;							
 							isValido = Boolean.TRUE;
 						}
 						break;
 					case 5:
 						if ("".equals(valor)) {
-							validacionErrores
-									.setNombresCliente(nombresCliente++);
+							nombresCliente++;							
 							isValido = Boolean.TRUE;
 						}
 						break;
 					case 6:
-						if (!validadTelefono(valor) && "".equals(valor)) {
-							validacionErrores
-									.setTelefonoNumeroCliente(telefonoNumeroCliente++);
+						if (!validadTelefono(valor)) {
+							telefonoNumeroCliente++;							
 							isValido = Boolean.TRUE;
 						}
 						break;
 					case 7:
-						if (!validadFecha(valor, "dd/MM/yyyy") && "".equals(valor)) {
-							validacionErrores.setFechaVenta(fechaVenta++);
+						if (!validadFecha(valor, "dd/MM/yyyy")) {
+							fechaVenta++;							
 							isValido = Boolean.TRUE;
 						}
 						break;
 					case 8:
 						if ("".equals(valor)) {
-							validacionErrores.setHoraVenta(horaVenta++);
+							horaVenta++;							
 							isValido = Boolean.TRUE;
 						}
 						break;
 					case 9:
 						if ("".equals(valor)) {
-							validacionErrores.setDniAsesor(dniAsesor++);
+							dniAsesor++;							
 							isValido = Boolean.TRUE;
 						}
 						break;
 					case 10:
-						if ("".equals(valor)) {
-							validacionErrores.setProceso(proceso++);
+						if (!validadProceso(valor)) {
+							proceso++;							
 							isValido = Boolean.TRUE;
 						}
 						break;
 					case 11:
 						if ("".equals(valor)) {
-							validacionErrores.setVdn(vdn++);
+							vdn++;							
 							isValido = Boolean.TRUE;
 						}
 						break;
 					case 12:
 						if ("".equals(valor)) {
-							validacionErrores.setSkill(skill++);
+							skill++;							
 							isValido = Boolean.TRUE;
 						}
 						break;
 					case 13:
 						if (!validadPath(null, valor) && "".equals(valor)) {
-							validacionErrores.setRutaAudio(rutaAudio++);
+							rutaAudio++;							
 							isValido = Boolean.TRUE;
 						}
 						break;
 
 					default:
 						break;
-					}
+					}					
 					cont++;
+					
 				}
 				if (!isValido) {
 					registrosValidos++;
 				} else {
 					registrosNoValidos++;
 				}
+				
 
 			}
+			if (!isValido){
+				indicesValidos.add(""+cont);
+			}
 			
+			validacionErrores.setCodEmpresa(codEmpresa);
+			validacionErrores.setDniCliente(dniCliente);
+			validacionErrores.setApellidoPaterno(apellidoPaterno);
+			validacionErrores.setApellidoMaterno(apellidoMaterno);
+			validacionErrores.setNombresCliente(nombresCliente);
+			validacionErrores.setTelefonoNumeroCliente(telefonoNumeroCliente);
+			validacionErrores.setFechaVenta(fechaVenta);
+			validacionErrores.setHoraVenta(horaVenta);
+			validacionErrores.setDniAsesor(dniAsesor);
+			validacionErrores.setProceso(proceso);
+			validacionErrores.setVdn(vdn);
+			validacionErrores.setSkill(skill);
+			validacionErrores.setRutaAudio(rutaAudio);
 			validacionErrores.setRegistrosValidos(registrosValidos);
 			validacionErrores.setRegistrosNoValidos(registrosNoValidos);
 			validacionErrores.setTotalRegistros(totalRegistros);
+			validacionErrores.setIndicesValidos(indicesValidos);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.info("Error en la validacion del archivo xml "
-				);
+			logger.error("Error en la validacion del archivo xml ");
+			throw new Exception("Error en la validacion del archivo xml ");
 		}
 		logger.info("Terminando validacion del archivo xml ");
 		return this.validacionErrores;
 	}
 	
-	public void descargarArchivoResgistroNoValidos() {
-		// TODO Auto-generated method stub
-
+	public File descargarArchivoResgistroNoValidos() throws Exception{
+		Serializer serializer = new Persister();
+		File source = File.createTempFile("abc", ".xml");
+		//Registros registros = serializer.read(Registros.class, source);
+		return source;
 	}
-
-	@Override
-	public void descargarAudio() {
+	
+	public File descargarAudio() throws Exception{
 		// TODO Auto-generated method stub
-
+		File source = File.createTempFile("abc", ".mp3");
+		return source;
 	}
 
 }

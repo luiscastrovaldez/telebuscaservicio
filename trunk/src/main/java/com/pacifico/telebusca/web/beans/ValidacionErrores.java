@@ -1,6 +1,7 @@
 package com.pacifico.telebusca.web.beans;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ValidacionErrores implements Serializable {
 
@@ -22,6 +23,8 @@ public class ValidacionErrores implements Serializable {
 	private int vdn;
 	private int skill;
 	private int rutaAudio;
+	private String mensajes;
+	private List<String> indicesValidos;
 
 	public int getTotalRegistros() {
 		return totalRegistros;
@@ -151,4 +154,21 @@ public class ValidacionErrores implements Serializable {
 		this.rutaAudio = rutaAudio;
 	}
 
+	public String getMensajes() {
+		return mensajes;
+	}
+
+	public void setMensajes(String mensajes) {
+		this.mensajes = mensajes;
+	}
+
+	public List<String> getIndicesValidos() {
+		return indicesValidos;
+	}
+
+	public void setIndicesValidos(List<String> indicesValidos) {
+		this.indicesValidos = indicesValidos;
+	}
+
+	
 }
