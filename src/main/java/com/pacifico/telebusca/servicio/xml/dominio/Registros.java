@@ -1,25 +1,27 @@
 package com.pacifico.telebusca.servicio.xml.dominio;
 
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.List;
 
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
-
-
 @Root(name = "Registros")
-public class Registros {
+public class Registros implements Serializable{
 
-	@ElementList(entry = "Llamada", inline = true)
-	private ArrayList<Llamada> llamadas;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@ElementList(inline = true, name = "Llamadas")
+	private List<Llamada> llamadas;
 
-	public ArrayList<Llamada> getLlamadas() {
+	public List<Llamada> getLlamadas() {
 		return llamadas;
 	}
 
-	public void setLlamadas(final ArrayList<Llamada> llamadas) {
+	public void setLlamadas(List<Llamada> llamadas) {
 		this.llamadas = llamadas;
 	}
-	
-	
+
 }

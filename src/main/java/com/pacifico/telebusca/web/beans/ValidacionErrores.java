@@ -3,6 +3,8 @@ package com.pacifico.telebusca.web.beans;
 import java.io.Serializable;
 import java.util.List;
 
+import com.pacifico.telebusca.servicio.xml.dominio.Llamada;
+
 public class ValidacionErrores implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -24,7 +26,7 @@ public class ValidacionErrores implements Serializable {
 	private int skill;
 	private int rutaAudio;
 	private String mensajes;
-	private List<String> indicesValidos;
+	private List<Object> audiosValidos;
 
 	public int getTotalRegistros() {
 		return totalRegistros;
@@ -162,13 +164,14 @@ public class ValidacionErrores implements Serializable {
 		this.mensajes = mensajes;
 	}
 
-	public List<String> getIndicesValidos() {
-		return indicesValidos;
+	public List<Object> getAudiosValidos() {
+		return audiosValidos;
 	}
 
-	public void setIndicesValidos(List<String> indicesValidos) {
-		this.indicesValidos = indicesValidos;
+	public void setAudiosValidos(List<Object> audiosValidos) {
+		this.audiosValidos = audiosValidos;
 	}
 
+	
 	
 }
