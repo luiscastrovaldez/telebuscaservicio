@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pacifico.telebusca.dominio.Empresa;
+import com.pacifico.telebusca.servicio.AudioServicio;
 import com.pacifico.telebusca.servicio.EmpresaServicio;
 import com.pacifico.telebusca.servicio.xml.dominio.Llamada;
 import com.pacifico.telebusca.servicio.xml.dominio.Registros;
@@ -31,9 +32,13 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 	private List<Llamada> llamadas;
 	private ValidacionErrores validacionErrores;
 	private List<Object> audiosValidos;
+	private List<Object> audiosNoValidos;
 	
 	@Autowired
-	private EmpresaServicio empresaServicio;		
+	private EmpresaServicio empresaServicio;
+	
+	@Autowired
+	private AudioServicio audioServicio;
 		
 	public void escucharAudio() throws Exception{
 		// TODO Auto-generated method stub
@@ -61,6 +66,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 
 		boolean isValido = Boolean.FALSE;
 		audiosValidos = new ArrayList<Object>();
+		audiosNoValidos = new ArrayList<Object>();
 		try {
 			Llamada llamada;
 			this.serializer = new Persister();
@@ -137,9 +143,9 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 				if (!isValido) {
 					registrosValidos++;
 					audiosValidos.add(llamada);
-
 				} else {
 					registrosNoValidos++;
+					audiosNoValidos.add(llamada);
 				}
 			}
 			
@@ -161,6 +167,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 			validacionErrores.setRegistrosNoValidos(registrosNoValidos);
 			validacionErrores.setTotalRegistros(totalRegistros);
 			validacionErrores.setAudiosValidos(audiosValidos);
+			validacionErrores.setAudiosNoValidos(audiosNoValidos);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("Error en la validacion del archivo xml ");
@@ -205,6 +212,10 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 	}
 	
 	private boolean validadPath(String pathEmpresa, String path){
+		
+		if ("".equals(path)){
+			return Boolean.FALSE;
+		}
 		File directorio = null;
 		String[] splitPath = path.split("/");
 		directorio = new File(pathEmpresa+"/" + splitPath[1]);
@@ -260,6 +271,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 
 		boolean isValido = Boolean.FALSE;
 		audiosValidos = new ArrayList<Object>();
+		audiosNoValidos = new ArrayList<Object>();
 		try {
 			Llamada llamada;
 			this.serializer = new Persister();
@@ -336,9 +348,9 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 				if (!isValido) {
 					registrosValidos++;
 					audiosValidos.add(llamada);
-
 				} else {
 					registrosNoValidos++;
+					audiosNoValidos.add(llamada);
 				}
 			}
 			
@@ -360,6 +372,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 			validacionErrores.setRegistrosNoValidos(registrosNoValidos);
 			validacionErrores.setTotalRegistros(totalRegistros);
 			validacionErrores.setAudiosValidos(audiosValidos);
+			validacionErrores.setAudiosNoValidos(audiosNoValidos);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("Error en la validacion del archivo xml ");
@@ -369,14 +382,25 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		return this.validacionErrores;
 	}
 	
-	public File descargarArchivoResgistroNoValidos() throws Exception{
+	public File descargarArchivoResgistroNoValidos(List<Object> audiosNoValidos) throws Exception{
 		Serializer serializer = new Persister();
+		Registros  registros = new Registros();
+		List<Llamada> llamadas = new ArrayList<Llamada>();
+		for (Iterator<Object> iterator = audiosNoValidos.iterator(); iterator.hasNext();) {
+			Llamada llamada = (Llamada) iterator.next();
+			llamadas.add(llamada);
+		}
+		
+		if (llamadas !=null && !llamadas.isEmpty()){
+			registros.setLlamadas(llamadas);	
+		}
+		
 		File source = File.createTempFile("abc", ".xml");
-		//Registros registros = serializer.read(Registros.class, source);
+		serializer.write(registros, source);
 		return source;
 	}
 	
-	public File descargarAudio() throws Exception{
+	public File descargarAudio(String empresa, String path) throws Exception{
 		// TODO Auto-generated method stub
 		File source = File.createTempFile("abc", ".mp3");
 		return source;
