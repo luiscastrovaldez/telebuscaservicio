@@ -14,7 +14,6 @@ public class AudSistemaDAOImpl extends HibernateJpaDialect implements
 	@PersistenceContext(name = "teleBuscaPersistence")
 	private EntityManager em;
 
-	
 	public void guardaAudSistema(AudSistema audSistema) {
 		em.persist(audSistema);
 		em.flush();
