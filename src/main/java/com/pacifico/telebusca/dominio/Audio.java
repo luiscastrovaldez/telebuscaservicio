@@ -20,6 +20,11 @@ import javax.persistence.Table;
 @Table(name = "Audio")
 public class Audio implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "CODAUDIO")
@@ -77,15 +82,14 @@ public class Audio implements Serializable {
 
 	}
 
-	public Audio(int codAudio, int codEmpresa, String dniCliente,
+	public Audio(int codEmpresa, String dniCliente,
 			String apellidoPaterno, String apellidoMaterno,
 			String nombresCliente, String telefonoNumeroCliente,
 			Timestamp fechaVenta, String dniAsesor, String proceso, String vdn,
 			String skill, String rutaAudio, Timestamp fechaCreacion,
 			Timestamp fechaModificacion, String usuarioCreacion,
 			String usuarioModificacion) {
-		super();
-		this.codAudio = codAudio;
+		super();		
 		this.codEmpresa = codEmpresa;
 		this.dniCliente = dniCliente;
 		this.apellidoPaterno = apellidoPaterno;

@@ -13,9 +13,8 @@ public class AudSistemaServicioImpl implements AudSistemaServicio {
 
 	@Autowired
 	private AudSistemaDAO audSistemaDAO;
-	
-	
-	public void guardaAudSistema(AudSistema audSistema) {		
+
+	public void guardaAudSistema(AudSistema audSistema) {
 		this.audSistemaDAO.guardaAudSistema(audSistema);
 	}
 
