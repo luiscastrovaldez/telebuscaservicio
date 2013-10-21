@@ -1,6 +1,7 @@
 package com.pacifico.telebusca.servicio.xml;
 
 import java.io.File;
+import java.util.List;
 
 import com.pacifico.telebusca.web.beans.ValidacionErrores;
 
@@ -8,12 +9,13 @@ public interface TeleBuscaAudio {
 
 	void escucharAudio() throws Exception;
 
-	File descargarAudio() throws Exception;
+	File descargarAudio(String empresa, String path) throws Exception;
 
 	ValidacionErrores validarArchivoXml(File xml) throws Exception;
 
-	File descargarArchivoResgistroNoValidos() throws Exception;
-	
-	public ValidacionErrores validarArchivoXml(String xml) throws Exception;
+	File descargarArchivoResgistroNoValidos(List<Object> llamadas)
+			throws Exception;
+
+	ValidacionErrores validarArchivoXml(String xml) throws Exception;
 
 }
