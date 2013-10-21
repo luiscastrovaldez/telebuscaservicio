@@ -2,8 +2,6 @@ package com.pacifico.telebusca.dao;
 
 import java.util.List;
 
-import javassist.compiler.ast.StringL;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -11,103 +9,111 @@ import javax.persistence.Query;
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 
 import com.pacifico.telebusca.dominio.Audio;
-import com.pacifico.telebusca.dominio.Empresa;
 
-public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO{
+public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	@PersistenceContext(name="teleBuscaPersistence")
+	@PersistenceContext(name = "teleBuscaPersistence")
 	private EntityManager em;
-	
 
 	public void guardarAudio(Audio audio) {
-		// TODO Auto-generated method stub
-		
+		em.persist(audio);
+		em.flush();
+
 	}
 
-	public List<Audio> buscarAudios(Audio audio, String start_date, String end_date) {
+	public List<Audio> buscarAudios(Audio audio, String start_date,
+			String end_date) {
 		// TODO Auto-generated method stub
-		
-		StringBuffer sql = new StringBuffer("select a from Audio a  where fecVenta between :start_date and :end_date");
 
-		if (audio.getDniCliente() != null && !"".equals(audio.getDniCliente())){			
-			sql.append(" and dniCliente = :dniCliente");						
+		StringBuffer sql = new StringBuffer(
+				"select a from Audio a  where fecVenta between :start_date and :end_date");
+
+		if (audio.getDniCliente() != null && !"".equals(audio.getDniCliente())) {
+			sql.append(" and dniCliente = :dniCliente");
 			System.out.println("dni");
 		}
-		
-		if (audio.getApellidoMaterno() != null && !"".equals(audio.getApellidoMaterno())){			
-			sql.append(" and apellidoMaterno = :apellidoMaterno");			
+
+		if (audio.getApellidoMaterno() != null
+				&& !"".equals(audio.getApellidoMaterno())) {
+			sql.append(" and apellidoMaterno = :apellidoMaterno");
 			System.out.println("apeMaterno");
 		}
-		if(audio.getApellidoPaterno() != null && !"".equals(audio.getApellidoPaterno())){
+		if (audio.getApellidoPaterno() != null
+				&& !"".equals(audio.getApellidoPaterno())) {
 			sql.append(" and apellidoPaterno = :apellidoPaterno");
 			System.out.println("apePaterno");
 		}
-		if(audio.getTelefonoNumeroCliente() != null && !"".equals(audio.getTelefonoNumeroCliente())){
+		if (audio.getTelefonoNumeroCliente() != null
+				&& !"".equals(audio.getTelefonoNumeroCliente())) {
 			sql.append(" and telefonoNumeroCliente = :telefonoNumeroCliente");
 		}
-		if(audio.getNombresCliente() != null && !"".equals(audio.getNombresCliente())){
+		if (audio.getNombresCliente() != null
+				&& !"".equals(audio.getNombresCliente())) {
 			sql.append(" and nombrescliente = :nombrescliente");
 		}
-		if(audio.getProceso() != null && !"".equals(audio.getProceso())){
+		if (audio.getProceso() != null && !"".equals(audio.getProceso())) {
 			sql.append(" and proceso = :proceso");
 		}
-		if(audio.getDniAsesor() != null && !"".equals(audio.getDniAsesor())){
+		if (audio.getDniAsesor() != null && !"".equals(audio.getDniAsesor())) {
 			sql.append(" and dniasesor = :dniasesor");
 		}
-		if(audio.getVdn() != null && !"".equals(audio.getVdn())){
+		if (audio.getVdn() != null && !"".equals(audio.getVdn())) {
 			sql.append(" and vdn = :vdn");
 		}
-		if(audio.getSkill() != null && !"".equals(audio.getSkill())){
+		if (audio.getSkill() != null && !"".equals(audio.getSkill())) {
 			sql.append(" and skill = :skill");
 		}
-		if (audio.getCodEmpresa() != 0 && !"".equals(Integer.toString(audio.getCodEmpresa()))){
+		if (audio.getCodEmpresa() != 0
+				&& !"".equals(Integer.toString(audio.getCodEmpresa()))) {
 			sql.append(" and codempresa = :codempresa");
 		}
-		
+
 		Query query = em.createQuery(sql.toString());
 		query.setParameter("start_date", start_date);
 		query.setParameter("end_date", end_date);
-		
-		if (audio.getDniCliente() != null && !"".equals(audio.getDniCliente())){		
+
+		if (audio.getDniCliente() != null && !"".equals(audio.getDniCliente())) {
 			query.setParameter("dniCliente", audio.getDniCliente());
-		}	
-		
-		if (audio.getApellidoMaterno() != null && !"".equals(audio.getApellidoMaterno())){			
+		}
+
+		if (audio.getApellidoMaterno() != null
+				&& !"".equals(audio.getApellidoMaterno())) {
 			query.setParameter("apellidoMaterno", audio.getApellidoMaterno());
 			System.out.println("apeMaterno");
 		}
-		if(audio.getApellidoPaterno() != null && !"".equals(audio.getApellidoPaterno())){
+		if (audio.getApellidoPaterno() != null
+				&& !"".equals(audio.getApellidoPaterno())) {
 			query.setParameter("apellidoPaterno", audio.getApellidoPaterno());
 			System.out.println("apePaterno");
 		}
-		if(audio.getTelefonoNumeroCliente() != null && !"".equals(audio.getTelefonoNumeroCliente())){
-			query.setParameter("telefonoNumeroCliente", audio.getTelefonoNumeroCliente());
+		if (audio.getTelefonoNumeroCliente() != null
+				&& !"".equals(audio.getTelefonoNumeroCliente())) {
+			query.setParameter("telefonoNumeroCliente", audio
+					.getTelefonoNumeroCliente());
 		}
-		if(audio.getNombresCliente() != null && !"".equals(audio.getNombresCliente())){
+		if (audio.getNombresCliente() != null
+				&& !"".equals(audio.getNombresCliente())) {
 			query.setParameter("nombrescliente", audio.getNombresCliente());
 		}
-		if(audio.getProceso() != null && !"".equals(audio.getProceso())){
+		if (audio.getProceso() != null && !"".equals(audio.getProceso())) {
 			query.setParameter("proceso", audio.getProceso());
 		}
-		if(audio.getDniAsesor() != null && !"".equals(audio.getDniAsesor())){
+		if (audio.getDniAsesor() != null && !"".equals(audio.getDniAsesor())) {
 			query.setParameter("dniasesor", audio.getDniAsesor());
 		}
-		if(audio.getVdn() != null && !"".equals(audio.getVdn())){
+		if (audio.getVdn() != null && !"".equals(audio.getVdn())) {
 			query.setParameter("vdn", audio.getVdn());
 		}
-		if(audio.getSkill() != null && !"".equals(audio.getSkill())){
+		if (audio.getSkill() != null && !"".equals(audio.getSkill())) {
 			query.setParameter("skill", audio.getSkill());
 		}
-		if (audio.getCodEmpresa() != 0 && !"".equals(Integer.toString(audio.getCodEmpresa()))){
+		if (audio.getCodEmpresa() != 0
+				&& !"".equals(Integer.toString(audio.getCodEmpresa()))) {
 			query.setParameter("codempresa", audio.getCodEmpresa());
 		}
-		
-		return (List<Audio>)query.getResultList();
+
+		return (List<Audio>) query.getResultList();
 	}
-	
 
 }
