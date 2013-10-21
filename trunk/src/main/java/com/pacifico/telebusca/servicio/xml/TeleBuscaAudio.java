@@ -13,5 +13,7 @@ public interface TeleBuscaAudio {
 	ValidacionErrores validarArchivoXml(File xml) throws Exception;
 
 	File descargarArchivoResgistroNoValidos() throws Exception;
+	
+	public ValidacionErrores validarArchivoXml(String xml) throws Exception;
 
 }
