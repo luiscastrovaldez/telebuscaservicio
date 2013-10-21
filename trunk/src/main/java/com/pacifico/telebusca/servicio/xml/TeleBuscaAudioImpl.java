@@ -63,7 +63,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		int vdn = 0;
 		int skill = 0;
 		int rutaAudio = 0;
-
+		StringBuffer errores = new StringBuffer();
 		boolean isValido = Boolean.FALSE;
 		audiosValidos = new ArrayList<Object>();
 		audiosNoValidos = new ArrayList<Object>();
@@ -78,66 +78,79 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 				llamada = (Llamada) iterator.next();
 				totalRegistros++;				
 				isValido = Boolean.FALSE;
-
+				errores = new StringBuffer();
 				if (!validarEmpresa(llamada.getEmpresa())) {
 					codEmpresa++;
 					isValido = Boolean.TRUE;
+					errores.append(" Error Empresa " + llamada.getEmpresa());
 				}
 
 				if ("".equals(llamada.getDniCliente())) {
 					dniCliente++;
 					isValido = Boolean.TRUE;
+					errores.append(" Error Dni Cliente " + llamada.getDniCliente());
 				}
 
 				if ("".equals(llamada.getApellidoPaternoCliente())) {
 					apellidoPaterno++;
 					isValido = Boolean.TRUE;
+					errores.append(" Error Apellido Paterno " + llamada.getApellidoPaternoCliente());
 				}
 
 				if ("".equals(llamada.getApellidoMaternoCliente())) {
 					apellidoMaterno++;
 					isValido = Boolean.TRUE;
+					errores.append(" Error Apellido Materno " + llamada.getApellidoMaternoCliente());
 				}
 
 				if ("".equals(llamada.getNombresCliente())) {
 					nombresCliente++;
 					isValido = Boolean.TRUE;
+					errores.append(" Error " + llamada.getNombresCliente());
 				}
 				if (!validadTelefono(llamada.getTelefonoCliente())) {
 					telefonoNumeroCliente++;
 					isValido = Boolean.TRUE;
+					errores.append(" Error TeleFono Cliente " + llamada.getTelefonoCliente());
 				}
 				if (!validadFecha(llamada.getFechaVenta(), "dd/MM/yyyy")) {
 					fechaVenta++;
 					isValido = Boolean.TRUE;
+					errores.append(" Error Fecha Venta " + llamada.getFechaVenta());
 				}
 
 				if ("".equals(llamada.getHoraVenta())) {
 					horaVenta++;
 					isValido = Boolean.TRUE;
+					errores.append(" Error Hora Venta " + llamada.getHoraVenta());
 				}
 				if ("".equals(llamada.getDniAsesor())) {
 					dniAsesor++;
 					isValido = Boolean.TRUE;
+					errores.append(" Error  DNI Asesor " + llamada.getDniAsesor());
 				}
 				if (!validadProceso(llamada.getProceso())) {
 					proceso++;
 					isValido = Boolean.TRUE;
+					errores.append(" Error Proceso " + llamada.getProceso());
 				}
 
-				if ("".equals(llamada.getVnd())) {
+				if ("".equals(llamada.getVdn())) {
 					vdn++;
 					isValido = Boolean.TRUE;
+					errores.append(" Error VDN" + llamada.getVdn());
 				}
 
 				if ("".equals(llamada.getSkill())) {
 					skill++;
 					isValido = Boolean.TRUE;
+					errores.append(" Error Skill " + llamada.getSkill());
 				}
 
 				if (!validadPath("C:/DYNAMICALL", llamada.getRutaAudio())) {
 					rutaAudio++;
 					isValido = Boolean.TRUE;
+					errores.append(" Error Ruta Archivo " + llamada.getRutaAudio());
 				}
 				
 				if (!isValido) {
@@ -145,6 +158,10 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 					audiosValidos.add(llamada);
 				} else {
 					registrosNoValidos++;
+					
+					if (errores.length() > 0){
+						llamada.setErrores(errores.toString());
+					}
 					audiosNoValidos.add(llamada);
 				}
 			}
@@ -330,7 +347,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 					isValido = Boolean.TRUE;
 				}
 
-				if ("".equals(llamada.getVnd())) {
+				if ("".equals(llamada.getVdn())) {
 					vdn++;
 					isValido = Boolean.TRUE;
 				}

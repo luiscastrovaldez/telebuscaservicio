@@ -24,7 +24,7 @@ public class AudioServicioImpl implements AudioServicio {
 	@Autowired
 	private EmpresaDAO empresaDAO;
 
-	public void guardarAudio(List<Object> llamadas, String nombreUsuario) {	
+	public void guardarAudios(List<Object> llamadas, String nombreUsuario) {	
 		Audio audio;
 		List<Empresa> empresas;
 		Empresa empresa;
@@ -39,7 +39,7 @@ public class AudioServicioImpl implements AudioServicio {
 							.getApellidoMaternoCliente(), llamada
 							.getNombresCliente(), llamada.getTelefonoCliente(),
 					null, llamada.getDniAsesor(), llamada.getProceso(), llamada
-							.getVnd(), llamada.getSkill(), llamada
+							.getVdn(), llamada.getSkill(), llamada
 							.getRutaAudio(), Util.getDate(), Util.getDate(),
 					nombreUsuario, nombreUsuario);
 			this.audioDAO.guardarAudio(audio);
