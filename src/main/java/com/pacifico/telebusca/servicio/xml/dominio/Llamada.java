@@ -33,7 +33,7 @@ public class Llamada implements Serializable{
 	@Element(required = false, name = "Proceso")
 	private String proceso;
 	@Element(required = false, name = "VDN")
-	private String vnd;
+	private String vdn;
 	@Element(required = false, name = "Skill")
 	private String skill;
 	@Element(required = false, name = "RutaAudio")
@@ -121,12 +121,12 @@ public class Llamada implements Serializable{
 		this.proceso = proceso;
 	}
 
-	public String getVnd() {
-		return vnd;
+	public String getVdn() {
+		return vdn;
 	}
 
-	public void setVnd(String vnd) {
-		this.vnd = vnd;
+	public void setVdn(String vdn) {
+		this.vdn = vdn;
 	}
 
 	public String getSkill() {
