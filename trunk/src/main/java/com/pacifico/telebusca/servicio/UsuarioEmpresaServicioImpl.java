@@ -34,7 +34,7 @@ public class UsuarioEmpresaServicioImpl implements UsuarioEmpresaServicio {
 		return this.usuarioempresaDAO.buscarUsuarioEmpresaPorNombre(nombre);
 	}
 
-	@Override
+	
 	public List listarUsuarioPorEmpresa() {
 		// TODO Auto-generated method stub
 		return null;

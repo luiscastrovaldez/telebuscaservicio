@@ -43,7 +43,7 @@ public class UsuarioEmpresaDAOImpl extends HibernateJpaDialect implements Usuari
 		return query.getResultList();
 	}
 
-	@Override
+	
 	public List listarUsuarioPorEmpresa() {
 		// TODO Auto-generated method stub
 		return null;
