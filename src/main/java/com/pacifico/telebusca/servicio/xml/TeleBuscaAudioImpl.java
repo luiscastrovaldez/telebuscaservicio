@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pacifico.telebusca.dominio.Empresa;
-import com.pacifico.telebusca.servicio.AudioServicio;
 import com.pacifico.telebusca.servicio.EmpresaServicio;
 import com.pacifico.telebusca.servicio.xml.dominio.Llamada;
 import com.pacifico.telebusca.servicio.xml.dominio.Registros;
@@ -38,9 +37,6 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 	@Autowired
 	private EmpresaServicio empresaServicio;
 	
-	@Autowired
-	private AudioServicio audioServicio;
-		
 	public void escucharAudio() throws Exception{
 		// TODO Auto-generated method stub
 
@@ -68,6 +64,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		boolean isValido = Boolean.FALSE;
 		audiosValidos = new ArrayList<Object>();
 		audiosNoValidos = new ArrayList<Object>();
+		
 		try {
 			Llamada llamada;
 			this.serializer = new Persister();
@@ -85,29 +82,33 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 					isValido = Boolean.TRUE;
 					errores.append(" Error Empresa " + llamada.getEmpresa());
 				}
+				if (!"ATENTO2".equals(llamada.getEmpresa())) {
+					if ("".equals(llamada.getDniCliente())) {
+						dniCliente++;
+						isValido = Boolean.TRUE;
+						errores.append(" Error Dni Cliente "
+								+ llamada.getDniCliente());
+					}
 
-				if ("".equals(llamada.getDniCliente())) {
-					dniCliente++;
-					isValido = Boolean.TRUE;
-					errores.append(" Error Dni Cliente " + llamada.getDniCliente());
-				}
+					if ("".equals(llamada.getApellidoPaternoCliente())) {
+						apellidoPaterno++;
+						isValido = Boolean.TRUE;
+						errores.append(" Error Apellido Paterno "
+								+ llamada.getApellidoPaternoCliente());
+					}
 
-				if ("".equals(llamada.getApellidoPaternoCliente())) {
-					apellidoPaterno++;
-					isValido = Boolean.TRUE;
-					errores.append(" Error Apellido Paterno " + llamada.getApellidoPaternoCliente());
-				}
+					if ("".equals(llamada.getApellidoMaternoCliente())) {
+						apellidoMaterno++;
+						isValido = Boolean.TRUE;
+						errores.append(" Error Apellido Materno "
+								+ llamada.getApellidoMaternoCliente());
+					}
 
-				if ("".equals(llamada.getApellidoMaternoCliente())) {
-					apellidoMaterno++;
-					isValido = Boolean.TRUE;
-					errores.append(" Error Apellido Materno " + llamada.getApellidoMaternoCliente());
-				}
-
-				if ("".equals(llamada.getNombresCliente())) {
-					nombresCliente++;
-					isValido = Boolean.TRUE;
-					errores.append(" Error " + llamada.getNombresCliente());
+					if ("".equals(llamada.getNombresCliente())) {
+						nombresCliente++;
+						isValido = Boolean.TRUE;
+						errores.append(" Error " + llamada.getNombresCliente());
+					}
 				}
 				if (!validadTelefono(llamada.getTelefonoCliente())) {
 					telefonoNumeroCliente++;
@@ -135,17 +136,19 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 					isValido = Boolean.TRUE;
 					errores.append(" Error Proceso " + llamada.getProceso());
 				}
+				if ("ATENTO2".equals(llamada.getEmpresa())) {
 
-				if ("".equals(llamada.getVdn())) {
-					vdn++;
-					isValido = Boolean.TRUE;
-					errores.append(" Error VDN" + llamada.getVdn());
-				}
+					if ("".equals(llamada.getVdn())) {
+						vdn++;
+						isValido = Boolean.TRUE;
+						errores.append(" Error VDN" + llamada.getVdn());
+					}
 
-				if ("".equals(llamada.getSkill())) {
-					skill++;
-					isValido = Boolean.TRUE;
-					errores.append(" Error Skill " + llamada.getSkill());
+					if ("".equals(llamada.getSkill())) {
+						skill++;
+						isValido = Boolean.TRUE;
+						errores.append(" Error Skill " + llamada.getSkill());
+					}
 				}
 
 				if (!validadPath(this.rutaAudio, llamada.getRutaAudio())) {
@@ -268,138 +271,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		return Boolean.TRUE;
 	}
 	
-	public ValidacionErrores validarArchivoXml(String xml) throws Exception{
-		logger.info("Iniciando validacion del archivo xml " + xml);
-				
-		int totalRegistros = 0;
-		int registrosValidos = 0;
-		int registrosNoValidos = 0;
-		int codEmpresa = 0;
-		int dniCliente = 0;
-		int apellidoPaterno = 0;
-		int apellidoMaterno = 0;
-		int nombresCliente = 0;
-		int telefonoNumeroCliente = 0;
-		int fechaVenta = 0;
-		int horaVenta = 0;
-		int dniAsesor = 0;
-		int proceso = 0;
-		int vdn = 0;
-		int skill = 0;
-		int rutaAudio = 0;
-
-		boolean isValido = Boolean.FALSE;
-		audiosValidos = new ArrayList<Object>();
-		audiosNoValidos = new ArrayList<Object>();
-		try {
-			Llamada llamada;
-			this.serializer = new Persister();
-			this.registros = this.serializer.read(Registros.class, xml);
-			this.llamadas = this.registros.getLlamadas();
-			validacionErrores = new ValidacionErrores();
-			for (Iterator<Llamada> iterator = this.llamadas.iterator(); iterator
-					.hasNext();) {
-				llamada = (Llamada) iterator.next();
-				totalRegistros++;				
-				isValido = Boolean.FALSE;
-
-				if (!validarEmpresa(llamada.getEmpresa())) {
-					codEmpresa++;
-					isValido = Boolean.TRUE;
-				}
-
-				if ("".equals(llamada.getDniCliente())) {
-					dniCliente++;
-					isValido = Boolean.TRUE;
-				}
-
-				if ("".equals(llamada.getApellidoPaternoCliente())) {
-					apellidoPaterno++;
-					isValido = Boolean.TRUE;
-				}
-
-				if ("".equals(llamada.getApellidoMaternoCliente())) {
-					apellidoMaterno++;
-					isValido = Boolean.TRUE;
-				}
-
-				if ("".equals(llamada.getNombresCliente())) {
-					nombresCliente++;
-					isValido = Boolean.TRUE;
-				}
-				if (!validadTelefono(llamada.getTelefonoCliente())) {
-					telefonoNumeroCliente++;
-					isValido = Boolean.TRUE;
-				}
-				if (!validadFecha(llamada.getFechaVenta(), "dd/MM/yyyy")) {
-					fechaVenta++;
-					isValido = Boolean.TRUE;
-				}
-
-				if ("".equals(llamada.getHoraVenta())) {
-					horaVenta++;
-					isValido = Boolean.TRUE;
-				}
-				if ("".equals(llamada.getDniAsesor())) {
-					dniAsesor++;
-					isValido = Boolean.TRUE;
-				}
-				if (!validadProceso(llamada.getProceso())) {
-					proceso++;
-					isValido = Boolean.TRUE;
-				}
-
-				if ("".equals(llamada.getVdn())) {
-					vdn++;
-					isValido = Boolean.TRUE;
-				}
-
-				if ("".equals(llamada.getSkill())) {
-					skill++;
-					isValido = Boolean.TRUE;
-				}
-
-				if (!validadPath("C:/DYNAMICALL", llamada.getRutaAudio())) {
-					rutaAudio++;
-					isValido = Boolean.TRUE;
-				}
-				
-				if (!isValido) {
-					registrosValidos++;
-					audiosValidos.add(llamada);
-				} else {
-					registrosNoValidos++;
-					audiosNoValidos.add(llamada);
-				}
-			}
-			
-			
-			validacionErrores.setCodEmpresa(codEmpresa);
-			validacionErrores.setDniCliente(dniCliente);
-			validacionErrores.setApellidoPaterno(apellidoPaterno);
-			validacionErrores.setApellidoMaterno(apellidoMaterno);
-			validacionErrores.setNombresCliente(nombresCliente);
-			validacionErrores.setTelefonoNumeroCliente(telefonoNumeroCliente);
-			validacionErrores.setFechaVenta(fechaVenta);
-			validacionErrores.setHoraVenta(horaVenta);
-			validacionErrores.setDniAsesor(dniAsesor);
-			validacionErrores.setProceso(proceso);
-			validacionErrores.setVdn(vdn);
-			validacionErrores.setSkill(skill);
-			validacionErrores.setRutaAudio(rutaAudio);
-			validacionErrores.setRegistrosValidos(registrosValidos);
-			validacionErrores.setRegistrosNoValidos(registrosNoValidos);
-			validacionErrores.setTotalRegistros(totalRegistros);
-			validacionErrores.setAudiosValidos(audiosValidos);
-			validacionErrores.setAudiosNoValidos(audiosNoValidos);
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error("Error en la validacion del archivo xml ");
-			throw new Exception("Error en la validacion del archivo xml ");
-		}
-		logger.info("Terminando validacion del archivo xml ");
-		return this.validacionErrores;
-	}
+	
 	
 	public File descargarArchivoResgistroNoValidos(List<Object> audiosNoValidos) throws Exception{
 		Serializer serializer = new Persister();

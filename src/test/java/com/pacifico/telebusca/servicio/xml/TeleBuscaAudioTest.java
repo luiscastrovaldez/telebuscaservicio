@@ -15,7 +15,7 @@ public class TeleBuscaAudioTest extends TeleBuscaTest {
 	@Autowired
 	private TeleBuscaAudio teleBuscaAudio;
 
-	@Test
+	/*@Test
 	public void validarArchivoXml() {
 		String xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>"
 				+ "<Registros>"
@@ -83,4 +83,4 @@ public class TeleBuscaAudioTest extends TeleBuscaTest {
 		}
 	}
 
-}
+*/}
