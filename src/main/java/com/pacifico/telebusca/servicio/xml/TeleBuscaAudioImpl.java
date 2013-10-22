@@ -33,6 +33,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 	private ValidacionErrores validacionErrores;
 	private List<Object> audiosValidos;
 	private List<Object> audiosNoValidos;
+	private String rutaAudio;
 	
 	@Autowired
 	private EmpresaServicio empresaServicio;
@@ -147,7 +148,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 					errores.append(" Error Skill " + llamada.getSkill());
 				}
 
-				if (!validadPath("C:/DYNAMICALL", llamada.getRutaAudio())) {
+				if (!validadPath(this.rutaAudio, llamada.getRutaAudio())) {
 					rutaAudio++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error Ruta Archivo " + llamada.getRutaAudio());
@@ -203,6 +204,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		List<Empresa> empresas = new ArrayList<Empresa>();
 		empresas = empresaServicio.buscarEmpresaPorNombre(nombreEmpresa);
 		if (empresas!=null && !empresas.isEmpty()){
+			this.rutaAudio = ((Empresa)empresas.get(0)).getCarpeta();
 			return Boolean.TRUE;
 		}
 		return Boolean.FALSE;
