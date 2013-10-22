@@ -35,7 +35,7 @@ public class UsuarioEmpresaServicioImpl implements UsuarioEmpresaServicio {
 	}
 
 	public List<Empresa> listarUsuarioPorEmpresa(String nombreUsuario) {
-		return this.listarUsuarioPorEmpresa(nombreUsuario);
+		return this.usuarioempresaDAO.listarUsuarioPorEmpresa(nombreUsuario);
 	}
 
 }
