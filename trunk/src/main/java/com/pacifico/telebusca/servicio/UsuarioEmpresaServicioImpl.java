@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pacifico.telebusca.dao.UsuarioEmpresaDAO;
+import com.pacifico.telebusca.dominio.Empresa;
 import com.pacifico.telebusca.dominio.UsuarioEmpresa;
 
 @Service("usuarioEmpresaServicio")
+@Transactional
 public class UsuarioEmpresaServicioImpl implements UsuarioEmpresaServicio {
 
 	@Autowired
@@ -31,14 +34,8 @@ public class UsuarioEmpresaServicioImpl implements UsuarioEmpresaServicio {
 				.buscarUsuarioEmpresaPorId(pkUsuarioEmpresa);
 	}
 
-	public List buscarUsuarioEmpresaPorNombre(Serializable nombre) {
-		// TODO Auto-generated method stub
-		return this.usuarioempresaDAO.buscarUsuarioEmpresaPorNombre(nombre);
-	}
-
-	public List listarUsuarioPorEmpresa() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Empresa> listarUsuarioPorEmpresa(String nombreUsuario) {
+		return this.listarUsuarioPorEmpresa(nombreUsuario);
 	}
 
 }

@@ -9,6 +9,7 @@ import javax.persistence.Query;
 
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 
+import com.pacifico.telebusca.dominio.Empresa;
 import com.pacifico.telebusca.dominio.UsuarioEmpresa;
 
 public class UsuarioEmpresaDAOImpl extends HibernateJpaDialect implements
@@ -33,17 +34,14 @@ public class UsuarioEmpresaDAOImpl extends HibernateJpaDialect implements
 		return em.find(UsuarioEmpresa.class, pkUsuarioEmpresa);
 	}
 
-	public List buscarUsuarioEmpresaPorNombre(Serializable nombre) {
+	
+
+	public List<Empresa> listarUsuarioPorEmpresa(String nombreUsuario) {
 		Query query = em
-				.createQuery("select c from Empresa c where c.empresa=:nombre");
-		query.setParameter("nombre", nombre);
-
-		return query.getResultList();
-	}
-
-	public List listarUsuarioPorEmpresa() {
-		// TODO Auto-generated method stub
-		return null;
+		.createQuery("select a from Empresa a, UsuarioEmpresa b where a.codEmpresa = b.codEmpresa " +
+				"and b.usuario =:nombreUsuario");
+		query.setParameter("nombreUsuario", nombreUsuario);
+		return (List<Empresa>)query.getResultList();
 	}
 
 }
