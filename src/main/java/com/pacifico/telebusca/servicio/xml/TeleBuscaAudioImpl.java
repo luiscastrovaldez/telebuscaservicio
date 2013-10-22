@@ -214,6 +214,9 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 	}
 	
 	private boolean validadTelefono(String telefono){
+		if (telefono.contains("-")){
+			return Boolean.FALSE;
+		}
 		if ("".equals(telefono)){
 			return Boolean.FALSE;
 		}		
