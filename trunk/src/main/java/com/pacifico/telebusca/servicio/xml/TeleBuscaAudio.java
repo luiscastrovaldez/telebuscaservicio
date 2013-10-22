@@ -16,6 +16,4 @@ public interface TeleBuscaAudio {
 	File descargarArchivoResgistroNoValidos(List<Object> llamadas)
 			throws Exception;
 
-	ValidacionErrores validarArchivoXml(String xml) throws Exception;
-
 }
