@@ -294,9 +294,15 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		return source;
 	}
 	
-	public File descargarAudio(String empresa, String path) throws Exception{
+	public File descargarAudio(int codEmpresa, final String path) throws Exception{
 		// TODO Auto-generated method stub
-		File source = File.createTempFile("abc", ".mp3");
+		String urlPath = null;
+		Empresa empresa = new Empresa();
+		empresa = empresaServicio.buscarEmpresaPorCodigo(codEmpresa);
+		if (empresa!=null){
+			urlPath = empresa.getCarpeta();		
+		}
+		File source = new File(urlPath+path);
 		return source;
 	}
 
