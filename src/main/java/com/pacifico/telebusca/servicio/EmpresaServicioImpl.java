@@ -37,4 +37,8 @@ public class EmpresaServicioImpl implements EmpresaServicio {
 	public void eliminarEmpresa(Empresa empresa) {
 		this.empresaDAO.eliminarEmpresa(empresa);
 	}
+	
+	public List<Empresa> listarEmpresas(){
+		return this.empresaDAO.listarEmpresas();
+	}
 }

@@ -16,4 +16,6 @@ public interface EmpresaServicio {
 	List<Empresa> buscarEmpresaPorNombre(final Serializable nombreEmpresa);
 
 	void eliminarEmpresa(Empresa empresa);
+	
+	List<Empresa> listarEmpresas();
 }

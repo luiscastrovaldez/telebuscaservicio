@@ -48,5 +48,11 @@ public class EmpresaDAOImpl extends HibernateJpaDialect implements EmpresaDAO {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Empresa> listarEmpresas(){
+		Query  query = em.createQuery("select c from empresa");
+	return (List<Empresa>)query.getResultList();
+	}
 
 }
