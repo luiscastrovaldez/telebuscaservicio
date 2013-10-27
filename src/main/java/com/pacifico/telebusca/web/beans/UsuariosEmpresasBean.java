@@ -13,11 +13,12 @@ public class UsuariosEmpresasBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Empresa empresa;
 	private UsuarioEmpresa usuarioEmpresa;
+	private int[] empresas;
 
-	public UsuariosEmpresasBean(){
-		
+	public UsuariosEmpresasBean() {
+
 	}
-	
+
 	public UsuariosEmpresasBean(Empresa empresa, UsuarioEmpresa usuarioEmpresa) {
 		super();
 		this.empresa = empresa;
@@ -39,5 +40,15 @@ public class UsuariosEmpresasBean implements Serializable {
 	public void setUsuarioEmpresa(UsuarioEmpresa usuarioEmpresa) {
 		this.usuarioEmpresa = usuarioEmpresa;
 	}
+
+	public int[] getEmpresas() {
+		return empresas;
+	}
+
+	public void setEmpresas(int[] empresas) {
+		this.empresas = empresas;
+	}
+
+	
 
 }

@@ -11,11 +11,12 @@ public interface EmpresaServicio {
 
 	Empresa actualizarEmpresa(Empresa empresa);
 
+
 	Empresa buscarEmpresaPorCodigo(final Serializable codEmpresa);
 
 	List<Empresa> buscarEmpresaPorNombre(final Serializable nombreEmpresa);
 
-	void eliminarEmpresa(Empresa empresa);
+	void eliminarEmpresa(int codEmpresa);
 	
 	List<Empresa> listarEmpresas();
 }
