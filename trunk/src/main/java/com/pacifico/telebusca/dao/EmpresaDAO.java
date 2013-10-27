@@ -15,7 +15,7 @@ public interface EmpresaDAO {
 
 	List<Empresa> buscarEmpresaPorNombre(final Serializable nombreEmpresa);
 
-	void eliminarEmpresa(Empresa empresa);
+	void eliminarEmpresa(int codEmpresa);
 	
-	List <Empresa> listarEmpresas ();
+	List<Empresa> listarEmpresas();
 }

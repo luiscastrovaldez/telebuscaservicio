@@ -34,6 +34,14 @@ public class EmpresaDAOImpl extends HibernateJpaDialect implements EmpresaDAO {
 		return em.find(Empresa.class, codEmpresa);
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Empresa> listarEmpresas() {
+		Query query = em
+				.createQuery("select c from Empresa c");
+		
+
+		return (List<Empresa>)query.getResultList();
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Empresa> buscarEmpresaPorNombre(Serializable nombreEmpresa) {
@@ -43,16 +51,13 @@ public class EmpresaDAOImpl extends HibernateJpaDialect implements EmpresaDAO {
 
 		return (List<Empresa>)query.getResultList();
 	}
-
-	public void eliminarEmpresa(Empresa empresa) {
-		// TODO Auto-generated method stub
-
-	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Empresa> listarEmpresas(){
-		Query  query = em.createQuery("select c from empresa");
-	return (List<Empresa>)query.getResultList();
+		
+	public void eliminarEmpresa(int codEmpresa){
+		Query query = em
+		.createQuery("delete from Empresa b where b.codEmpresa = :codEmpresa ");
+		query.setParameter("codEmpresa", codEmpresa);
+		query.executeUpdate();
 	}
 
 }

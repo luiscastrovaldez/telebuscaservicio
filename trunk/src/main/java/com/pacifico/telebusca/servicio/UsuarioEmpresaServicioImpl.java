@@ -35,19 +35,41 @@ public class UsuarioEmpresaServicioImpl implements UsuarioEmpresaServicio {
 				.buscarUsuarioEmpresaPorId(pkUsuarioEmpresa);
 	}
 
-	public List<Empresa> listarUsuarioPorEmpresa(String nombreUsuario) {
-		return this.usuarioempresaDAO.listarUsuarioPorEmpresa(nombreUsuario);
+	public List<Empresa> listarUsuariosyEmpresasByNombreUsuario(
+			String nombreUsuario) {
+		return this.usuarioempresaDAO
+				.listarUsuariosyEmpresasByNombreUsuario(nombreUsuario);
 	}
 
-	@Override
-	public List<UsuariosEmpresasBean> listarUsuariosyEmpresas() {		
+	public List<UsuariosEmpresasBean> listarUsuariosyEmpresas() {
 		return this.usuarioempresaDAO.listarUsuariosyEmpresas();
 	}
 
-	@Override
 	public List<UsuariosEmpresasBean> listarEmpresasAsignadasNoAsignadas() {
 
 		return this.usuarioempresaDAO.listarEmpresasAsignadasNoAsignadas();
 	}
 
+	public List<UsuariosEmpresasBean> listarUsuariosyEmpresasByNombreUsuarioAndCodEmpresa(
+			String nombreUsuario, int codEmpresa) {
+		return this.usuarioempresaDAO
+				.listarUsuariosyEmpresasByNombreUsuarioAndCodEmpresa(
+						nombreUsuario, codEmpresa);
+	}
+
+	public List<UsuariosEmpresasBean> listarUsuariosyEmpresas1() {
+		return this.usuarioempresaDAO.listarUsuariosyEmpresas1();
+	}
+
+	public void eliminarUsuarioEmpresaByNombreUsuario(String nombreUsuario) {
+		this.usuarioempresaDAO
+				.eliminarUsuarioEmpresaByNombreUsuario(nombreUsuario);
+
+	}
+
+	@Override
+	public void eliminarUsuarioEmpresaByCodEmpresa(int codEmpresa) {
+		this.usuarioempresaDAO.eliminarUsuarioEmpresaByCodEmpresa(codEmpresa);
+
+	}
 }

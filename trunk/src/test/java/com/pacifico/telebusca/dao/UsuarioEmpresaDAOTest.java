@@ -20,7 +20,7 @@ public class UsuarioEmpresaDAOTest extends TeleBuscaTest {
 	@Test
 	public void listaEmpresaPorNombreUsuario(){
 		List<Empresa> empresas = new ArrayList<Empresa>();
-		empresas = usuarioEmpresaDAO.listarUsuarioPorEmpresa("lcastro");
+		empresas = usuarioEmpresaDAO.listarUsuariosyEmpresasByNombreUsuario("lcastro");
 		for (Iterator<Empresa> iterator = empresas.iterator(); iterator.hasNext();) {
 			Empresa empresa = (Empresa) iterator.next();
 			System.out.println("empresa " + empresa.getCodEmpresa());

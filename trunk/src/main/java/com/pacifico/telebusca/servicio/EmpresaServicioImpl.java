@@ -34,11 +34,18 @@ public class EmpresaServicioImpl implements EmpresaServicio {
 		return this.empresaDAO.buscarEmpresaPorNombre(nombreEmpresa);
 	}
 
-	public void eliminarEmpresa(Empresa empresa) {
-		this.empresaDAO.eliminarEmpresa(empresa);
+	public void eliminarEmpresa(int codEmpresa) {
+		this.empresaDAO.eliminarEmpresa(codEmpresa);
 	}
+
 	
-	public List<Empresa> listarEmpresas(){
+	public List<Empresa> listarEmpresas() {
 		return this.empresaDAO.listarEmpresas();
+	}
+
+	
+	public void eliminarUsuarioEmpresaByCodEmpresa(int codEmpresa) {
+		this.empresaDAO.eliminarEmpresa(codEmpresa);
+		
 	}
 }
