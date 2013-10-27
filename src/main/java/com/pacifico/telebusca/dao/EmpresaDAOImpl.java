@@ -8,9 +8,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
+import org.springframework.stereotype.Repository;
 
 import com.pacifico.telebusca.dominio.Empresa;
-
+@Repository
 public class EmpresaDAOImpl extends HibernateJpaDialect implements EmpresaDAO {
 
 	/**
@@ -21,8 +22,8 @@ public class EmpresaDAOImpl extends HibernateJpaDialect implements EmpresaDAO {
 	private EntityManager em;
 
 	public void guardarEmpresa(Empresa empresa) {
-		em.persist(empresa);
-		em.flush();
+		this.em.persist(empresa);
+		this.em.flush();
 	}
 
 	public Empresa actualizarEmpresa(Empresa empresa) {

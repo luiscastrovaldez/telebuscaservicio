@@ -15,7 +15,7 @@ public class AuditLoggerAdvice {
 	private AudSistemaDAO audSistemaDAO;
 	
 	public void auditoria(JoinPoint call) throws Throwable{
-	
+		/*
 		String action = getMethodSignature(call);	
 		
 		System.out.println("action " + action);	
@@ -33,9 +33,10 @@ public class AuditLoggerAdvice {
 		//Se guarda el registro en la tabla de auditoria
 		logAudit(action,args,user);					
 		System.out.println("Auditado!\nmetodo ->" +action+"\nparams -> "+stringArgs+"\nusuario -> "+user);
-		*/
+		
 		//Se Invoca explicitamente el método destino
 		//return call.proceed();
+		*/
 	}
 
 	private String getMethodSignature(JoinPoint call) {

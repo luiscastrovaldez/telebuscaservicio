@@ -7,9 +7,11 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
+import org.springframework.stereotype.Repository;
 
 import com.pacifico.telebusca.dominio.Audio;
 
+@Repository
 public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 
 	private static final long serialVersionUID = 1L;
@@ -17,15 +19,13 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 	private EntityManager em;
 
 	public void guardarAudio(Audio audio) {
-		em.persist(audio);
-		em.flush();
+		this.em.persist(audio);
+		this.em.flush();
 
 	}
 
 	public List<Audio> buscarAudios(Audio audio, String start_date,
-			String end_date) {
-		// TODO Auto-generated method stub
-
+			String end_date) {		
 		StringBuffer sql = new StringBuffer(
 				"select a from Audio a  where fecVenta between :start_date and :end_date");
 

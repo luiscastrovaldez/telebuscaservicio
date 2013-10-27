@@ -150,7 +150,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 						errores.append(" Error Skill " + llamada.getSkill());
 					}
 				}
-
+				logger.info("info + " + this.rutaAudio + "ruta "  + llamada.getRutaAudio());
 				if (!validadPath(this.rutaAudio, llamada.getRutaAudio())) {
 					rutaAudio++;
 					isValido = Boolean.TRUE;
@@ -238,21 +238,30 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 	
 	private boolean validadPath(String pathEmpresa, String path){
 		
+		logger.info("pathEmpresa " + pathEmpresa);
+		logger.info("path " + path);
+		
 		if ("".equals(path)){
 			return Boolean.FALSE;
 		}
 		File directorio = null;
 		String[] splitPath = path.split("/");
 		directorio = new File(pathEmpresa+"/" + splitPath[1]);
-		if (directorio.isDirectory()){
-			return Boolean.TRUE; 	
+		logger.info("directorio 1 " + directorio.getAbsolutePath());
+		if (!directorio.isDirectory()){
+			return Boolean.FALSE; 	
 		}
-		File[] archivos = directorio.listFiles();
+		logger.info("directorio2 " + directorio.getAbsolutePath());
+		
+		String[] archivos = directorio.list();
 		if (archivos != null ){
-			List<File> listaArchivos = Arrays.asList(archivos);
-			if (listaArchivos.contains(new File(splitPath[2]))){
+			List<String> listaArchivos = Arrays.asList(archivos);
+			logger.info("listaArchivos " + listaArchivos.size() + " file 2 " + splitPath[2]);
+			logger.info("valida - " + listaArchivos.contains(splitPath[2]));
+			if (listaArchivos.contains(splitPath[2])){
 				return Boolean.TRUE;
 			}	
+			
 		}
 		
 		return Boolean.FALSE;

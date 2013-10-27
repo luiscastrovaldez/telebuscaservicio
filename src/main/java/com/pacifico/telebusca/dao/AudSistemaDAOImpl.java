@@ -4,9 +4,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
+import org.springframework.stereotype.Repository;
 
 import com.pacifico.telebusca.dominio.AudSistema;
-
+@Repository
 public class AudSistemaDAOImpl extends HibernateJpaDialect implements
 		AudSistemaDAO {
 

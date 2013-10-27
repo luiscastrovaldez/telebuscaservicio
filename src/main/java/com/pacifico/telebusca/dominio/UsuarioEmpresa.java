@@ -21,6 +21,11 @@ import javax.persistence.Table;
 @Table(name = "Usuario_Empresa")
 public class UsuarioEmpresa implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "CODUSREMPRESA")
@@ -44,6 +49,8 @@ public class UsuarioEmpresa implements Serializable{
 	@Column(name = "USRMOD")
 	private String usuarioModificacion;
 
+	
+	
 	public UsuarioEmpresa() {
 
 	}
