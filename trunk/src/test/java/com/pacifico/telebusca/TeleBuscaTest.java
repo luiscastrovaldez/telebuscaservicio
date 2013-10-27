@@ -15,7 +15,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 		"classpath:com/pacifico/telebusca/config/applicationContext.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class })
-@TransactionConfiguration(defaultRollback = false)
+@TransactionConfiguration(defaultRollback = true)
 public class TeleBuscaTest extends AbstractTransactionalJUnit4SpringContextTests{
 
 	

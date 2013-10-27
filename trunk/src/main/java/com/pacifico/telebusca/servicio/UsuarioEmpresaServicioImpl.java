@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pacifico.telebusca.dao.UsuarioEmpresaDAO;
 import com.pacifico.telebusca.dominio.Empresa;
 import com.pacifico.telebusca.dominio.UsuarioEmpresa;
+import com.pacifico.telebusca.web.beans.UsuariosEmpresasBean;
 
 @Service("usuarioEmpresaServicio")
 @Transactional
@@ -36,6 +37,17 @@ public class UsuarioEmpresaServicioImpl implements UsuarioEmpresaServicio {
 
 	public List<Empresa> listarUsuarioPorEmpresa(String nombreUsuario) {
 		return this.usuarioempresaDAO.listarUsuarioPorEmpresa(nombreUsuario);
+	}
+
+	@Override
+	public List<UsuariosEmpresasBean> listarUsuariosyEmpresas() {		
+		return this.usuarioempresaDAO.listarUsuariosyEmpresas();
+	}
+
+	@Override
+	public List<UsuariosEmpresasBean> listarEmpresasAsignadasNoAsignadas() {
+
+		return this.usuarioempresaDAO.listarEmpresasAsignadasNoAsignadas();
 	}
 
 }

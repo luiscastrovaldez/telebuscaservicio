@@ -30,8 +30,8 @@ public class AudioDAOTest extends TeleBuscaTest {
 		String start_date = null;
 		String end_date =null;
 		try {
-			start_date="2013-10-18";
-			end_date="2013-10-20";
+			start_date="2013-10-24 8:00";
+			end_date="2013-10-24 18:00";
 			Audio audiobject = new Audio();
 			/*audiobject =  new Audio (1,2,"42739567", "Santa Cruz","Tapia","Pedro","4552252",new Timestamp(
 			Calendar.getInstance().getTimeInMillis()),"11111111","PROCESO","VDN","skill","/temp",new Timestamp(
@@ -39,8 +39,7 @@ public class AudioDAOTest extends TeleBuscaTest {
 									Calendar.getInstance().getTimeInMillis()),"psantacruz","psantacruz");*/
 			
 			audiobject = new Audio();
-			audiobject.setDniCliente("42739567");
-			audiobject.setApellidoMaterno("Santa Cruz"); 
+			audiobject.setCodEmpresa(1);
 			audio = this.audioDAO.buscarAudios(audiobject,start_date, end_date);
 			if (start_date.equals(null) && end_date.equals(null)) {
 				 Assert.fail("Fechas Invalidas");

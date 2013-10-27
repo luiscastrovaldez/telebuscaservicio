@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.pacifico.telebusca.TeleBuscaTest;
 import com.pacifico.telebusca.dominio.Empresa;
+import com.pacifico.telebusca.web.beans.UsuariosEmpresasBean;
 
 public class UsuarioEmpresaDAOTest extends TeleBuscaTest {
 
@@ -27,4 +28,29 @@ public class UsuarioEmpresaDAOTest extends TeleBuscaTest {
 			
 		}
 	}
+	
+	@Test
+	public void listarUsuariosyEmpresasTest(){
+		List<UsuariosEmpresasBean> usuariosEmpresasBeans = new ArrayList<UsuariosEmpresasBean>();
+		usuariosEmpresasBeans = usuarioEmpresaDAO.listarUsuariosyEmpresas();
+		for (Iterator<UsuariosEmpresasBean> iterator = usuariosEmpresasBeans.iterator(); iterator.hasNext();) {
+			UsuariosEmpresasBean usuariosEmpresasBean = (UsuariosEmpresasBean) iterator.next();
+			System.out.println("empresa " + usuariosEmpresasBean.getEmpresa().getNombreEmpresa());
+			System.out.println("empresa " + usuariosEmpresasBean.getUsuarioEmpresa().getUsuario());
+			
+		}
+	}
+	
+	@Test
+	public void listaEmpresasAsignadasNOAsignadasTest(){
+		List<UsuariosEmpresasBean> usuariosEmpresasBeans = new ArrayList<UsuariosEmpresasBean>();
+		usuariosEmpresasBeans = usuarioEmpresaDAO.listarEmpresasAsignadasNoAsignadas();
+		for (Iterator<UsuariosEmpresasBean> iterator = usuariosEmpresasBeans.iterator(); iterator.hasNext();) {
+			UsuariosEmpresasBean usuariosEmpresasBean = (UsuariosEmpresasBean) iterator.next();
+			System.out.println("empresa " + usuariosEmpresasBean.getEmpresa().getNombreEmpresa());
+			System.out.println("empresa " + usuariosEmpresasBean.getUsuarioEmpresa().getUsuario());
+			
+		}
+	}
+	
 }

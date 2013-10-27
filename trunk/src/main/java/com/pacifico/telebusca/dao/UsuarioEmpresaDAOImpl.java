@@ -8,21 +8,23 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
+import org.springframework.stereotype.Repository;
 
 import com.pacifico.telebusca.dominio.Empresa;
 import com.pacifico.telebusca.dominio.UsuarioEmpresa;
+import com.pacifico.telebusca.web.beans.UsuariosEmpresasBean;
 
+@Repository
 public class UsuarioEmpresaDAOImpl extends HibernateJpaDialect implements
 		UsuarioEmpresaDAO {
 
 	private static final long serialVersionUID = 1L;
 	@PersistenceContext
-	// Inyecta el EntityManager aqui
 	private EntityManager em;
 
 	public void guardarUsuarioEmpresa(UsuarioEmpresa usuarioempresa) {
-		em.persist(usuarioempresa);
-		em.flush();
+		this.em.persist(usuarioempresa);
+		this.em.flush();
 	}
 
 	public UsuarioEmpresa actualizarUsuarioEmpresa(UsuarioEmpresa usuarioempresa) {
@@ -34,14 +36,27 @@ public class UsuarioEmpresaDAOImpl extends HibernateJpaDialect implements
 		return em.find(UsuarioEmpresa.class, pkUsuarioEmpresa);
 	}
 
-	
-
 	public List<Empresa> listarUsuarioPorEmpresa(String nombreUsuario) {
 		Query query = em
-		.createQuery("select a from Empresa a, UsuarioEmpresa b where a.codEmpresa = b.codEmpresa " +
-				"and b.usuario =:nombreUsuario");
+				.createQuery("select a from Empresa a, UsuarioEmpresa b where a.codEmpresa = b.codEmpresa "
+						+ "and b.usuario =:nombreUsuario");
 		query.setParameter("nombreUsuario", nombreUsuario);
-		return (List<Empresa>)query.getResultList();
+		return (List<Empresa>) query.getResultList();
+	}
+
+	public List<UsuariosEmpresasBean> listarUsuariosyEmpresas() {
+		Query query = em
+				.createQuery("select new com.pacifico.telebusca.web.beans.UsuariosEmpresasBean(a,b) from Empresa a, UsuarioEmpresa b where a.codEmpresa = b.codEmpresa ");
+
+		return (List<UsuariosEmpresasBean>) query.getResultList();
+	}
+	
+	public List<UsuariosEmpresasBean> listarEmpresasAsignadasNoAsignadas() {
+		Query query = em
+				.createQuery("select a from UsuarioEmpresa as a " +
+						"left outer join  a.codEmpresa  as b where a.codEmpresa = b.codEmpresa");
+
+		return (List<UsuariosEmpresasBean>) query.getResultList();
 	}
 
 }
