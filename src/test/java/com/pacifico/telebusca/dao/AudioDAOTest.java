@@ -40,7 +40,7 @@ public class AudioDAOTest extends TeleBuscaTest {
 			
 			audiobject = new Audio();
 			audiobject.setCodEmpresa(1);
-			audio = this.audioDAO.buscarAudios(audiobject,start_date, end_date);
+			audio = this.audioDAO.buscarAudios(audiobject);
 			if (start_date.equals(null) && end_date.equals(null)) {
 				 Assert.fail("Fechas Invalidas");
 			} else {
