@@ -67,7 +67,7 @@ public class UsuarioEmpresaServicioImpl implements UsuarioEmpresaServicio {
 
 	}
 
-	@Override
+	
 	public void eliminarUsuarioEmpresaByCodEmpresa(int codEmpresa) {
 		this.usuarioempresaDAO.eliminarUsuarioEmpresaByCodEmpresa(codEmpresa);
 
