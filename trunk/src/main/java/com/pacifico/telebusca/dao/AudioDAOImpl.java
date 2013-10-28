@@ -24,8 +24,7 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 
 	}
 
-	public List<Audio> buscarAudios(Audio audio, String start_date,
-			String end_date) {		
+	public List<Audio> buscarAudios(Audio audio) {		
 		StringBuffer sql = new StringBuffer(
 				"select a from Audio a  where fecVenta between :start_date and :end_date");
 
@@ -70,8 +69,10 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 		}
 
 		Query query = em.createQuery(sql.toString());
-		query.setParameter("start_date", start_date);
-		query.setParameter("end_date", end_date);
+		System.out.println(audio.getFechaInicial() +" "+ audio.getHoraInicial());
+		System.out.println(audio.getFechaFinal()+" "+ audio.getHoraFinal());
+		query.setParameter("start_date", audio.getFechaInicial() +" "+ audio.getHoraInicial());
+		query.setParameter("end_date", audio.getFechaFinal()+" "+ audio.getHoraFinal());
 
 		if (audio.getDniCliente() != null && !"".equals(audio.getDniCliente())) {
 			query.setParameter("dniCliente", audio.getDniCliente());

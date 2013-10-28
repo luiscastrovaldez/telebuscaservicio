@@ -15,6 +15,7 @@ import org.simpleframework.xml.core.Persister;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pacifico.telebusca.commons.Constants;
 import com.pacifico.telebusca.dominio.Empresa;
 import com.pacifico.telebusca.servicio.EmpresaServicio;
 import com.pacifico.telebusca.servicio.xml.dominio.Llamada;
@@ -81,13 +82,15 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 					codEmpresa++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error Empresa " + llamada.getEmpresa());
+					errores.append(", ");
 				}
-				if (!"ATENTO2".equals(llamada.getEmpresa())) {
+				if (!Constants.ATENTO2.equals(llamada.getEmpresa())) {
 					if ("".equals(llamada.getDniCliente())) {
 						dniCliente++;
 						isValido = Boolean.TRUE;
 						errores.append(" Error Dni Cliente "
 								+ llamada.getDniCliente());
+						errores.append(", ");
 					}
 
 					if ("".equals(llamada.getApellidoPaternoCliente())) {
@@ -95,6 +98,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 						isValido = Boolean.TRUE;
 						errores.append(" Error Apellido Paterno "
 								+ llamada.getApellidoPaternoCliente());
+						errores.append(", ");
 					}
 
 					if ("".equals(llamada.getApellidoMaternoCliente())) {
@@ -102,52 +106,61 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 						isValido = Boolean.TRUE;
 						errores.append(" Error Apellido Materno "
 								+ llamada.getApellidoMaternoCliente());
+						errores.append(", ");
 					}
 
 					if ("".equals(llamada.getNombresCliente())) {
 						nombresCliente++;
 						isValido = Boolean.TRUE;
 						errores.append(" Error " + llamada.getNombresCliente());
+						errores.append(", ");
 					}
 				}
 				if (!validadTelefono(llamada.getTelefonoCliente())) {
 					telefonoNumeroCliente++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error TeleFono Cliente " + llamada.getTelefonoCliente());
+					errores.append(", ");
 				}
 				if (!validadFecha(llamada.getFechaVenta(), "dd/MM/yyyy")) {
 					fechaVenta++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error Fecha Venta " + llamada.getFechaVenta());
+					errores.append(", ");
 				}
 
 				if ("".equals(llamada.getHoraVenta())) {
 					horaVenta++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error Hora Venta " + llamada.getHoraVenta());
+					errores.append(", ");
 				}
 				if ("".equals(llamada.getDniAsesor())) {
 					dniAsesor++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error  DNI Asesor " + llamada.getDniAsesor());
+					errores.append(", ");
 				}
 				if (!validadProceso(llamada.getProceso())) {
 					proceso++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error Proceso " + llamada.getProceso());
+					errores.append(", ");
 				}
-				if ("ATENTO2".equals(llamada.getEmpresa())) {
+				if (Constants.ATENTO2.equals(llamada.getEmpresa())) {
 
 					if ("".equals(llamada.getVdn())) {
 						vdn++;
 						isValido = Boolean.TRUE;
 						errores.append(" Error VDN" + llamada.getVdn());
+						errores.append(", ");
 					}
 
 					if ("".equals(llamada.getSkill())) {
 						skill++;
 						isValido = Boolean.TRUE;
 						errores.append(" Error Skill " + llamada.getSkill());
+						errores.append(", ");
 					}
 				}
 				logger.info("info + " + this.rutaAudio + "ruta "  + llamada.getRutaAudio());
@@ -155,6 +168,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 					rutaAudio++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error Ruta Archivo " + llamada.getRutaAudio());
+					errores.append(", ");
 				}
 				
 				if (!isValido) {

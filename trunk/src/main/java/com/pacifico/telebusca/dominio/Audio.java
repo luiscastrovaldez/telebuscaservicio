@@ -78,18 +78,23 @@ public class Audio implements Serializable {
 	@Column(name = "USRMOD")
 	private String usuarioModificacion;
 
+	private transient String fechaInicial;
+	private transient String fechaFinal;
+	private transient String horaInicial;
+	private transient String horaFinal;
+
 	public Audio() {
 
 	}
 
-	public Audio(int codEmpresa, String dniCliente,
-			String apellidoPaterno, String apellidoMaterno,
-			String nombresCliente, String telefonoNumeroCliente,
-			Timestamp fechaVenta, String dniAsesor, String proceso, String vdn,
-			String skill, String rutaAudio, Timestamp fechaCreacion,
+	public Audio(int codEmpresa, String dniCliente, String apellidoPaterno,
+			String apellidoMaterno, String nombresCliente,
+			String telefonoNumeroCliente, Timestamp fechaVenta,
+			String dniAsesor, String proceso, String vdn, String skill,
+			String rutaAudio, Timestamp fechaCreacion,
 			Timestamp fechaModificacion, String usuarioCreacion,
 			String usuarioModificacion) {
-		super();		
+		super();
 		this.codEmpresa = codEmpresa;
 		this.dniCliente = dniCliente;
 		this.apellidoPaterno = apellidoPaterno;
@@ -107,8 +112,6 @@ public class Audio implements Serializable {
 		this.usuarioCreacion = usuarioCreacion;
 		this.usuarioModificacion = usuarioModificacion;
 	}
-
-
 
 	public int getCodAudio() {
 		return codAudio;
@@ -244,6 +247,38 @@ public class Audio implements Serializable {
 
 	public void setUsuarioModificacion(String usuarioModificacion) {
 		this.usuarioModificacion = usuarioModificacion;
+	}
+
+	public String getFechaInicial() {
+		return fechaInicial;
+	}
+
+	public void setFechaInicial(String fechaInicial) {
+		this.fechaInicial = fechaInicial;
+	}
+
+	public String getFechaFinal() {
+		return fechaFinal;
+	}
+
+	public void setFechaFinal(String fechaFinal) {
+		this.fechaFinal = fechaFinal;
+	}
+
+	public String getHoraInicial() {
+		return horaInicial;
+	}
+
+	public void setHoraInicial(String horaInicial) {
+		this.horaInicial = horaInicial;
+	}
+
+	public String getHoraFinal() {
+		return horaFinal;
+	}
+
+	public void setHoraFinal(String horaFinal) {
+		this.horaFinal = horaFinal;
 	}
 
 }

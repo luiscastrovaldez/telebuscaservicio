@@ -47,9 +47,8 @@ public class AudioServicioImpl implements AudioServicio {
 
 	}
 
-	public List<Audio> buscarAudios(Audio audio, String start_date,
-			String end_date) {
-		return this.audioDAO.buscarAudios(audio, start_date, end_date);
+	public List<Audio> buscarAudios(Audio audio) {
+		return this.audioDAO.buscarAudios(audio);
 	}
 
 }
