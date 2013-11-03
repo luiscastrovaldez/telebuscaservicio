@@ -24,6 +24,11 @@ public class UsuariosEmpresasBean implements Serializable {
 		this.empresa = empresa;
 		this.usuarioEmpresa = usuarioEmpresa;
 	}
+	
+	public UsuariosEmpresasBean(Empresa empresa) {
+		super();
+		this.empresa = empresa;	
+	}
 
 	public Empresa getEmpresa() {
 		return empresa;

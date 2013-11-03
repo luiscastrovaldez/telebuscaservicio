@@ -11,6 +11,11 @@ import org.springframework.stereotype.Repository;
 
 import com.pacifico.telebusca.dominio.Audio;
 
+/**
+ * 
+ * @author lcastro
+ * 
+ */
 @Repository
 public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 
@@ -24,7 +29,7 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 
 	}
 
-	public List<Audio> buscarAudios(Audio audio) {		
+	public List<Audio> buscarAudios(Audio audio) {
 		StringBuffer sql = new StringBuffer(
 				"select a from Audio a  where fecVenta between :start_date and :end_date");
 
@@ -69,10 +74,13 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 		}
 
 		Query query = em.createQuery(sql.toString());
-		System.out.println(audio.getFechaInicial() +" "+ audio.getHoraInicial());
-		System.out.println(audio.getFechaFinal()+" "+ audio.getHoraFinal());
-		query.setParameter("start_date", audio.getFechaInicial() +" "+ audio.getHoraInicial());
-		query.setParameter("end_date", audio.getFechaFinal()+" "+ audio.getHoraFinal());
+		System.out.println(audio.getFechaInicial() + " "
+				+ audio.getHoraInicial());
+		System.out.println(audio.getFechaFinal() + " " + audio.getHoraFinal());
+		query.setParameter("start_date", audio.getFechaInicial() + " "
+				+ audio.getHoraInicial());
+		query.setParameter("end_date", audio.getFechaFinal() + " "
+				+ audio.getHoraFinal());
 
 		if (audio.getDniCliente() != null && !"".equals(audio.getDniCliente())) {
 			query.setParameter("dniCliente", audio.getDniCliente());

@@ -11,6 +11,12 @@ import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.stereotype.Repository;
 
 import com.pacifico.telebusca.dominio.Empresa;
+
+/**
+ * 
+ * @author lcastro
+ * 
+ */
 @Repository
 public class EmpresaDAOImpl extends HibernateJpaDialect implements EmpresaDAO {
 
@@ -18,7 +24,7 @@ public class EmpresaDAOImpl extends HibernateJpaDialect implements EmpresaDAO {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@PersistenceContext(name="teleBuscaPersistence")
+	@PersistenceContext(name = "teleBuscaPersistence")
 	private EntityManager em;
 
 	public void guardarEmpresa(Empresa empresa) {
@@ -36,26 +42,23 @@ public class EmpresaDAOImpl extends HibernateJpaDialect implements EmpresaDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Empresa> listarEmpresas() {
-		Query query = em
-				.createQuery("select c from Empresa c");
-		
+		Query query = em.createQuery("select c from Empresa c");
 
-		return (List<Empresa>)query.getResultList();
+		return (List<Empresa>) query.getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Empresa> buscarEmpresaPorNombre(Serializable nombreEmpresa) {
 		Query query = em
 				.createQuery("select c from Empresa c where c.nombreEmpresa=:nombreEmpresa");
 		query.setParameter("nombreEmpresa", nombreEmpresa);
 
-		return (List<Empresa>)query.getResultList();
+		return (List<Empresa>) query.getResultList();
 	}
-	
-		
-	public void eliminarEmpresa(int codEmpresa){
+
+	public void eliminarEmpresa(int codEmpresa) {
 		Query query = em
-		.createQuery("delete from Empresa b where b.codEmpresa = :codEmpresa ");
+				.createQuery("delete from Empresa b where b.codEmpresa = :codEmpresa ");
 		query.setParameter("codEmpresa", codEmpresa);
 		query.executeUpdate();
 	}

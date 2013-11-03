@@ -26,7 +26,8 @@ import com.pacifico.telebusca.web.beans.ValidacionErrores;
 public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 
 	private Logger logger = Logger.getLogger(TeleBuscaAudioImpl.class);
-
+	private static String OS = System.getProperty("os.name").toLowerCase();
+	
 	private Serializer serializer;
 	private Registros registros;
 	private List<Llamada> llamadas;
@@ -255,12 +256,15 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		logger.info("pathEmpresa " + pathEmpresa);
 		logger.info("path " + path);
 		
+		
+		
 		if ("".equals(path)){
 			return Boolean.FALSE;
 		}
 		File directorio = null;
 		String[] splitPath = path.split("/");
-		directorio = new File(pathEmpresa+"/" + splitPath[1]);
+		directorio = new File(Constants.RUTA_ABSOLUTA + pathEmpresa+ splitPath[1]);
+		
 		logger.info("directorio 1 " + directorio.getAbsolutePath());
 		if (!directorio.isDirectory()){
 			return Boolean.FALSE; 	
@@ -328,5 +332,22 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		File source = new File(urlPath+path);
 		return source;
 	}
-
+	
+	public File descargarAudio(String path) throws Exception{
+		// TODO Auto-generated method stub	
+		
+		if (isWindows()){
+			path = path.substring(11,path.length());
+			path = "C:/bluestarenergy/jboss-6.1.0.Final/server/default/deploy/telebusca.war/" + path;
+		}
+		
+		File source = new File(path);
+		System.out.println("archivo existe "+ source.exists());
+		return source;
+	}
+	public static boolean isWindows() {
+		 
+		return (OS.indexOf("win") >= 0);
+ 
+	}
 }

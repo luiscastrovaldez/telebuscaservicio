@@ -5,6 +5,11 @@ import java.util.List;
 
 import com.pacifico.telebusca.dominio.Empresa;
 
+/**
+ * 
+ * @author lcastro
+ * 
+ */
 public interface EmpresaDAO {
 
 	void guardarEmpresa(Empresa empresa);
@@ -16,6 +21,6 @@ public interface EmpresaDAO {
 	List<Empresa> buscarEmpresaPorNombre(final Serializable nombreEmpresa);
 
 	void eliminarEmpresa(int codEmpresa);
-	
+
 	List<Empresa> listarEmpresas();
 }

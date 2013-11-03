@@ -10,6 +10,7 @@ public interface TeleBuscaAudio {
 	void escucharAudio() throws Exception;
 
 	File descargarAudio(int codEmpresa, String path) throws Exception;
+	File descargarAudio(String path) throws Exception;
 
 	ValidacionErrores validarArchivoXml(File xml) throws Exception;
 

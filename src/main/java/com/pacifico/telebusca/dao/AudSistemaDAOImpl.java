@@ -7,6 +7,12 @@ import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.stereotype.Repository;
 
 import com.pacifico.telebusca.dominio.AudSistema;
+
+/**
+ * 
+ * @author lcastro
+ * 
+ */
 @Repository
 public class AudSistemaDAOImpl extends HibernateJpaDialect implements
 		AudSistemaDAO {
