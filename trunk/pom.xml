@@ -25,10 +25,16 @@
 		<commons-io>2.4</commons-io>
 		<commons-dbcp>1.3</commons-dbcp>
 		<oracle>11.2.0.3.0</oracle>
+		<telebuscaconfoguracion>11.2.0.3.0</telebuscaconfoguracion>
 	</properties>
 
 	<dependencies>
-
+		<!-- configuracion -->
+		<dependency>
+			<groupId>com.pacifico.telebusca.config</groupId>
+			<artifactId>telebusca-configuracion</artifactId>
+			<version>1.0.0.0</version>
+		</dependency>
 		<!-- Hibernate dependencies -->
 		<dependency>
 			<groupId>org.hibernate</groupId>

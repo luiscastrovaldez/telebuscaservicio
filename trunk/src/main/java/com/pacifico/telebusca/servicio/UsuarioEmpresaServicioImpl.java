@@ -1,6 +1,7 @@
 package com.pacifico.telebusca.servicio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +59,17 @@ public class UsuarioEmpresaServicioImpl implements UsuarioEmpresaServicio {
 	}
 
 	public List<UsuariosEmpresasBean> listarUsuariosyEmpresas1() {
-		return this.usuarioempresaDAO.listarUsuariosyEmpresas1();
+		
+		List<UsuariosEmpresasBean> listaUsuariosEmpresa =  new ArrayList<UsuariosEmpresasBean>();
+		listaUsuariosEmpresa = this.usuarioempresaDAO.listarUsuariosyEmpresas1(); 
+		
+		if (listaUsuariosEmpresa == null || listaUsuariosEmpresa.size() == 0){
+			listaUsuariosEmpresa = this.usuarioempresaDAO.listarUsuariosyEmpresas2();
+		} else {
+			listaUsuariosEmpresa.addAll(this.usuarioempresaDAO.listarUsuariosyEmpresas2());
+		}
+		
+		return listaUsuariosEmpresa;
 	}
 
 	public void eliminarUsuarioEmpresaByNombreUsuario(String nombreUsuario) {

@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.pacifico.telebusca.dominio.Audio;
 
+/**
+ * 
+ * @author lcastro
+ * 
+ */
 public interface AudioDAO {
 
 	void guardarAudio(Audio audio);
