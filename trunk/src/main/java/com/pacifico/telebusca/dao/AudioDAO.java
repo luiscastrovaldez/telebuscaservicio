@@ -13,6 +13,8 @@ public interface AudioDAO {
 
 	void guardarAudio(Audio audio);
 
-	List<Audio> buscarAudios(Audio audio);
+	List<Audio> buscarAudios(Audio audio,Integer firstIndex , Integer maxNumber);
+	
+	int buscarContarAudios(Audio audio);
 
 }
