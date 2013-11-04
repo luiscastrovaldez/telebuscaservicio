@@ -8,6 +8,8 @@ public interface AudioServicio {
 
 	void guardarAudios(List<Object> llamadas, String nombreUsuario);
 
-	List<Audio> buscarAudios(Audio audio);
+	List<Audio> buscarAudios(Audio audio, Integer firstIndex, Integer maxNumber);
+
+	int buscarContarAudios(Audio audio);
 
 }

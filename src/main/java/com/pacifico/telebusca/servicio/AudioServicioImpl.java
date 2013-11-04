@@ -47,8 +47,15 @@ public class AudioServicioImpl implements AudioServicio {
 
 	}
 
-	public List<Audio> buscarAudios(Audio audio) {
-		return this.audioDAO.buscarAudios(audio);
+	public List<Audio> buscarAudios(Audio audio,Integer firstIndex , Integer maxNumber) {
+		return this.audioDAO.buscarAudios(audio, firstIndex, maxNumber);
 	}
+
+	
+	public int buscarContarAudios(Audio audio) {
+		return this.audioDAO.buscarContarAudios(audio);
+	}
+
+	
 
 }
