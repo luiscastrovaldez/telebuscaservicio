@@ -69,6 +69,10 @@ public class UsuarioEmpresaServicioImpl implements UsuarioEmpresaServicio {
 			listaUsuariosEmpresa.addAll(this.usuarioempresaDAO.listarUsuariosyEmpresas2());
 		}
 		
+		if (listaUsuariosEmpresa == null || listaUsuariosEmpresa.size() == 0){
+			listaUsuariosEmpresa = this.usuarioempresaDAO.listarUsuariosyEmpresas3();	
+		}
+		
 		return listaUsuariosEmpresa;
 	}
 

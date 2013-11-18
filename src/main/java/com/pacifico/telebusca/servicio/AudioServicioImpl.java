@@ -1,5 +1,7 @@
 package com.pacifico.telebusca.servicio;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 
@@ -34,11 +36,17 @@ public class AudioServicioImpl implements AudioServicio {
 			empresas = this.empresaDAO.buscarEmpresaPorNombre(llamada
 					.getEmpresa());
 			empresa = empresas.get(0);
+			
+			
+			String cadena[]= llamada.getFechaVenta().split("/");
+			String nueva = cadena[2] + "-" + cadena[1] + "-" + cadena[0];
+			
+			
 			audio = new Audio(empresa.getCodEmpresa(), llamada.getDniCliente(),
 					llamada.getApellidoPaternoCliente(), llamada
 							.getApellidoMaternoCliente(), llamada
 							.getNombresCliente(), llamada.getTelefonoCliente(),
-					null, llamada.getDniAsesor(), llamada.getProceso(), llamada
+							Timestamp.valueOf(nueva + " " +  llamada.getHoraVenta()), llamada.getDniAsesor(), llamada.getProceso(), llamada
 							.getVdn(), llamada.getSkill(), llamada
 							.getRutaAudio(), Util.getDate(), Util.getDate(),
 					nombreUsuario, nombreUsuario);

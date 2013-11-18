@@ -263,7 +263,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		}
 		File directorio = null;
 		String[] splitPath = path.split("/");
-		directorio = new File(Constants.RUTA_ABSOLUTA + pathEmpresa+ splitPath[1]);
+		directorio = new File(Constants.RUTA_ABSOLUTA + pathEmpresa+ "/"+splitPath[1]);
 		
 		logger.info("directorio 1 " + directorio.getAbsolutePath());
 		if (!directorio.isDirectory()){
