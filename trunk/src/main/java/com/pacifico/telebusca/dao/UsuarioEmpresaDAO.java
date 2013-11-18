@@ -33,6 +33,8 @@ public interface UsuarioEmpresaDAO {
 	List<UsuariosEmpresasBean> listarEmpresasAsignadasNoAsignadas();
 
 	List<UsuariosEmpresasBean> listarUsuariosyEmpresas2();
+	
+	List<UsuariosEmpresasBean> listarUsuariosyEmpresas3();
 
 	List<UsuariosEmpresasBean> listarUsuariosyEmpresasByNombreUsuarioAndCodEmpresa(
 			String nombreUsuario, int codEmpresa);

@@ -90,6 +90,13 @@ public class UsuarioEmpresaDAOImpl extends HibernateJpaDialect implements
 
 	public List<UsuariosEmpresasBean> listarUsuariosyEmpresas2() {
 		Query query = em
+				.createQuery("select new com.pacifico.telebusca.web.beans.UsuariosEmpresasBean(a,b) from Empresa a, UsuarioEmpresa b where a.codEmpresa = b.codEmpresa group by a.codEmpresa ");
+
+		return (List<UsuariosEmpresasBean>) query.getResultList();
+	}
+	
+	public List<UsuariosEmpresasBean> listarUsuariosyEmpresas3() {
+		Query query = em
 				.createQuery("select new com.pacifico.telebusca.web.beans.UsuariosEmpresasBean(a) from Empresa a");
 
 		return (List<UsuariosEmpresasBean>) query.getResultList();

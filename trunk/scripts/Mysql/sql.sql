@@ -1,14 +1,14 @@
-insert into empresa(nom,carpeta,sts)
-values('DYNAMICALL','C:/DYNAMICALL','A');
+insert into Empresa(nom,carpeta,sts)
+values('DYNAMICALL','/DYNAMICALL','A');
 
-insert into empresa(nom,carpeta,sts)
-values('ATENTO1','C:/ATENTO1','A');
+insert into Empresa(nom,carpeta,sts)
+values('ATENTO1','/ATENTO1','A');
 
-insert into empresa(nom,carpeta,sts)
-values('CONTACTO','C:/CONTACTO','A');
+insert into Empresa(nom,carpeta,sts)
+values('CONTACTO','/CONTACTO','A');
 
-insert into empresa(nom,carpeta,sts)
-values('ATENTO2','C:/ATENTO2','A');
+insert into Empresa(nom,carpeta,sts)
+values('ATENTO2','/ATENTO2','A');
 
 commit;
 
