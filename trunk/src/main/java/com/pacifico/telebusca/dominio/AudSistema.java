@@ -26,7 +26,7 @@ public class AudSistema implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "CODAUDSIST")
 	private int codAudoSist;
 

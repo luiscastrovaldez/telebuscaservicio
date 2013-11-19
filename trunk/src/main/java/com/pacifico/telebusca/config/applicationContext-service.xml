@@ -28,8 +28,8 @@
         </property>
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" />
-				<property name="database" value="MYSQL" />
+				<property name="databasePlatform" value="org.hibernate.dialect.Oracle9iDialect" />
+				<property name="database" value="ORACLE" />
 				<property name="showSql" value="true" />
 				<property name="generateDdl" value="false" />
 			</bean>

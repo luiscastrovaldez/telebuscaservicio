@@ -24,8 +24,8 @@
 		<commons-pool>1.5.4</commons-pool>
 		<commons-io>2.4</commons-io>
 		<commons-dbcp>1.3</commons-dbcp>
-		<oracle>11.2.0.3.0</oracle>
-		<telebuscaconfoguracion>11.2.0.3.0</telebuscaconfoguracion>
+		<oracle>ojdbc14</oracle>
+		<telebuscaconfoguracion>1.0.0.0</telebuscaconfoguracion>
 	</properties>
 
 	<dependencies>
@@ -33,7 +33,8 @@
 		<dependency>
 			<groupId>com.pacifico.telebusca.config</groupId>
 			<artifactId>telebusca-configuracion</artifactId>
-			<version>1.0.0.0</version>
+			<version>${telebuscaconfoguracion}</version>
+			<scope>test</scope>
 		</dependency>
 		<!-- Hibernate dependencies -->
 		<dependency>
@@ -95,7 +96,11 @@
 		</dependency>
 
 		<!-- Hibernate dependencies -->
-
+<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.12.1.GA</version>
+		</dependency>
 
 		<!-- Spring dependencies -->
 		<dependency>
@@ -139,6 +144,11 @@
 		<!-- Spring dependencies -->
 
 		<!-- Aspect dependencies -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
