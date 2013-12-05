@@ -48,7 +48,7 @@ public class AudioServicioImpl implements AudioServicio {
 							.getNombresCliente(), llamada.getTelefonoCliente(),
 							Timestamp.valueOf(nueva + " " +  llamada.getHoraVenta()), llamada.getDniAsesor(), llamada.getProceso(), llamada
 							.getVdn(), llamada.getSkill(), llamada
-							.getRutaAudio(), Util.getDate(), Util.getDate(),
+							.getRutaAudio(), Util.getDateTimeStamp(), Util.getDateTimeStamp(),
 					nombreUsuario, nombreUsuario);
 			this.audioDAO.guardarAudio(audio);
 		}

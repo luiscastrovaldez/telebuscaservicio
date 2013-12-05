@@ -13,9 +13,9 @@ import org.apache.log4j.Logger;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.pacifico.telebusca.commons.Constants;
 import com.pacifico.telebusca.dominio.Empresa;
 import com.pacifico.telebusca.servicio.EmpresaServicio;
 import com.pacifico.telebusca.servicio.xml.dominio.Llamada;
@@ -35,6 +35,30 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 	private List<Object> audiosValidos;
 	private List<Object> audiosNoValidos;
 	private String rutaAudio;
+	
+	@Value("#{telebusca['jboss.home.linux']}")
+	private String jbossLinux;
+	
+	@Value("#{telebusca['jboss.home.win']}")
+	private String jbossWindows;
+	
+	@Value("#{telebusca['ruta.audios']}")
+	private String rutaAudios;
+	
+	@Value("#{telebusca['dynamicall']}")
+	private String dynamicall;
+	
+	@Value("#{telebusca['atento1']}")
+	private String atento1;
+	
+	@Value("#{telebusca['contacto']}")
+	private String contacto;
+	
+	@Value("#{telebusca['atento2']}")
+	private String atento2;
+	
+
+		
 	
 	@Autowired
 	private EmpresaServicio empresaServicio;
@@ -85,8 +109,8 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 					errores.append(" Error Empresa " + llamada.getEmpresa());
 					errores.append(", ");
 				}
-				if (!Constants.ATENTO2.equals(llamada.getEmpresa())) {
-					if ("".equals(llamada.getDniCliente())) {
+				if (!atento2.equals(llamada.getEmpresa())) {
+					if ("".equals(llamada.getDniCliente()) || llamada.getDniCliente() == null) {
 						dniCliente++;
 						isValido = Boolean.TRUE;
 						errores.append(" Error Dni Cliente "
@@ -94,7 +118,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 						errores.append(", ");
 					}
 
-					if ("".equals(llamada.getApellidoPaternoCliente())) {
+					if ("".equals(llamada.getApellidoPaternoCliente()) || llamada.getApellidoPaternoCliente() == null) {
 						apellidoPaterno++;
 						isValido = Boolean.TRUE;
 						errores.append(" Error Apellido Paterno "
@@ -102,7 +126,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 						errores.append(", ");
 					}
 
-					if ("".equals(llamada.getApellidoMaternoCliente())) {
+					if ("".equals(llamada.getApellidoMaternoCliente())|| llamada.getApellidoMaternoCliente()== null) {
 						apellidoMaterno++;
 						isValido = Boolean.TRUE;
 						errores.append(" Error Apellido Materno "
@@ -110,7 +134,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 						errores.append(", ");
 					}
 
-					if ("".equals(llamada.getNombresCliente())) {
+					if ("".equals(llamada.getNombresCliente())|| llamada.getNombresCliente() == null) {
 						nombresCliente++;
 						isValido = Boolean.TRUE;
 						errores.append(" Error " + llamada.getNombresCliente());
@@ -130,13 +154,13 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 					errores.append(", ");
 				}
 
-				if ("".equals(llamada.getHoraVenta())) {
+				if (validadHora(llamada.getHoraVenta())) {
 					horaVenta++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error Hora Venta " + llamada.getHoraVenta());
 					errores.append(", ");
 				}
-				if ("".equals(llamada.getDniAsesor())) {
+				if ("".equals(llamada.getDniAsesor()) || llamada.getDniAsesor()== null) {
 					dniAsesor++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error  DNI Asesor " + llamada.getDniAsesor());
@@ -148,23 +172,23 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 					errores.append(" Error Proceso " + llamada.getProceso());
 					errores.append(", ");
 				}
-				if (Constants.ATENTO2.equals(llamada.getEmpresa())) {
+				if (atento2.equals(llamada.getEmpresa())) {
 
-					if ("".equals(llamada.getVdn())) {
+					if ("".equals(llamada.getVdn()) || llamada.getVdn()==null) {
 						vdn++;
 						isValido = Boolean.TRUE;
 						errores.append(" Error VDN" + llamada.getVdn());
 						errores.append(", ");
 					}
 
-					if ("".equals(llamada.getSkill())) {
+					if ("".equals(llamada.getSkill()) || llamada.getSkill()== null) {
 						skill++;
 						isValido = Boolean.TRUE;
 						errores.append(" Error Skill " + llamada.getSkill());
 						errores.append(", ");
 					}
 				}
-				logger.info("info + " + this.rutaAudio + "ruta "  + llamada.getRutaAudio());
+				
 				if (!validadPath(this.rutaAudio, llamada.getRutaAudio())) {
 					rutaAudio++;
 					isValido = Boolean.TRUE;
@@ -206,7 +230,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 			validacionErrores.setAudiosNoValidos(audiosNoValidos);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("Error en la validacion del archivo xml ");
+			logger.error("Error en la validacion del archivo xml. ");
 			throw new Exception("Error en la validacion del archivo xml " + xml.getName());
 		}
 		logger.info("Terminando validacion del archivo xml " + xml.getName());
@@ -216,7 +240,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 	
 	
 	private boolean validarEmpresa(String nombreEmpresa){
-		if ("".equals(nombreEmpresa)){
+		if ("".equals(nombreEmpresa) || nombreEmpresa == null){
 			return Boolean.FALSE;
 		}
 		List<Empresa> empresas = new ArrayList<Empresa>();
@@ -232,7 +256,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		if (telefono.contains("-")){
 			return Boolean.FALSE;
 		}
-		if ("".equals(telefono)){
+		if ("".equals(telefono)  || telefono == null){
 			return Boolean.FALSE;
 		}		
 		if (telefono.length()!= 9){
@@ -242,7 +266,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 	}
 	
 	private boolean validadProceso(String proceso){
-		if ("".equals(proceso)){
+		if ("".equals(proceso) || proceso == null){
 			return Boolean.FALSE;
 		}
 		if ("IN".equals(proceso) || "OUT".equals(proceso)){
@@ -251,35 +275,41 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		return Boolean.FALSE;
 	}
 	
-	private boolean validadPath(String pathEmpresa, String path){
+	private boolean validadHora(String hora){
+		if ("".equals(hora) || hora == null){
+			return Boolean.FALSE;
+		}
+		
+		return Boolean.FALSE;
+	}
+	
+	private boolean validadPath(String pathEmpresa, String rutaXml){
 		
 		logger.info("pathEmpresa " + pathEmpresa);
-		logger.info("path " + path);
+		logger.info("rutaXml " + rutaXml);
 		
-		
-		
-		if ("".equals(path)){
+		if ("".equals(rutaXml) || rutaXml == null){
 			return Boolean.FALSE;
 		}
 		File directorio = null;
-		String[] splitPath = path.split("/");
-		directorio = new File(Constants.RUTA_ABSOLUTA + pathEmpresa+ "/"+splitPath[1]);
-		
-		logger.info("directorio 1 " + directorio.getAbsolutePath());
+		String[] splitPath = rutaXml.split("/");
+		if (isWindows()) {			
+			directorio = new File(jbossWindows + "/" +rutaAudios+"/"+ pathEmpresa + "/" + splitPath[1]);	
+		} else {
+			directorio = new File(jbossLinux+ "/" +rutaAudios+"/"+ pathEmpresa + "/" + splitPath[1]);
+		}				
+		logger.info("directorio " + directorio.getAbsolutePath());
 		if (!directorio.isDirectory()){
 			return Boolean.FALSE; 	
-		}
-		logger.info("directorio2 " + directorio.getAbsolutePath());
+		}		
 		
 		String[] archivos = directorio.list();
 		if (archivos != null ){
-			List<String> listaArchivos = Arrays.asList(archivos);
-			logger.info("listaArchivos " + listaArchivos.size() + " file 2 " + splitPath[2]);
-			logger.info("valida - " + listaArchivos.contains(splitPath[2]));
+			List<String> listaArchivos = Arrays.asList(archivos);			
+			logger.info("nombre de archivo " + splitPath[2] + " existe archivo "+listaArchivos.contains(splitPath[2]));
 			if (listaArchivos.contains(splitPath[2])){
 				return Boolean.TRUE;
-			}	
-			
+			}				
 		}
 		
 		return Boolean.FALSE;
@@ -337,8 +367,9 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		// TODO Auto-generated method stub	
 		
 		if (isWindows()){
-			path = path.substring(11,path.length());
-			path = "C:/bluestarenergy/jboss-6.1.0.Final/server/default/deploy/telebusca.war/" + path;
+			path = jbossWindows + rutaAudios+ path;
+		} else {			
+			path = jbossLinux + rutaAudios+ path;
 		}
 		
 		File source = new File(path);

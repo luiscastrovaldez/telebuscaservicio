@@ -49,6 +49,13 @@ public class UsuarioEmpresaDAOImpl extends HibernateJpaDialect implements
 		query.setParameter("nombreUsuario", nombreUsuario);
 		query.executeUpdate();
 	}
+	
+	public List<UsuarioEmpresa> buscarUsuarioEmpresaByNombreUsuario(String nombreUsuario) {
+		Query query = em
+				.createQuery("select b from UsuarioEmpresa b where b.usuario = :nombreUsuario ");
+		query.setParameter("nombreUsuario", nombreUsuario);
+		return (List<UsuarioEmpresa>) query.getResultList();
+	}
 
 	public UsuarioEmpresa buscarUsuarioEmpresaPorId(
 			Serializable pkUsuarioEmpresa) {
@@ -67,46 +74,30 @@ public class UsuarioEmpresaDAOImpl extends HibernateJpaDialect implements
 	public List<UsuariosEmpresasBean> listarUsuariosyEmpresasByNombreUsuarioAndCodEmpresa(
 			String nombreUsuario, int codEmpresa) {
 		Query query = em
-				.createQuery("select new com.pacifico.telebusca.web.beans.UsuariosEmpresasBean(a,b) from Empresa a, UsuarioEmpresa b where a.codEmpresa = b.codEmpresa "
+				.createQuery("select new com.pacifico.telebusca.web.beans.UsuariosEmpresasBean(a,b) "
+						+ "from Empresa a, UsuarioEmpresa b where a.codEmpresa = b.codEmpresa "
 						+ "and b.usuario =:nombreUsuario and a.codEmpresa =:codEmpresa");
 		query.setParameter("nombreUsuario", nombreUsuario);
 		query.setParameter("codEmpresa", codEmpresa);
 		return (List<UsuariosEmpresasBean>) query.getResultList();
 	}
 
-	public List<UsuariosEmpresasBean> listarUsuariosyEmpresas() {
+	public List<UsuariosEmpresasBean> listarUsuariosyEmpresasAsignadas() {
 		Query query = em
-				.createQuery("select new com.pacifico.telebusca.web.beans.UsuariosEmpresasBean(a,b) from Empresa a, UsuarioEmpresa b where a.codEmpresa = b.codEmpresa");
-
-		return (List<UsuariosEmpresasBean>) query.getResultList();
-	}
-
-	public List<UsuariosEmpresasBean> listarUsuariosyEmpresas1() {
-		Query query = em
-				.createQuery("select new com.pacifico.telebusca.web.beans.UsuariosEmpresasBean(a,b) from Empresa a, UsuarioEmpresa b where a.codEmpresa != b.codEmpresa group by a.codEmpresa ");
-
-		return (List<UsuariosEmpresasBean>) query.getResultList();
-	}
-
-	public List<UsuariosEmpresasBean> listarUsuariosyEmpresas2() {
-		Query query = em
-				.createQuery("select new com.pacifico.telebusca.web.beans.UsuariosEmpresasBean(a,b) from Empresa a, UsuarioEmpresa b where a.codEmpresa = b.codEmpresa group by a.codEmpresa ");
+				.createQuery("select new com.pacifico.telebusca.web.beans.UsuariosEmpresasBean(a,b) "
+						+ "from Empresa a, UsuarioEmpresa b where a.codEmpresa = b.codEmpresa");
 
 		return (List<UsuariosEmpresasBean>) query.getResultList();
 	}
 	
-	public List<UsuariosEmpresasBean> listarUsuariosyEmpresas3() {
+	public List<UsuariosEmpresasBean> listarEmpresas() {
 		Query query = em
-				.createQuery("select new com.pacifico.telebusca.web.beans.UsuariosEmpresasBean(a) from Empresa a");
+				.createQuery("select new com.pacifico.telebusca.web.beans.UsuariosEmpresasBean(a) "
+						+ "from Empresa a");
 
 		return (List<UsuariosEmpresasBean>) query.getResultList();
 	}
 
-	public List<UsuariosEmpresasBean> listarEmpresasAsignadasNoAsignadas() {
-		Query query = em.createQuery("select a from UsuarioEmpresa as a "
-				+ "left outer join  a.codEmpresa  as empresa");
-
-		return (List<UsuariosEmpresasBean>) query.getResultList();
-	}
+	
 
 }

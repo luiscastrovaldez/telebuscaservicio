@@ -18,9 +18,9 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />		
-		<property name="url" value="jdbc:oracle:thin:@//174.133.156.18:1521:/XE" />
-		<property name="username" value="USTLV100" />
-		<property name="password" value="PASSWORD" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${nombreUsuario}" />
+		<property name="password" value="${clave}" />
 		<property name="defaultAutoCommit" value="false" />
 	</bean>
 		

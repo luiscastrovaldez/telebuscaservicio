@@ -2,6 +2,7 @@ package com.pacifico.telebusca.servicio;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class UsuarioEmpresaServicioImpl implements UsuarioEmpresaServicio {
 
 	@Autowired
 	private UsuarioEmpresaDAO usuarioempresaDAO;
+	
 
 	public void guardarUsuarioEmpresa(UsuarioEmpresa usuarioempresa) {
 		this.usuarioempresaDAO.guardarUsuarioEmpresa(usuarioempresa);
@@ -42,15 +44,10 @@ public class UsuarioEmpresaServicioImpl implements UsuarioEmpresaServicio {
 				.listarUsuariosyEmpresasByNombreUsuario(nombreUsuario);
 	}
 
-	public List<UsuariosEmpresasBean> listarUsuariosyEmpresas() {
-		return this.usuarioempresaDAO.listarUsuariosyEmpresas();
+	public List<UsuariosEmpresasBean> listarUsuariosyEmpresasAsignadas(){
+		 return this.usuarioempresaDAO.listarUsuariosyEmpresasAsignadas();
 	}
-
-	public List<UsuariosEmpresasBean> listarEmpresasAsignadasNoAsignadas() {
-
-		return this.usuarioempresaDAO.listarEmpresasAsignadasNoAsignadas();
-	}
-
+	
 	public List<UsuariosEmpresasBean> listarUsuariosyEmpresasByNombreUsuarioAndCodEmpresa(
 			String nombreUsuario, int codEmpresa) {
 		return this.usuarioempresaDAO
@@ -58,22 +55,47 @@ public class UsuarioEmpresaServicioImpl implements UsuarioEmpresaServicio {
 						nombreUsuario, codEmpresa);
 	}
 
-	public List<UsuariosEmpresasBean> listarUsuariosyEmpresas1() {
+	public List<UsuariosEmpresasBean> listarUsuariosyEmpresas() {
 		
-		List<UsuariosEmpresasBean> listaUsuariosEmpresa =  new ArrayList<UsuariosEmpresasBean>();
-		listaUsuariosEmpresa = this.usuarioempresaDAO.listarUsuariosyEmpresas1(); 
-		
-		if (listaUsuariosEmpresa == null || listaUsuariosEmpresa.size() == 0){
-			listaUsuariosEmpresa = this.usuarioempresaDAO.listarUsuariosyEmpresas2();
+		List<UsuariosEmpresasBean> listaUsuariosEmpresasAux = new ArrayList<UsuariosEmpresasBean>();
+		List<Integer> ids = new ArrayList<Integer>();
+		List<UsuariosEmpresasBean> listaUsuariosEmpresas = this.usuarioempresaDAO.listarUsuariosyEmpresasAsignadas();
+		List<UsuariosEmpresasBean> empresas = this.usuarioempresaDAO.listarEmpresas();
+		boolean isIncluido = false;
+		if (listaUsuariosEmpresas !=null && !listaUsuariosEmpresas.isEmpty()){
+			
+			for (Iterator iterator2 = listaUsuariosEmpresas.iterator(); iterator2
+					.hasNext();) {
+				UsuariosEmpresasBean usuariosEmpresasBean = (UsuariosEmpresasBean) iterator2
+						.next();						
+				ids.add(usuariosEmpresasBean.getEmpresa().getCodEmpresa());										
+			}
+			
+			if(empresas != null && !empresas.isEmpty()){
+				
+				for (Iterator iterator = empresas.iterator(); iterator
+						.hasNext();) {
+					UsuariosEmpresasBean empresa = (UsuariosEmpresasBean) iterator
+							.next();
+					
+					if (!ids.contains(empresa.getEmpresa().getCodEmpresa())){
+						listaUsuariosEmpresasAux.add(empresa);
+					}
+					
+					
+					
+				}
+			}
+			if (listaUsuariosEmpresasAux.size() > 0){
+				listaUsuariosEmpresas.addAll(listaUsuariosEmpresasAux);
+			}	
+			return listaUsuariosEmpresas;
 		} else {
-			listaUsuariosEmpresa.addAll(this.usuarioempresaDAO.listarUsuariosyEmpresas2());
+			return empresas;
 		}
 		
-		if (listaUsuariosEmpresa == null || listaUsuariosEmpresa.size() == 0){
-			listaUsuariosEmpresa = this.usuarioempresaDAO.listarUsuariosyEmpresas3();	
-		}
 		
-		return listaUsuariosEmpresa;
+		
 	}
 
 	public void eliminarUsuarioEmpresaByNombreUsuario(String nombreUsuario) {
@@ -86,5 +108,11 @@ public class UsuarioEmpresaServicioImpl implements UsuarioEmpresaServicio {
 	public void eliminarUsuarioEmpresaByCodEmpresa(int codEmpresa) {
 		this.usuarioempresaDAO.eliminarUsuarioEmpresaByCodEmpresa(codEmpresa);
 
+	}
+
+	public List<UsuarioEmpresa> buscarUsuarioEmpresaByNombreUsuario(
+			String nombreUsuario) {
+		// TODO Auto-generated method stub
+		return this.usuarioempresaDAO.buscarUsuarioEmpresaByNombreUsuario(nombreUsuario);
 	}
 }

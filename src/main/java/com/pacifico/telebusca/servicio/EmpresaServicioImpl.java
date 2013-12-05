@@ -17,7 +17,7 @@ public class EmpresaServicioImpl implements EmpresaServicio {
 	@Autowired
 	private EmpresaDAO empresaDAO;
 
-	public void guardarEmpresa(Empresa empresa) {
+	public void guardarEmpresa(Empresa empresa) {		
 		this.empresaDAO.guardarEmpresa(empresa);
 	}
 

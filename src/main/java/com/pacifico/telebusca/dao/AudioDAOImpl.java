@@ -34,46 +34,46 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 
 	public List<Audio> buscarAudios(Audio audio,Integer firstIndex , Integer maxNumber ) {
 		StringBuffer sql = new StringBuffer(
-				"select a from Audio a  where fecVenta between :start_date and :end_date");
+				"select * from Audio where to_char(fecVenta,'YYYY-MM-DD HH24:MI:SS') between :start_date and :end_date");
 
 		if (audio.getDniCliente() != null && !"".equals(audio.getDniCliente())) {
-			sql.append(" and dniCliente = :dniCliente");					
+			sql.append(" and DNICLI = :dniCliente");					
 		}
 
 		if (audio.getApellidoMaterno() != null
 				&& !"".equals(audio.getApellidoMaterno())) {
-			sql.append(" and apellidoMaterno = :apellidoMaterno");			
+			sql.append(" and APEMATCLI = :apellidoMaterno");			
 		}
 		if (audio.getApellidoPaterno() != null
 				&& !"".equals(audio.getApellidoPaterno())) {
-			sql.append(" and apellidoPaterno = :apellidoPaterno");			
+			sql.append(" and APEPATCLI = :apellidoPaterno");			
 		}
 		if (audio.getTelefonoNumeroCliente() != null
 				&& !"".equals(audio.getTelefonoNumeroCliente())) {
-			sql.append(" and telefonoNumeroCliente = :telefonoNumeroCliente");
+			sql.append(" and TLFNOCLI = :telefonoNumeroCliente");
 		}
 		if (audio.getNombresCliente() != null
 				&& !"".equals(audio.getNombresCliente())) {
-			sql.append(" and nombrescliente = :nombrescliente");
+			sql.append(" and NOMCLI = :nombrescliente");
 		}
 		if (audio.getProceso() != null && !"".equals(audio.getProceso())) {
-			sql.append(" and proceso = :proceso");
+			sql.append(" and PROC = :proceso");
 		}
 		if (audio.getDniAsesor() != null && !"".equals(audio.getDniAsesor())) {
-			sql.append(" and dniasesor = :dniasesor");
+			sql.append(" and DNIASESOR = :dniasesor");
 		}
 		if (audio.getVdn() != null && !"".equals(audio.getVdn())) {
-			sql.append(" and vdn = :vdn");
+			sql.append(" and VDN = :vdn");
 		}
 		if (audio.getSkill() != null && !"".equals(audio.getSkill())) {
-			sql.append(" and skill = :skill");
+			sql.append(" and SKILL = :skill");
 		}
 		if (audio.getCodEmpresa() != 0
 				&& !"".equals(Integer.toString(audio.getCodEmpresa()))) {
-			sql.append(" and codempresa = :codempresa");
+			sql.append(" and CODEMPRESA = :codempresa");
 		}
 
-		Query query = em.createQuery(sql.toString());
+		Query query = em.createNativeQuery(sql.toString(),Audio.class);
 		query.setFirstResult(firstIndex);
 		query.setMaxResults(maxNumber);
 		
@@ -123,48 +123,58 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 		return (List<Audio>) query.getResultList();
 	}
 	
+	public int buscarTest(String fech, String fech1){
+		StringBuffer sql = new StringBuffer(
+				"select * from Audio where to_char(fecVenta,'YYYY-MM-DD HH24:MI:SS') between :start_date and :end_date");
+		Query query = em.createNativeQuery(sql.toString(),Audio.class);
+		query.setParameter("start_date", fech);
+		query.setParameter("end_date", fech1 );
+		List lista = (List)query.getResultList();
+		return 1;
+	}
+	
 	public int buscarContarAudios(Audio audio) {
 		StringBuffer sql = new StringBuffer(
-				"select a from Audio a  where fecVenta between :start_date and :end_date");
+				"select * from Audio  where to_char(fecVenta,'YYYY-MM-DD HH24:MI:SS') between :start_date and :end_date");
 
 		if (audio.getDniCliente() != null && !"".equals(audio.getDniCliente())) {
-			sql.append(" and dniCliente = :dniCliente");					
+			sql.append(" and DNICLI = :dniCliente");					
 		}
 
 		if (audio.getApellidoMaterno() != null
 				&& !"".equals(audio.getApellidoMaterno())) {
-			sql.append(" and apellidoMaterno = :apellidoMaterno");			
+			sql.append(" and APEMATCLI = :apellidoMaterno");			
 		}
 		if (audio.getApellidoPaterno() != null
 				&& !"".equals(audio.getApellidoPaterno())) {
-			sql.append(" and apellidoPaterno = :apellidoPaterno");			
+			sql.append(" and APEPATCLI = :apellidoPaterno");			
 		}
 		if (audio.getTelefonoNumeroCliente() != null
 				&& !"".equals(audio.getTelefonoNumeroCliente())) {
-			sql.append(" and telefonoNumeroCliente = :telefonoNumeroCliente");
+			sql.append(" and TLFNOCLI = :telefonoNumeroCliente");
 		}
 		if (audio.getNombresCliente() != null
 				&& !"".equals(audio.getNombresCliente())) {
-			sql.append(" and nombrescliente = :nombrescliente");
+			sql.append(" and NOMCLI = :nombrescliente");
 		}
 		if (audio.getProceso() != null && !"".equals(audio.getProceso())) {
-			sql.append(" and proceso = :proceso");
+			sql.append(" and PROC = :proceso");
 		}
 		if (audio.getDniAsesor() != null && !"".equals(audio.getDniAsesor())) {
-			sql.append(" and dniasesor = :dniasesor");
+			sql.append(" and DNIASESOR = :dniasesor");
 		}
 		if (audio.getVdn() != null && !"".equals(audio.getVdn())) {
-			sql.append(" and vdn = :vdn");
+			sql.append(" and VDN = :vdn");
 		}
 		if (audio.getSkill() != null && !"".equals(audio.getSkill())) {
-			sql.append(" and skill = :skill");
+			sql.append(" and SKILL = :skill");
 		}
 		if (audio.getCodEmpresa() != 0
 				&& !"".equals(Integer.toString(audio.getCodEmpresa()))) {
-			sql.append(" and codempresa = :codempresa");
+			sql.append(" and CODEMPRESA = :codempresa");
 		}
 		//sql.append(" group by codAudio ");
-		Query query = em.createQuery(sql.toString());		
+		Query query = em.createNativeQuery(sql.toString(),Audio.class);		
 		
 		query.setParameter("start_date", audio.getFechaInicial() + " "
 				+ audio.getHoraInicial());

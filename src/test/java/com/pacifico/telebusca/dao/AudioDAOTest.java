@@ -23,6 +23,11 @@ public class AudioDAOTest extends TeleBuscaTest {
 	
 	@Test
 	public void testBuscarAudio() {
+		audioDAO.buscarTest("2013-01-19 23:45" , "2013-11-19 23:45");
+	}
+	
+	/*@Test
+	public void testBuscarAudio() {
 		System.out.println("****** Test Buscar by Audio ******");
 		
 		
@@ -33,10 +38,10 @@ public class AudioDAOTest extends TeleBuscaTest {
 			start_date="2013-10-24 8:00";
 			end_date="2013-10-24 18:00";
 			Audio audiobject = new Audio();
-			/*audiobject =  new Audio (1,2,"42739567", "Santa Cruz","Tapia","Pedro","4552252",new Timestamp(
+			audiobject =  new Audio (1,2,"42739567", "Santa Cruz","Tapia","Pedro","4552252",new Timestamp(
 			Calendar.getInstance().getTimeInMillis()),"11111111","PROCESO","VDN","skill","/temp",new Timestamp(
 						Calendar.getInstance().getTimeInMillis()),new Timestamp(
-									Calendar.getInstance().getTimeInMillis()),"psantacruz","psantacruz");*/
+									Calendar.getInstance().getTimeInMillis()),"psantacruz","psantacruz");
 			
 			audiobject = new Audio();
 			audiobject.setCodEmpresa(1);
@@ -58,7 +63,7 @@ public class AudioDAOTest extends TeleBuscaTest {
 		}
 		System.out.println("****** Test Buscar Audios ******");
 	}
-	
+*/	
 	@Test public void myTest() {}
 	}
 	

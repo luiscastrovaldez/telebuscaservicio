@@ -16,5 +16,5 @@ public interface AudioDAO {
 	List<Audio> buscarAudios(Audio audio,Integer firstIndex , Integer maxNumber);
 	
 	int buscarContarAudios(Audio audio);
-
+	int buscarTest(String fech, String fech1);
 }
