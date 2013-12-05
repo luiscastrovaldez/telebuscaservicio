@@ -23,9 +23,7 @@ public interface UsuarioEmpresaServicio {
 	 
 	 List<UsuariosEmpresasBean> listarUsuariosyEmpresas();
 	 
-	 List<UsuariosEmpresasBean> listarUsuariosyEmpresas1();
-	 
-	 List<UsuariosEmpresasBean> listarEmpresasAsignadasNoAsignadas();
-	 
+	 List<UsuariosEmpresasBean> listarUsuariosyEmpresasAsignadas();
 	 List<UsuariosEmpresasBean> listarUsuariosyEmpresasByNombreUsuarioAndCodEmpresa(String nombreUsuario, int codEmpresa);
+	 List<UsuarioEmpresa> buscarUsuarioEmpresaByNombreUsuario(String nombreUsuario);
 }

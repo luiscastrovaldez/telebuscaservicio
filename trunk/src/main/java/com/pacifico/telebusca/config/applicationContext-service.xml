@@ -40,15 +40,7 @@
 	<import
 		resource="classpath:/com/pacifico/telebusca/config/applicationContext-dao.xml" />
 
-	<aop:config>
-		<aop:aspect ref="auditLoggerAdvice">
-			<aop:pointcut id="metodosAuditados"
-				expression="execution(* com.pacifico.telebusca.servicio.*.*(..))  &amp;&amp; !execution(* com.pacifico.telebusca.servicio.AudSistemaServicioImpl*.*(..))" />
-			<aop:after pointcut-ref="metodosAuditados" method="auditoria" />
-		</aop:aspect>
-
-	</aop:config>
-
+	
 
 
 </beans>    

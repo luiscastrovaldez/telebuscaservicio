@@ -26,17 +26,12 @@ public interface UsuarioEmpresaDAO {
 
 	List<Empresa> listarUsuariosyEmpresasByNombreUsuario(String nombreUsuario);
 
-	List<UsuariosEmpresasBean> listarUsuariosyEmpresas();
+	List<UsuariosEmpresasBean> listarUsuariosyEmpresasAsignadas();
 
-	List<UsuariosEmpresasBean> listarUsuariosyEmpresas1();
-
-	List<UsuariosEmpresasBean> listarEmpresasAsignadasNoAsignadas();
-
-	List<UsuariosEmpresasBean> listarUsuariosyEmpresas2();
-	
-	List<UsuariosEmpresasBean> listarUsuariosyEmpresas3();
-
+	List<UsuariosEmpresasBean> listarEmpresas();
 	List<UsuariosEmpresasBean> listarUsuariosyEmpresasByNombreUsuarioAndCodEmpresa(
 			String nombreUsuario, int codEmpresa);
+	
+	List<UsuarioEmpresa> buscarUsuarioEmpresaByNombreUsuario(String nombreUsuario);
 
 }
