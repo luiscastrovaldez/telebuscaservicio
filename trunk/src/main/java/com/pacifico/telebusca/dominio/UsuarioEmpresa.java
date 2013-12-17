@@ -6,11 +6,10 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
+import javax.persistence.Transient;
 
 /**
  * @author lcastro
@@ -20,7 +19,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Usuario_Empresa")
-public class UsuarioEmpresa implements Serializable{
+public class UsuarioEmpresa implements Serializable {
 
 	/**
 	 * 
@@ -28,8 +27,8 @@ public class UsuarioEmpresa implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(generator="secUsuarioEmpresa") 
-    @SequenceGenerator(name="secUsuarioEmpresa",sequenceName="SEC_USUARIO_EMPRESA")
+	@GeneratedValue(generator = "secUsuarioEmpresa")
+	@SequenceGenerator(name = "secUsuarioEmpresa", sequenceName = "SEC_USUARIO_EMPRESA")
 	@Column(name = "CODUSREMPRESA")
 	private int codUsuarioEmpresa;
 
@@ -51,8 +50,9 @@ public class UsuarioEmpresa implements Serializable{
 	@Column(name = "USRMOD")
 	private String usuarioModificacion;
 
-	
-	
+	@Transient
+	private int[] empresas;
+
 	public UsuarioEmpresa() {
 
 	}
@@ -125,6 +125,15 @@ public class UsuarioEmpresa implements Serializable{
 
 	public void setUsuarioModificacion(String usuarioModificacion) {
 		this.usuarioModificacion = usuarioModificacion;
+
+	}
+
+	public int[] getEmpresas() {
+		return empresas;
+	}
+
+	public void setEmpresas(int[] empresas) {
+		this.empresas = empresas;
 	}
 
 }

@@ -46,6 +46,24 @@ public class EmpresaDAOImpl extends HibernateJpaDialect implements EmpresaDAO {
 
 		return (List<Empresa>) query.getResultList();
 	}
+	
+	public List<Empresa> buscarEmpresas(Integer firstIndex , Integer maxNumber) {
+		Query query = em.createQuery("select c from Empresa c");
+		query.setFirstResult(firstIndex);
+		query.setMaxResults(maxNumber);
+		return (List<Empresa>) query.getResultList();
+	}
+	
+	public int buscarContarEmpresas() {
+		Query query = em.createQuery("select c from Empresa c");
+		
+		List lista = (List)query.getResultList();
+		int total = 0;
+		if (lista != null && lista.size() > 0){
+			total = lista.size();
+		}
+		return total;
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Empresa> buscarEmpresaPorNombre(Serializable nombreEmpresa) {

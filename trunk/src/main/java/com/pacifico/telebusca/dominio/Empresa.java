@@ -6,10 +6,10 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author lcastro
@@ -19,16 +19,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Empresa")
-public class Empresa implements Serializable{
+public class Empresa implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Id	
-	@GeneratedValue(generator="secEmpresa") 
-    @SequenceGenerator(name="secEmpresa",sequenceName="SEC_EMPRESA") 
+	@Id
+	@GeneratedValue(generator = "secEmpresa")
+	@SequenceGenerator(name = "secEmpresa", sequenceName = "SEC_EMPRESA")
 	@Column(name = "CODEMPRESA")
 	private int codEmpresa;
 
@@ -53,14 +53,30 @@ public class Empresa implements Serializable{
 	@Column(name = "USRMOD")
 	private String usuarioModificacion;
 
+	@Transient
+	private int[] empresas;
+
+	@Transient
+	private String usuario;
+	@Transient
+	private int codEmpresa1;
+
+	public Empresa(int codEmpresa,String nombreEmpresa, String usuario, int codEmpresa1) {
+		super();
+		this.nombreEmpresa = nombreEmpresa;
+		this.usuario = usuario;
+		this.codEmpresa = codEmpresa;
+		this.codEmpresa1 = codEmpresa1;
+	}
+
 	public Empresa() {
 
 	}
 
-	public Empresa(String nombreEmpresa, String carpeta,
-			String sts, Timestamp fechaCreacion, Timestamp fechaModificacion,
+	public Empresa(String nombreEmpresa, String carpeta, String sts,
+			Timestamp fechaCreacion, Timestamp fechaModificacion,
 			String usuarioCreacion, String usuarioModificacion) {
-		super();		
+		super();
 		this.nombreEmpresa = nombreEmpresa;
 		this.carpeta = carpeta;
 		this.sts = sts;
@@ -134,4 +150,29 @@ public class Empresa implements Serializable{
 		this.usuarioModificacion = usuarioModificacion;
 	}
 
+	public int[] getEmpresas() {
+		return empresas;
+	}
+
+	public void setEmpresas(int[] empresas) {
+		this.empresas = empresas;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public int getCodEmpresa1() {
+		return codEmpresa1;
+	}
+
+	public void setCodEmpresa1(int codEmpresa1) {
+		this.codEmpresa1 = codEmpresa1;
+	}
+
+	
 }

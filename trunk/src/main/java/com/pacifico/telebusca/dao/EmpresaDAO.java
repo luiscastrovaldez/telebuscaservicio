@@ -23,4 +23,8 @@ public interface EmpresaDAO {
 	void eliminarEmpresa(int codEmpresa);
 
 	List<Empresa> listarEmpresas();
+	
+	int buscarContarEmpresas();
+	
+	List<Empresa> buscarEmpresas(Integer firstIndex , Integer maxNumber);
 }

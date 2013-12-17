@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -110,15 +111,16 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 					errores.append(", ");
 				}
 				if (!atento2.equals(llamada.getEmpresa())) {
-					if ("".equals(llamada.getDniCliente()) || llamada.getDniCliente() == null) {
+					if (!validarDniCliente(llamada.getDniCliente())) {
 						dniCliente++;
 						isValido = Boolean.TRUE;
 						errores.append(" Error Dni Cliente "
 								+ llamada.getDniCliente());
 						errores.append(", ");
+						
 					}
 
-					if ("".equals(llamada.getApellidoPaternoCliente()) || llamada.getApellidoPaternoCliente() == null) {
+					if (!validarApellidos(llamada.getApellidoPaternoCliente())) {
 						apellidoPaterno++;
 						isValido = Boolean.TRUE;
 						errores.append(" Error Apellido Paterno "
@@ -126,7 +128,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 						errores.append(", ");
 					}
 
-					if ("".equals(llamada.getApellidoMaternoCliente())|| llamada.getApellidoMaternoCliente()== null) {
+					if (!validarApellidos(llamada.getApellidoMaternoCliente())) {
 						apellidoMaterno++;
 						isValido = Boolean.TRUE;
 						errores.append(" Error Apellido Materno "
@@ -134,62 +136,64 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 						errores.append(", ");
 					}
 
-					if ("".equals(llamada.getNombresCliente())|| llamada.getNombresCliente() == null) {
+					if (!validarNombres(llamada.getNombresCliente())) {
 						nombresCliente++;
 						isValido = Boolean.TRUE;
 						errores.append(" Error " + llamada.getNombresCliente());
 						errores.append(", ");
 					}
 				}
-				if (!validadTelefono(llamada.getTelefonoCliente())) {
+				if (!validarTelefono(llamada.getTelefonoCliente())) {
 					telefonoNumeroCliente++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error TeleFono Cliente " + llamada.getTelefonoCliente());
 					errores.append(", ");
 				}
-				if (!validadFecha(llamada.getFechaVenta(), "dd/MM/yyyy")) {
+				if (!validarFecha(llamada.getFechaVenta(), "dd/MM/yyyy")) {
 					fechaVenta++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error Fecha Venta " + llamada.getFechaVenta());
 					errores.append(", ");
 				}
 
-				if (validadHora(llamada.getHoraVenta())) {
+				if (!validarHora(llamada.getHoraVenta())) {
 					horaVenta++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error Hora Venta " + llamada.getHoraVenta());
 					errores.append(", ");
 				}
-				if ("".equals(llamada.getDniAsesor()) || llamada.getDniAsesor()== null) {
+				if (!validarDni(llamada.getDniAsesor())) {
 					dniAsesor++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error  DNI Asesor " + llamada.getDniAsesor());
 					errores.append(", ");
 				}
-				if (!validadProceso(llamada.getProceso())) {
+				if (!validarProceso(llamada.getProceso())) {
 					proceso++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error Proceso " + llamada.getProceso());
 					errores.append(", ");
 				}
-				if (atento2.equals(llamada.getEmpresa())) {
-
-					if ("".equals(llamada.getVdn()) || llamada.getVdn()==null) {
-						vdn++;
-						isValido = Boolean.TRUE;
-						errores.append(" Error VDN" + llamada.getVdn());
-						errores.append(", ");
-					}
-
-					if ("".equals(llamada.getSkill()) || llamada.getSkill()== null) {
-						skill++;
-						isValido = Boolean.TRUE;
-						errores.append(" Error Skill " + llamada.getSkill());
-						errores.append(", ");
-					}
-				}
 				
-				if (!validadPath(this.rutaAudio, llamada.getRutaAudio())) {
+
+
+				if (!validarVdn(llamada.getVdn(),atento2.equals(llamada.getEmpresa()))) {
+					vdn++;
+					isValido = Boolean.TRUE;
+					errores.append(" Error VDN" + llamada.getVdn());
+					errores.append(", ");
+				}
+
+				if (!validarSkill(llamada.getVdn(),atento2.equals(llamada.getSkill()))) {
+					skill++;
+					isValido = Boolean.TRUE;
+					errores.append(" Error Skill " + llamada.getSkill());
+					errores.append(", ");
+				}
+			
+				
+				
+				if (!validarPath(this.rutaAudio, llamada.getRutaAudio())) {
 					rutaAudio++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error Ruta Archivo " + llamada.getRutaAudio());
@@ -239,10 +243,133 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 
 	
 	
+	private boolean validarSkill(String skill,boolean isAtento2) {
+		// TODO Auto-generated method stub
+		if (isAtento2){ 
+			if(skill == null){
+				return Boolean.FALSE;
+			}
+			if("".equals(skill)){
+				return Boolean.FALSE;
+			}
+			if(skill.length() != 10){
+				return Boolean.FALSE;
+			}
+			if(!StringUtils.isAlphanumeric(skill)){
+				return Boolean.FALSE;
+			}	
+		} else {
+			if(skill.length() == 0 || skill.length() == 10){
+				return Boolean.TRUE;
+			} 
+			if(!StringUtils.isAlphanumeric(skill)){
+				return Boolean.FALSE;
+			}
+		}
+		
+		
+		return Boolean.TRUE;
+	}
+
+	private boolean validarVdn(String vdn, boolean isAtento2) {
+		// TODO Auto-generated method stub
+		if (isAtento2){
+			if(vdn == null){
+				return Boolean.FALSE;
+			}
+			if("".equals(vdn)){
+				return Boolean.FALSE;
+			}
+			if(vdn.length() != 10){
+				return Boolean.FALSE;
+			}
+			if(!StringUtils.isAlphanumeric(vdn)){
+				return Boolean.FALSE;
+			}	
+		} else {
+			if(vdn.length() == 0 || vdn.length() == 10){
+				return Boolean.FALSE;
+			}
+			if(!StringUtils.isAlphanumeric(vdn)){
+				return Boolean.FALSE;
+			}
+		}
+		
+		return Boolean.TRUE;
+	}
+
+	private boolean validarDniCliente(String dniCliente) {
+		// TODO Auto-generated method stub
+		if (dniCliente == null){
+			return Boolean.FALSE;	
+		}
+		if ("".equals(dniCliente)){
+			return Boolean.FALSE;
+		}
+		
+		if (dniCliente.length() < 8 || dniCliente.length() > 15){
+			return Boolean.FALSE;
+		}
+		
+		if (!StringUtils.isNumeric(dniCliente)){
+			return Boolean.FALSE;
+		}
+		
+		
+		return Boolean.TRUE;
+	}
+	
+	private boolean validarDni(String dniCliente) {
+		// TODO Auto-generated method stub
+		if (dniCliente == null){
+			return Boolean.FALSE;	
+		}
+		if ("".equals(dniCliente)){
+			return Boolean.FALSE;
+		}
+		
+		if (dniCliente.length() != 8){
+			return Boolean.FALSE;
+		}	
+		if (!StringUtils.isNumeric(dniCliente)){
+			return Boolean.FALSE;
+		}
+		return Boolean.TRUE;
+	}
+
+	private boolean validarNombres(String nombres){
+		if (nombres == null){
+			return Boolean.FALSE;
+		}
+		if ("".equals(nombres)){
+			return Boolean.FALSE;
+		}
+		if (!StringUtils.isAlphaSpace(nombres)){
+			return Boolean.FALSE;
+		}
+		
+		return Boolean.TRUE;
+	}
+	
+	private boolean validarApellidos(String nombres){
+		if (nombres == null){
+			return Boolean.FALSE;
+		}
+		if ("".equals(nombres)){
+			return Boolean.FALSE;
+		}
+		if (!StringUtils.isAlpha(nombres)){
+			return Boolean.FALSE;
+		}
+		
+		return Boolean.TRUE;
+	}
+	
 	private boolean validarEmpresa(String nombreEmpresa){
 		if ("".equals(nombreEmpresa) || nombreEmpresa == null){
 			return Boolean.FALSE;
-		}
+		} 
+		
 		List<Empresa> empresas = new ArrayList<Empresa>();
 		empresas = empresaServicio.buscarEmpresaPorNombre(nombreEmpresa);
 		if (empresas!=null && !empresas.isEmpty()){
@@ -252,38 +379,61 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		return Boolean.FALSE;
 	}
 	
-	private boolean validadTelefono(String telefono){
+	private boolean validarTelefono(String telefono){
+		
+		if ("".equals(telefono)  || telefono == null){
+			return Boolean.FALSE;
+		}
+		
 		if (telefono.contains("-")){
 			return Boolean.FALSE;
 		}
-		if ("".equals(telefono)  || telefono == null){
-			return Boolean.FALSE;
-		}		
 		if (telefono.length()!= 9){
+			return Boolean.FALSE;
+		}
+		if (!StringUtils.isNumeric(telefono)){
 			return Boolean.FALSE;
 		}
 		return Boolean.TRUE;
 	}
 	
-	private boolean validadProceso(String proceso){
+	private boolean validarProceso(String proceso){
 		if ("".equals(proceso) || proceso == null){
 			return Boolean.FALSE;
 		}
 		if ("IN".equals(proceso) || "OUT".equals(proceso)){
 			return Boolean.TRUE; 
 		}
-		return Boolean.FALSE;
+		if (proceso.length() < 2 || proceso.length() > 3){
+			return Boolean.FALSE;
+		}
+		if (!StringUtils.isAlpha(proceso)){
+			return Boolean.FALSE;
+		}
+		return Boolean.TRUE;
 	}
 	
-	private boolean validadHora(String hora){
+	private boolean validarHora(String hora){
 		if ("".equals(hora) || hora == null){
 			return Boolean.FALSE;
 		}
+		if(hora.length() != 8){
+			return Boolean.FALSE;
+		}
+		SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+		Date formattedDate = null;
+		try {
+			formattedDate = df.parse(hora);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Boolean.FALSE;
+		}
 		
-		return Boolean.FALSE;
+		return Boolean.TRUE;
 	}
 	
-	private boolean validadPath(String pathEmpresa, String rutaXml){
+	private boolean validarPath(String pathEmpresa, String rutaXml){
 		
 		logger.info("pathEmpresa " + pathEmpresa);
 		logger.info("rutaXml " + rutaXml);
@@ -315,10 +465,15 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		return Boolean.FALSE;
 	}
 	
-	private boolean validadFecha(String dateToValidate, String dateFromat) {
+	private boolean validarFecha(String dateToValidate, String dateFromat) {
 		if (dateToValidate == null || "".equals(dateToValidate)) {
 			return Boolean.FALSE;
 		}
+		
+		if(dateToValidate.length() != 10){
+			return Boolean.FALSE;
+		}
+		
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
 		sdf.setLenient(false);
 		try {

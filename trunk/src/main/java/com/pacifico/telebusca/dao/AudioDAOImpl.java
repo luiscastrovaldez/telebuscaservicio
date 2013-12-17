@@ -34,19 +34,19 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 
 	public List<Audio> buscarAudios(Audio audio,Integer firstIndex , Integer maxNumber ) {
 		StringBuffer sql = new StringBuffer(
-				"select * from Audio where to_char(fecVenta,'YYYY-MM-DD HH24:MI:SS') between :start_date and :end_date");
-
+				"select * from Audio where to_char(fecVenta,'YYYY-MM-DD HH24:MI:SS') between to_char(to_date(:start_date,'YYYY-MM-DD HH24:MI'),'YYYY-MM-DD HH24:MI') and to_char(to_date(:end_date,'YYYY-MM-DD HH24:MI'),'YYYY-MM-DD HH24:MI')");
+		
 		if (audio.getDniCliente() != null && !"".equals(audio.getDniCliente())) {
 			sql.append(" and DNICLI = :dniCliente");					
 		}
 
 		if (audio.getApellidoMaterno() != null
 				&& !"".equals(audio.getApellidoMaterno())) {
-			sql.append(" and APEMATCLI = :apellidoMaterno");			
+			sql.append(" and LOWER(APEMATCLI) = LOWER(:apellidoMaterno)");			
 		}
 		if (audio.getApellidoPaterno() != null
 				&& !"".equals(audio.getApellidoPaterno())) {
-			sql.append(" and APEPATCLI = :apellidoPaterno");			
+			sql.append(" and LOWER(APEPATCLI) = LOWER(:apellidoPaterno)");			
 		}
 		if (audio.getTelefonoNumeroCliente() != null
 				&& !"".equals(audio.getTelefonoNumeroCliente())) {
@@ -54,7 +54,7 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 		}
 		if (audio.getNombresCliente() != null
 				&& !"".equals(audio.getNombresCliente())) {
-			sql.append(" and NOMCLI = :nombrescliente");
+			sql.append(" and LOWER(NOMCLI) = LOWER(:nombrescliente)");
 		}
 		if (audio.getProceso() != null && !"".equals(audio.getProceso())) {
 			sql.append(" and PROC = :proceso");
@@ -72,6 +72,9 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 				&& !"".equals(Integer.toString(audio.getCodEmpresa()))) {
 			sql.append(" and CODEMPRESA = :codempresa");
 		}
+		
+		sql.append(" order by to_char(fecVenta,'YYYY-MM-DD HH24:MI:SS') desc");
+		
 
 		Query query = em.createNativeQuery(sql.toString(),Audio.class);
 		query.setFirstResult(firstIndex);
@@ -135,7 +138,8 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 	
 	public int buscarContarAudios(Audio audio) {
 		StringBuffer sql = new StringBuffer(
-				"select * from Audio  where to_char(fecVenta,'YYYY-MM-DD HH24:MI:SS') between :start_date and :end_date");
+				"select * from Audio where to_char(fecVenta,'YYYY-MM-DD HH24:MI:SS') between to_char(to_date(:start_date,'YYYY-MM-DD HH24:MI'),'YYYY-MM-DD HH24:MI') and to_char(to_date(:end_date,'YYYY-MM-DD HH24:MI'),'YYYY-MM-DD HH24:MI')");
+
 
 		if (audio.getDniCliente() != null && !"".equals(audio.getDniCliente())) {
 			sql.append(" and DNICLI = :dniCliente");					
@@ -143,11 +147,11 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 
 		if (audio.getApellidoMaterno() != null
 				&& !"".equals(audio.getApellidoMaterno())) {
-			sql.append(" and APEMATCLI = :apellidoMaterno");			
+			sql.append(" and LOWER(APEMATCLI) = LOWER(:apellidoMaterno)");			
 		}
 		if (audio.getApellidoPaterno() != null
 				&& !"".equals(audio.getApellidoPaterno())) {
-			sql.append(" and APEPATCLI = :apellidoPaterno");			
+			sql.append(" and LOWER(APEPATCLI) = LOWER(:apellidoPaterno)");			
 		}
 		if (audio.getTelefonoNumeroCliente() != null
 				&& !"".equals(audio.getTelefonoNumeroCliente())) {
@@ -155,7 +159,7 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 		}
 		if (audio.getNombresCliente() != null
 				&& !"".equals(audio.getNombresCliente())) {
-			sql.append(" and NOMCLI = :nombrescliente");
+			sql.append(" and LOWER(NOMCLI) = LOWER(:nombrescliente)");
 		}
 		if (audio.getProceso() != null && !"".equals(audio.getProceso())) {
 			sql.append(" and PROC = :proceso");
