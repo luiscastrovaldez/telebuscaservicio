@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.pacifico.telebusca.dominio.Empresa;
 import com.pacifico.telebusca.dominio.UsuarioEmpresa;
-import com.pacifico.telebusca.web.beans.UsuariosEmpresasBean;
 
 /**
  * 
@@ -26,12 +25,16 @@ public interface UsuarioEmpresaDAO {
 
 	List<Empresa> listarUsuariosyEmpresasByNombreUsuario(String nombreUsuario);
 
-	List<UsuariosEmpresasBean> listarUsuariosyEmpresasAsignadas();
-
-	List<UsuariosEmpresasBean> listarEmpresas();
-	List<UsuariosEmpresasBean> listarUsuariosyEmpresasByNombreUsuarioAndCodEmpresa(
-			String nombreUsuario, int codEmpresa);
+	List<UsuarioEmpresa> listarUsuariosyEmpresasAsignadas();
 	
-	List<UsuarioEmpresa> buscarUsuarioEmpresaByNombreUsuario(String nombreUsuario);
+	List<UsuarioEmpresa> buscarUsuarioEmpresaByNombreUsuario(
+			String nombreUsuario);
 
+	int buscarContarUsuarioEmpresas();
+
+	List<UsuarioEmpresa> buscarUsuarioEmpresas(Integer firstIndex, Integer maxNumber);
+	
+	List<Empresa> listarUsuariosyEmpresasAsignadasyPorAsignar(String nombreUsuario);
+	
+	List<Empresa> listarUsuariosyEmpresasAsignadasyPorAsignar();
 }

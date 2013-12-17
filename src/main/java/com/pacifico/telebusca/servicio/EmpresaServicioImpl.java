@@ -48,4 +48,13 @@ public class EmpresaServicioImpl implements EmpresaServicio {
 		this.empresaDAO.eliminarEmpresa(codEmpresa);
 		
 	}
+
+	public int buscarContarEmpresas() { 
+		return this.empresaDAO.buscarContarEmpresas();
+	}
+
+	public List<Empresa> buscarEmpresas(Integer firstIndex, Integer maxNumber) {
+		// TODO Auto-generated method stub
+		return this.empresaDAO.buscarEmpresas(firstIndex, maxNumber);
+	}
 }
