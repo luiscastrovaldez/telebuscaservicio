@@ -2,6 +2,7 @@ package com.pacifico.telebusca.dominio;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -84,6 +85,8 @@ public class Audio implements Serializable {
 	private transient String fechaFinal;
 	private transient String horaInicial;
 	private transient String horaFinal;
+	private transient List cadena;
+	
 
 	public Audio() {
 
@@ -283,4 +286,15 @@ public class Audio implements Serializable {
 		this.horaFinal = horaFinal;
 	}
 
+	public List getCadena() {
+		return cadena;
+	}
+
+	public void setCadena(List cadena) {
+		this.cadena = cadena;
+	}
+
+	
+	
+	
 }

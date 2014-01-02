@@ -5,12 +5,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +90,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		int vdn = 0;
 		int skill = 0;
 		int rutaAudio = 0;
+		int advertenciaFechas = 0;
 		StringBuffer errores = new StringBuffer();
 		boolean isValido = Boolean.FALSE;
 		audiosValidos = new ArrayList<Object>();
@@ -155,6 +159,14 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 					errores.append(" Error Fecha Venta " + llamada.getFechaVenta());
 					errores.append(", ");
 				}
+				if (!validarFechaMes(llamada.getFechaVenta(), "dd/MM/yyyy")) {										
+					errores.append(" Advertencia Fecha Venta mayor a 30 dias" + llamada.getFechaVenta());
+					errores.append(", ");
+					advertenciaFechas++;
+				}
+				
+				
+				
 
 				if (!validarHora(llamada.getHoraVenta())) {
 					horaVenta++;
@@ -184,7 +196,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 					errores.append(", ");
 				}
 
-				if (!validarSkill(llamada.getVdn(),atento2.equals(llamada.getSkill()))) {
+				if (!validarSkill(llamada.getSkill(),atento2.equals(llamada.getSkill()))) {
 					skill++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error Skill " + llamada.getSkill());
@@ -232,6 +244,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 			validacionErrores.setTotalRegistros(totalRegistros);
 			validacionErrores.setAudiosValidos(audiosValidos);
 			validacionErrores.setAudiosNoValidos(audiosNoValidos);
+			validacionErrores.setAdvertenciaFechas(advertenciaFechas);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("Error en la validacion del archivo xml. ");
@@ -259,9 +272,14 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 				return Boolean.FALSE;
 			}	
 		} else {
-			if(skill.length() == 0 || skill.length() == 10){
+			if (skill !=null){
+				if(skill.length() != 10){
+					return Boolean.FALSE;
+				}	
+			} else {
 				return Boolean.TRUE;
-			} 
+			}
+			 
 			if(!StringUtils.isAlphanumeric(skill)){
 				return Boolean.FALSE;
 			}
@@ -287,9 +305,14 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 				return Boolean.FALSE;
 			}	
 		} else {
-			if(vdn.length() == 0 || vdn.length() == 10){
-				return Boolean.FALSE;
+			if (vdn != null){
+				if(vdn.length() != 10){
+					return Boolean.FALSE;
+				}	
+			} else {
+				return Boolean.TRUE;
 			}
+			
 			if(!StringUtils.isAlphanumeric(vdn)){
 				return Boolean.FALSE;
 			}
@@ -344,6 +367,11 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		if ("".equals(nombres)){
 			return Boolean.FALSE;
 		}
+		
+		if(nombres.length() > 40){
+			return Boolean.FALSE;
+		}
+		
 		if (!StringUtils.isAlphaSpace(nombres)){
 			return Boolean.FALSE;
 		}
@@ -358,6 +386,11 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		if ("".equals(nombres)){
 			return Boolean.FALSE;
 		}
+		
+		if(nombres.length() > 40){
+			return Boolean.FALSE;
+		}
+		
 		if (!StringUtils.isAlpha(nombres)){
 			return Boolean.FALSE;
 		}
@@ -438,31 +471,69 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		logger.info("pathEmpresa " + pathEmpresa);
 		logger.info("rutaXml " + rutaXml);
 		
-		if ("".equals(rutaXml) || rutaXml == null){
+		try {
+			if ("".equals(rutaXml) || rutaXml == null){
+				return Boolean.FALSE;
+			}
+			File directorio = null;
+			String[] splitPath = rutaXml.split("/");
+			if (isWindows()) {			
+				directorio = new File(jbossWindows + "/" +rutaAudios+"/"+ pathEmpresa + "/" + splitPath[1]);	
+			} else {
+				directorio = new File(jbossLinux+ "/" +rutaAudios+"/"+ pathEmpresa + "/" + splitPath[1]);
+			}				
+			logger.info("directorio " + directorio.getAbsolutePath());
+			if (!directorio.isDirectory()){
+				return Boolean.FALSE; 	
+			}		
+			
+			String[] archivos = directorio.list();
+			if (archivos != null ){
+				List<String> listaArchivos = Arrays.asList(archivos);			
+				logger.info("nombre de archivo " + splitPath[2] + " existe archivo "+listaArchivos.contains(splitPath[2]));
+				if (listaArchivos.contains(splitPath[2])){
+					return Boolean.TRUE;
+				}				
+			}
+			return Boolean.FALSE;
+		} catch (Exception e) {
+			e.printStackTrace();
 			return Boolean.FALSE;
 		}
-		File directorio = null;
-		String[] splitPath = rutaXml.split("/");
-		if (isWindows()) {			
-			directorio = new File(jbossWindows + "/" +rutaAudios+"/"+ pathEmpresa + "/" + splitPath[1]);	
-		} else {
-			directorio = new File(jbossLinux+ "/" +rutaAudios+"/"+ pathEmpresa + "/" + splitPath[1]);
-		}				
-		logger.info("directorio " + directorio.getAbsolutePath());
-		if (!directorio.isDirectory()){
-			return Boolean.FALSE; 	
-		}		
 		
-		String[] archivos = directorio.list();
-		if (archivos != null ){
-			List<String> listaArchivos = Arrays.asList(archivos);			
-			logger.info("nombre de archivo " + splitPath[2] + " existe archivo "+listaArchivos.contains(splitPath[2]));
-			if (listaArchivos.contains(splitPath[2])){
-				return Boolean.TRUE;
-			}				
+		
+		
+		
+	}
+	
+	
+	private boolean validarFechaMes(String dateToValidate, String dateFromat) {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");		
+		try {
+			Date date = sdf.parse(dateToValidate);
+			Calendar startCalendar = Calendar.getInstance();
+			startCalendar.setTime(date);
+
+			Calendar endCalendar = Calendar.getInstance();
+			endCalendar.setTime(new Date());
+			
+			DateTime dateTime1 = new DateTime(startCalendar.getTimeInMillis());
+			DateTime dateTime2 = new DateTime(endCalendar.getTimeInMillis());
+			
+			Days days = Days.daysBetween(dateTime1, dateTime2);
+			
+			if (days.getDays() > 30){
+				return Boolean.FALSE;
+			}
+			return Boolean.TRUE;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		return Boolean.FALSE;
+
+	
+		return Boolean.TRUE;
 	}
 	
 	private boolean validarFecha(String dateToValidate, String dateFromat) {
@@ -488,33 +559,47 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 	
 	
 	
-	public File descargarArchivoResgistroNoValidos(List<Object> audiosNoValidos) throws Exception{
+	public File descargarArchivoResgistroNoValidos(List<Object> audiosNoValidos)
+			throws Exception {
 		Serializer serializer = new Persister();
-		Registros  registros = new Registros();
+		Registros registros = new Registros();
 		List<Llamada> llamadas = new ArrayList<Llamada>();
-		for (Iterator<Object> iterator = audiosNoValidos.iterator(); iterator.hasNext();) {
-			Llamada llamada = (Llamada) iterator.next();
-			llamadas.add(llamada);
+		File source = null;
+		try {
+						
+			for (Iterator<Object> iterator = audiosNoValidos.iterator(); iterator
+					.hasNext();) {
+				Llamada llamada = (Llamada) iterator.next();
+				llamadas.add(llamada);
+			}
+
+			if (llamadas != null && !llamadas.isEmpty()) {
+				registros.setLlamadas(llamadas);
+			}
+
+			source = File.createTempFile("abc", ".xml");
+			serializer.write(registros, source);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		if (llamadas !=null && !llamadas.isEmpty()){
-			registros.setLlamadas(llamadas);	
-		}
-		
-		File source = File.createTempFile("abc", ".xml");
-		serializer.write(registros, source);
 		return source;
 	}
 	
-	public File descargarAudio(int codEmpresa, final String path) throws Exception{
+	public File descargarAudio(int codEmpresa, final String path)
+			throws Exception {
 		// TODO Auto-generated method stub
 		String urlPath = null;
 		Empresa empresa = new Empresa();
-		empresa = empresaServicio.buscarEmpresaPorCodigo(codEmpresa);
-		if (empresa!=null){
-			urlPath = empresa.getCarpeta();		
+		File source = null;;
+		try {
+			empresa = empresaServicio.buscarEmpresaPorCodigo(codEmpresa);
+			if (empresa != null) {
+				urlPath = empresa.getCarpeta();
+			}
+			source = new File(urlPath + path);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		File source = new File(urlPath+path);
 		return source;
 	}
 	

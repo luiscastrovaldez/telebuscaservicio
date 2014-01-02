@@ -32,5 +32,5 @@ public interface UsuarioEmpresaServicio {
 	
 	List<Empresa> listarUsuariosyEmpresasAsignadasyPorAsignar(String nombreUsuario);
 	
-	List<Empresa> listarUsuariosyEmpresasAsignadasyPorAsignar();
+	
 }
