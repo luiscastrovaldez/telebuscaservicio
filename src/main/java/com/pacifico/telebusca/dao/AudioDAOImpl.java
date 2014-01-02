@@ -34,7 +34,9 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 
 	public List<Audio> buscarAudios(Audio audio,Integer firstIndex , Integer maxNumber ) {
 		StringBuffer sql = new StringBuffer(
-				"select * from Audio where to_char(fecVenta,'YYYY-MM-DD HH24:MI:SS') between to_char(to_date(:start_date,'YYYY-MM-DD HH24:MI'),'YYYY-MM-DD HH24:MI') and to_char(to_date(:end_date,'YYYY-MM-DD HH24:MI'),'YYYY-MM-DD HH24:MI')");
+				"select A.* from Audio A "				
+				+ " where to_char(A.fecVenta,'YYYY-MM-DD HH24:MI:SS') "
+				+ " between to_char(to_date(:start_date,'YYYY-MM-DD HH24:MI'),'YYYY-MM-DD HH24:MI') and to_char(to_date(:end_date,'YYYY-MM-DD HH24:MI'),'YYYY-MM-DD HH24:MI')");
 		
 		if (audio.getDniCliente() != null && !"".equals(audio.getDniCliente())) {
 			sql.append(" and DNICLI = :dniCliente");					
@@ -70,7 +72,9 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 		}
 		if (audio.getCodEmpresa() != 0
 				&& !"".equals(Integer.toString(audio.getCodEmpresa()))) {
-			sql.append(" and CODEMPRESA = :codempresa");
+			sql.append(" and A.CODEMPRESA = :codempresa ");
+		} else {
+			sql.append(" and A.CODEMPRESA in (:codempresa) ");
 		}
 		
 		sql.append(" order by to_char(fecVenta,'YYYY-MM-DD HH24:MI:SS') desc");
@@ -121,6 +125,8 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 		if (audio.getCodEmpresa() != 0
 				&& !"".equals(Integer.toString(audio.getCodEmpresa()))) {
 			query.setParameter("codempresa", audio.getCodEmpresa());
+		} else {
+			query.setParameter("codempresa", audio.getCadena());
 		}
 
 		return (List<Audio>) query.getResultList();
@@ -138,46 +144,50 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 	
 	public int buscarContarAudios(Audio audio) {
 		StringBuffer sql = new StringBuffer(
-				"select * from Audio where to_char(fecVenta,'YYYY-MM-DD HH24:MI:SS') between to_char(to_date(:start_date,'YYYY-MM-DD HH24:MI'),'YYYY-MM-DD HH24:MI') and to_char(to_date(:end_date,'YYYY-MM-DD HH24:MI'),'YYYY-MM-DD HH24:MI')");
+				"select A.* from Audio A "				
+				+ " where to_char(A.fecVenta,'YYYY-MM-DD HH24:MI:SS') "
+				+ " between to_char(to_date(:start_date,'YYYY-MM-DD HH24:MI'),'YYYY-MM-DD HH24:MI') and to_char(to_date(:end_date,'YYYY-MM-DD HH24:MI'),'YYYY-MM-DD HH24:MI')");
 
 
 		if (audio.getDniCliente() != null && !"".equals(audio.getDniCliente())) {
-			sql.append(" and DNICLI = :dniCliente");					
+			sql.append(" and A.DNICLI = :dniCliente ");					
 		}
 
 		if (audio.getApellidoMaterno() != null
 				&& !"".equals(audio.getApellidoMaterno())) {
-			sql.append(" and LOWER(APEMATCLI) = LOWER(:apellidoMaterno)");			
+			sql.append(" and LOWER(A.APEMATCLI) = LOWER(:apellidoMaterno) ");			
 		}
 		if (audio.getApellidoPaterno() != null
 				&& !"".equals(audio.getApellidoPaterno())) {
-			sql.append(" and LOWER(APEPATCLI) = LOWER(:apellidoPaterno)");			
+			sql.append(" and LOWER(A.APEPATCLI) = LOWER(:apellidoPaterno) ");			
 		}
 		if (audio.getTelefonoNumeroCliente() != null
 				&& !"".equals(audio.getTelefonoNumeroCliente())) {
-			sql.append(" and TLFNOCLI = :telefonoNumeroCliente");
+			sql.append(" and A.TLFNOCLI = :telefonoNumeroCliente ");
 		}
 		if (audio.getNombresCliente() != null
 				&& !"".equals(audio.getNombresCliente())) {
-			sql.append(" and LOWER(NOMCLI) = LOWER(:nombrescliente)");
+			sql.append(" and LOWER(A.NOMCLI) = LOWER(:nombrescliente) ");
 		}
 		if (audio.getProceso() != null && !"".equals(audio.getProceso())) {
-			sql.append(" and PROC = :proceso");
+			sql.append(" and A.PROC = :proceso ");
 		}
 		if (audio.getDniAsesor() != null && !"".equals(audio.getDniAsesor())) {
-			sql.append(" and DNIASESOR = :dniasesor");
+			sql.append(" and A.DNIASESOR = :dniasesor ");
 		}
 		if (audio.getVdn() != null && !"".equals(audio.getVdn())) {
-			sql.append(" and VDN = :vdn");
+			sql.append(" and A.VDN = :vdn ");
 		}
 		if (audio.getSkill() != null && !"".equals(audio.getSkill())) {
-			sql.append(" and SKILL = :skill");
+			sql.append(" and A.SKILL = :skill ");
 		}
 		if (audio.getCodEmpresa() != 0
 				&& !"".equals(Integer.toString(audio.getCodEmpresa()))) {
-			sql.append(" and CODEMPRESA = :codempresa");
+			sql.append(" and A.CODEMPRESA = :codempresa ");
+		} else {
+			sql.append(" and A.CODEMPRESA in (:codempresa) ");
 		}
-		//sql.append(" group by codAudio ");
+
 		Query query = em.createNativeQuery(sql.toString(),Audio.class);		
 		
 		query.setParameter("start_date", audio.getFechaInicial() + " "
@@ -221,6 +231,8 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 		if (audio.getCodEmpresa() != 0
 				&& !"".equals(Integer.toString(audio.getCodEmpresa()))) {
 			query.setParameter("codempresa", audio.getCodEmpresa());
+		} else {
+			query.setParameter("codempresa", audio.getCadena());
 		}
 		List lista = (List)query.getResultList();
 		int total = 0;

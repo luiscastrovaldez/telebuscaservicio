@@ -26,6 +26,7 @@ public class ValidacionErrores implements Serializable {
 	private String mensajes;
 	private List<Object> audiosValidos;
 	private List<Object> audiosNoValidos;
+	private int advertenciaFechas;
 
 	public int getTotalRegistros() {
 		return totalRegistros;
@@ -179,4 +180,12 @@ public class ValidacionErrores implements Serializable {
 		this.audiosNoValidos = audiosNoValidos;
 	}
 
+	public int getAdvertenciaFechas() {
+		return advertenciaFechas;
+	}
+
+	public void setAdvertenciaFechas(int advertenciaFechas) {
+		this.advertenciaFechas = advertenciaFechas;
+	}
+	
 }

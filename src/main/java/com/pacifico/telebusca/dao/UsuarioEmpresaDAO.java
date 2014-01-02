@@ -36,5 +36,5 @@ public interface UsuarioEmpresaDAO {
 	
 	List<Empresa> listarUsuariosyEmpresasAsignadasyPorAsignar(String nombreUsuario);
 	
-	List<Empresa> listarUsuariosyEmpresasAsignadasyPorAsignar();
+	
 }

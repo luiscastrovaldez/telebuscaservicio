@@ -40,15 +40,15 @@ public class EmpresaDAOImpl extends HibernateJpaDialect implements EmpresaDAO {
 		return em.find(Empresa.class, codEmpresa);
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	public List<Empresa> listarEmpresas() {
-		Query query = em.createQuery("select c from Empresa c");
+		Query query = em.createQuery("select c from Empresa c order by c.nombreEmpresa asc");
 
 		return (List<Empresa>) query.getResultList();
 	}
 	
 	public List<Empresa> buscarEmpresas(Integer firstIndex , Integer maxNumber) {
-		Query query = em.createQuery("select c from Empresa c");
+		Query query = em.createQuery("select c from Empresa c order by c.nombreEmpresa asc ");
 		query.setFirstResult(firstIndex);
 		query.setMaxResults(maxNumber);
 		return (List<Empresa>) query.getResultList();
@@ -65,10 +65,10 @@ public class EmpresaDAOImpl extends HibernateJpaDialect implements EmpresaDAO {
 		return total;
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	public List<Empresa> buscarEmpresaPorNombre(Serializable nombreEmpresa) {
 		Query query = em
-				.createQuery("select c from Empresa c where c.nombreEmpresa=:nombreEmpresa");
+				.createNativeQuery("select c.* from Empresa c where LOWER(c.NOM)=LOWER(:nombreEmpresa)",Empresa.class);
 		query.setParameter("nombreEmpresa", nombreEmpresa);
 
 		return (List<Empresa>) query.getResultList();

@@ -128,8 +128,5 @@ public class UsuarioEmpresaServicioImpl implements UsuarioEmpresaServicio {
 		return this.usuarioempresaDAO.listarUsuariosyEmpresasAsignadasyPorAsignar(nombreUsuario);
 	}
 
-	public List<Empresa> listarUsuariosyEmpresasAsignadasyPorAsignar() {
-		// TODO Auto-generated method stub
-		return this.usuarioempresaDAO.listarUsuariosyEmpresasAsignadasyPorAsignar();
-	}
+	
 }
