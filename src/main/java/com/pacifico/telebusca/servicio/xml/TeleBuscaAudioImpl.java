@@ -1,6 +1,9 @@
 package com.pacifico.telebusca.servicio.xml;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -98,8 +101,32 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		
 		try {
 			Llamada llamada;
+			int fila=0;
 			this.serializer = new Persister();
-			this.registros = this.serializer.read(Registros.class, xml);
+			
+			String encoding = System.getProperty("file.encoding");
+			System.out.println(encoding);
+			
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					new FileInputStream(xml), "ISO-8859-1"));
+
+			String str;
+			StringBuilder todo = new StringBuilder(" ");
+			
+			while ((str = in.readLine()) != null) {
+				// System.out.println(str.trim());
+				if (fila!=0){
+					todo.append(str.trim());	
+				}				
+				fila++;
+			}
+			
+			in.close();
+			
+			
+			
+			
+			this.registros = this.serializer.read(Registros.class, todo.toString());
 			this.llamadas = this.registros.getLlamadas();
 			validacionErrores = new ValidacionErrores();
 			for (Iterator<Llamada> iterator = this.llamadas.iterator(); iterator
@@ -143,7 +170,7 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 					if (!validarNombres(llamada.getNombresCliente())) {
 						nombresCliente++;
 						isValido = Boolean.TRUE;
-						errores.append(" Error " + llamada.getNombresCliente());
+						errores.append(" Error Nombre Cliente " + llamada.getNombresCliente());
 						errores.append(", ");
 					}
 				}
@@ -192,11 +219,11 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 				if (!validarVdn(llamada.getVdn(),atento2.equals(llamada.getEmpresa()))) {
 					vdn++;
 					isValido = Boolean.TRUE;
-					errores.append(" Error VDN" + llamada.getVdn());
+					errores.append(" Error VDN " + llamada.getVdn());
 					errores.append(", ");
 				}
 
-				if (!validarSkill(llamada.getSkill(),atento2.equals(llamada.getSkill()))) {
+				if (!validarSkill(llamada.getSkill(),atento2.equals(llamada.getEmpresa()))) {
 					skill++;
 					isValido = Boolean.TRUE;
 					errores.append(" Error Skill " + llamada.getSkill());
@@ -247,6 +274,21 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 			validacionErrores.setAdvertenciaFechas(advertenciaFechas);
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			
+			if (e.getCause()!=null){
+				if (e.getCause().getCause()!=null){
+					if(!e.getCause().getCause().getMessage().equals("")){
+						if(e.getCause().getCause().getMessage().contains("Cannot release connection")||
+								e.getCause().getCause().getMessage().contains("Cannot open connection")||
+								e.getCause().getCause().getMessage().contains("JDBC rollback failed")){								
+							throw new Exception("Base de datos no disponible.");
+							
+						}
+					}
+				}	
+			}
+			
 			logger.error("Error en la validacion del archivo xml. ");
 			throw new Exception("Error en la validacion del archivo xml " + xml.getName());
 		}
