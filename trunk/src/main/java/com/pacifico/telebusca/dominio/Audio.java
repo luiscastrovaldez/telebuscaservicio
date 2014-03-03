@@ -19,7 +19,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "Audio")
+@Table(name = "Audio",schema="USTLV100")
 public class Audio implements Serializable {
 
 	/**
@@ -29,7 +29,7 @@ public class Audio implements Serializable {
 
 	@Id
 	@GeneratedValue(generator="secAudio") 
-    @SequenceGenerator(name="secAudio",sequenceName="SEC_AUDIO")
+    @SequenceGenerator(name="secAudio",sequenceName="USTLV100.SEC_AUDIO",schema="USTLV100")
 	@Column(name = "CODAUDIO")
 	private int codAudio;
 
