@@ -18,7 +18,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "Aud_Sistema")
+@Table(name = "Aud_Sistema",schema="USTLV100")
 public class AudSistema implements Serializable{
 
 	/**
@@ -28,7 +28,7 @@ public class AudSistema implements Serializable{
 
 	@Id
 	@GeneratedValue(generator="secAudSistema") 
-    @SequenceGenerator(name="secAudSistema",sequenceName="SEC_AUD_SISTEMA")
+    @SequenceGenerator(name="secAudSistema",sequenceName="USTLV100.SEC_AUD_SISTEMA",schema="USTLV100")
 	@Column(name = "CODAUDSIST")
 	private int codAudoSist;
 
