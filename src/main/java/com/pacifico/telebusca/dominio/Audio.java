@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -19,7 +18,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "Audio",schema="USTLV100")
+@Table(name = "USTLV100.audio")
 public class Audio implements Serializable {
 
 	/**
@@ -29,7 +28,7 @@ public class Audio implements Serializable {
 
 	@Id
 	@GeneratedValue(generator="secAudio") 
-    @SequenceGenerator(name="secAudio",sequenceName="USTLV100.SEC_AUDIO",schema="USTLV100")
+    @SequenceGenerator(name="secAudio",sequenceName="USTLV100.SEC_AUDIO")
 	@Column(name = "CODAUDIO")
 	private int codAudio;
 

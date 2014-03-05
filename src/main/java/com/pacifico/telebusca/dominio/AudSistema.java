@@ -6,7 +6,6 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -18,7 +17,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "Aud_Sistema",schema="USTLV100")
+@Table(name = "USTLV100.aud_sistema")
 public class AudSistema implements Serializable{
 
 	/**
@@ -28,7 +27,7 @@ public class AudSistema implements Serializable{
 
 	@Id
 	@GeneratedValue(generator="secAudSistema") 
-    @SequenceGenerator(name="secAudSistema",sequenceName="USTLV100.SEC_AUD_SISTEMA",schema="USTLV100")
+    @SequenceGenerator(name="secAudSistema",sequenceName="USTLV100.SEC_AUD_SISTEMA")
 	@Column(name = "CODAUDSIST")
 	private int codAudoSist;
 

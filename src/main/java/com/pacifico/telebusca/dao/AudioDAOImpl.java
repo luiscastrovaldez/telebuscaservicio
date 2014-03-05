@@ -34,7 +34,7 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 
 	public List<Audio> buscarAudios(Audio audio,Integer firstIndex , Integer maxNumber ) {
 		StringBuffer sql = new StringBuffer(
-				"select A.* from Audio A "				
+				"select A.* from USTLV100.Audio A "				
 				+ " where to_char(A.fecVenta,'YYYY-MM-DD HH24:MI:SS') "
 				+ " between to_char(to_date(:start_date,'YYYY-MM-DD HH24:MI'),'YYYY-MM-DD HH24:MI') and to_char(to_date(:end_date,'YYYY-MM-DD HH24:MI'),'YYYY-MM-DD HH24:MI')");
 		
@@ -134,7 +134,7 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 	
 	public int buscarTest(String fech, String fech1){
 		StringBuffer sql = new StringBuffer(
-				"select * from Audio where to_char(fecVenta,'YYYY-MM-DD HH24:MI:SS') between :start_date and :end_date");
+				"select * from USTLV100.Audio where to_char(fecVenta,'YYYY-MM-DD HH24:MI:SS') between :start_date and :end_date");
 		Query query = em.createNativeQuery(sql.toString(),Audio.class);
 		query.setParameter("start_date", fech);
 		query.setParameter("end_date", fech1 );
@@ -144,7 +144,7 @@ public class AudioDAOImpl extends HibernateJpaDialect implements AudioDAO {
 	
 	public int buscarContarAudios(Audio audio) {
 		StringBuffer sql = new StringBuffer(
-				"select A.* from Audio A "				
+				"select A.* from USTLV100.Audio A "				
 				+ " where to_char(A.fecVenta,'YYYY-MM-DD HH24:MI:SS') "
 				+ " between to_char(to_date(:start_date,'YYYY-MM-DD HH24:MI'),'YYYY-MM-DD HH24:MI') and to_char(to_date(:end_date,'YYYY-MM-DD HH24:MI'),'YYYY-MM-DD HH24:MI')");
 
