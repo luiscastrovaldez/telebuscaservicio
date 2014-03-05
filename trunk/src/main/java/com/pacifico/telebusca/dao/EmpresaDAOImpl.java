@@ -68,7 +68,7 @@ public class EmpresaDAOImpl extends HibernateJpaDialect implements EmpresaDAO {
 	
 	public List<Empresa> buscarEmpresaPorNombre(Serializable nombreEmpresa) {
 		Query query = em
-				.createNativeQuery("select c.* from Empresa c where LOWER(c.NOM)=LOWER(:nombreEmpresa)",Empresa.class);
+				.createNativeQuery("select c.* from USTLV100.Empresa c where LOWER(c.NOM)=LOWER(:nombreEmpresa)",Empresa.class);
 		query.setParameter("nombreEmpresa", nombreEmpresa);
 
 		return (List<Empresa>) query.getResultList();

@@ -18,7 +18,7 @@ import javax.persistence.Transient;
  */
 
 @Entity
-@Table(name = "Usuario_Empresa",schema="USTLV100")
+@Table(name = "USTLV100.usuario_empresa")
 public class UsuarioEmpresa implements Serializable {
 
 	/**
@@ -28,7 +28,7 @@ public class UsuarioEmpresa implements Serializable {
 
 	@Id
 	@GeneratedValue(generator = "secUsuarioEmpresa")
-	@SequenceGenerator(name = "secUsuarioEmpresa", sequenceName = "USTLV100.SEC_USUARIO_EMPRESA",schema="USTLV100")
+	@SequenceGenerator(name = "secUsuarioEmpresa", sequenceName = "USTLV100.SEC_USUARIO_EMPRESA")
 	@Column(name = "CODUSREMPRESA")
 	private int codUsuarioEmpresa;
 
