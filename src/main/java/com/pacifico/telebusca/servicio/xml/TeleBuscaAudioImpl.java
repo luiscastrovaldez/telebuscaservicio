@@ -421,19 +421,19 @@ public class TeleBuscaAudioImpl implements TeleBuscaAudio {
 		return Boolean.TRUE;
 	}
 	
-	private boolean validarApellidos(String nombres){
-		if (nombres == null){
+	private boolean validarApellidos(String apellido){
+		if (apellido == null){
 			return Boolean.FALSE;
 		}
-		if ("".equals(nombres)){
-			return Boolean.FALSE;
-		}
-		
-		if(nombres.length() > 40){
+		if ("".equals(apellido)){
 			return Boolean.FALSE;
 		}
 		
-		if (!StringUtils.isAlpha(nombres)){
+		if(apellido.length() > 40){
+			return Boolean.FALSE;
+		}
+		
+		if (!StringUtils.isAlphaSpace(apellido)){
 			return Boolean.FALSE;
 		}
 		
